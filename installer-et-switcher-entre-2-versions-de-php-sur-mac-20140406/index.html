@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>welcomattic&#039;s blog Switcher entre X versions de PHP sur OS X</title>
+
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+
+<div id="wrapper">
+  <header id="header">
+    <h1><a href="/">welcomattic&#039;s blog</a></h1>
+    <nav class="links">
+      <ul>
+        <li><a href="/">Home</a></li>
+                <li><a href="https://github.com/welcomattic">Github</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+  <article class="post">
+    <header>
+      <div class="title">
+        <h2>Switcher entre X versions de PHP sur OS X</h2>
+      </div>
+      <div class="meta">
+        <time class="published">06-04-2014</time>
+        <a href="#" class="author"><span class="name">welcomattic</span><img src="/images/avatar.jpg" alt="" /></a>
+      </div>
+    </header>
+    <p>            <p><strong>Réécriture complète de l'article</strong></p>
+<p>Après avoir trouver une meilleure façon (plus &quot;propre&quot;) de switcher entre X versions de PHP sur OS X, j'ai décidé de réécrire totalement cet article !</p>
+<p>Le changement par rapport à l'astuce que j'utilisais avant, c'est que désormais on changera la version de PHP utilisée par Apache <strong>et</strong> en PHP CLI en même temps et sans redémarrer Apache !</p>
+<p>Let's go :</p>
+<h3>Prérequis</h3>
+<ul>
+<li>Avoir une ou plusieurs versions de PHP installées avec <a href="http://brew.sh">Homebrew</a></li>
+<li>Avoir Node.js installé et à jour</li>
+<li>Travailler avec Apache (désolé pour Nginx je n'ai pas cherché)</li>
+</ul>
+<h3>Les paquets nécessaires</h3>
+<p>Brew PHP select : <a href="https://www.npmjs.org/package/brew-php-select">https://www.npmjs.org/package/brew-php-select</a></p>
+<p><code>$ npm install -g brew-php-select</code></p>
+<p>PHP-Version : <a href="https://github.com/wilmoore/php-version">https://github.com/wilmoore/php-version</a></p>
+<p><code>$ brew install php-version</code></p>
+<p>Éditez votre fichier httpd.conf</p>
+<p><code>$ sudo nano /etc/apache2/httpd.conf</code></p>
+<p>Changez la ligne LoadModule de PHP par celle-ci :</p>
+<p><code>LoadModule php5_module /usr/local/php/libexec/apache2/libphp5.so</code></p>
+<h3>Aliases utiles</h3>
+<p>Éditez votre fichier ~/.bash_profile (ou équivalent selon le shell que vous utilisez)</p>
+<p><em>Exemple avec PHP 5.4 et PHP 5.5 :</em></p>
+<p><code>alias php54="brew-php-select --set php54 &amp;&amp; php-version 5.4"</code></p>
+<p><code>alias php55="brew-php-select --set php55 &amp;&amp; php-version 5.5"</code></p>
+<p>On oublie pas de reloader la config pour Bash :</p>
+<p><code>$ source ~/.bash_profile</code></p>
+<p>Idéal quand on pratique le BYOD et que l'on a besoin de coller au maximum aux conditions de prod ! ;-)</p>
+<p>Enjoy();</p>
+            </p>
+  </article>
+
+  <section id="sidebar">
+    <section id="intro">
+  <header>
+    <h2>welcomattic&#039;s blog</h2>
+  </header>
+</section>
+
+<section>
+  <ul class="posts">
+          <li>
+        <article>
+          <header>
+            <h3><a href="/retour-d-experience-sur-canalplay-20150121/">Retour d&#039;exp&eacute;rience sur CanalPlay, la VOD de Canal+</a></h3>
+            <time class="published">21-01-2015</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/comment-je-suis-devenu-developpeur-20141126/">Comment je suis devenu d&eacute;veloppeur ?</a></h3>
+            <time class="published">26-11-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/la-naivete-de-nos-chers-dirigeants-20141001/">La na&iuml;vet&eacute; de nos chers dirigeants</a></h3>
+            <time class="published">01-10-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/heroku-deployment-status-badges-20140912/">Heroku Deployment Status Badges</a></h3>
+            <time class="published">12-09-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/maman-elle-a-dit-que-je-peux-20140507/">Maman elle a dit qu&#039;je peux !</a></h3>
+            <time class="published">07-05-2014</time>
+          </header>
+        </article>
+      </li>
+      </ul>
+</section>
+
+<section class="blurb">
+  <h2>Encore ?</h2>
+  <ul class="actions">
+    <li><a href="/blog/">Voir tous les articles</a></li>
+  </ul>
+</section>
+
+<section id="footer">
+  <ul class="icons">
+    <li><a href="https://twitter.com/welcomattic" target="_blank" class="fa-twitter"><span class="label">Twitter</span></a></li>
+    <li><a href="https://www.facebook.com/welcoMattic" target="_blank" class="fa-facebook"><span class="label">Facebook</span></a></li>
+    <li><a href="https://www.instagram.com/welcomattic/" target="_blank" class="fa-instagram"><span class="label">Instagram</span></a></li>
+  </ul>
+  <p class="copyright">&copy; welcomattic's blog. Design: <a href="http://html5up.net">HTML5 UP</a>.</p>
+</section>
+  </section>
+
+
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+<script src="/js/main.js"></script>
+
+</body>
+</html>

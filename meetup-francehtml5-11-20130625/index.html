@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>welcomattic&#039;s blog Meetup FranceHTML5 n°11 @ Deezer France</title>
+
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+
+<div id="wrapper">
+  <header id="header">
+    <h1><a href="/">welcomattic&#039;s blog</a></h1>
+    <nav class="links">
+      <ul>
+        <li><a href="/">Home</a></li>
+                <li><a href="https://github.com/welcomattic">Github</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+  <article class="post">
+    <header>
+      <div class="title">
+        <h2>Meetup FranceHTML5 n°11 @ Deezer France</h2>
+      </div>
+      <div class="meta">
+        <time class="published">25-06-2013</time>
+        <a href="#" class="author"><span class="name">welcomattic</span><img src="/images/avatar.jpg" alt="" /></a>
+      </div>
+    </header>
+    <p>            <p>Le 24 juin dernier j'ai eu la chance de participer au 11ème et dernier Meetup HTML5 de la saison, chez Deezer France ! Au programme :</p>
+<ol>
+    <li>L'art de bricoler n°4 : Deezer Hero par <a href="http://twitter.com/sylvainw" target="_blank">Sylvain Weber</a>, CEO de <a href="http://kontestapp.com" target="_blank">Kontest</a> et <a href="https://twitter.com/vladimirkosmala" target="_blank">Vladimir Kosmala</a>, développeur chez <a href="http://deezer.com" target="_blank">Deezer</a></li>
+    <li>Livecode AngularJS par <a href="https://twitter.com/laut3rry" target="_blank">Thierry Lau</a>, développeur chez <a href="http://www.sfeir.com/" target="_blank">SFEIR</a></li>
+    <li>Présentation du projet <a href="http://wdmtg.com/" target="_blank">wdmtg.com</a> par <a href="https://twitter.com/benoitvidal" target="_blank">Benoît Vidal</a> (WebGL chez <a href="http://wdmtg.com/" target="_blank">Wdmtg</a>, <a href="http://dataveyes.com/" target="_blank">Dataveyes</a> et <a href="http://cinemur.fr/" target="_blank">Cinémur</a>)</li>
+    <li>WebRTC : Le temps réel dans le browser en P2P par <em><a href="https://twitter.com/evenisse" target="_blank">Emmanuel Venisse</a>, </em>CTO de <a href="https://bistri.com/">Bistri</a></li>
+</ol>
+<p><a href="http://www.meetup.com/France-HTML5-User-Group/">Groupe FranceHTML5 sur meetup.com</a></p>
+<h4>Intro : Axel de chez Deezer</h4>
+<ul>
+<li>&quot;1er meetup chez Deezer, d'autres sont prévus à partir de la rentrée.&quot;</li>
+<li>&quot;Il y a des postes de dev a pourvoir chez Deezer ! (<a href="http://www.deezer.com/fr/jobs" target="_blank"><a href="http://www.deezer.com/fr/jobs">http://www.deezer.com/fr/jobs</a></a>)&quot;</li>
+</ul>
+<p>Et chez <a href="https://twitter.com/tvshowtime" target="_blank">TvShowTime</a> aussi ;)</p>
+<h4></h4>
+<h4>L'art de bricoler #4 : Deezer Hero par <a href="http://twitter.com/sylvainw" target="_blank">Sylvain</a> Weber et Vladimir Kosmala</h4>
+<p><a href="http://twitter.com/sylvainw" target="_blank">Sylvain</a> nous a parler de la <a href="http://fr.wikipedia.org/wiki/S%C3%A9rendipit%C3%A9" target="_blank">sérendipité</a> : &quot;Découvrir quelque chose par accident, alors qu'on cherche autre chose&quot;
+Une citation qui représente ce concept qui m'a bien plu :</p>
+<blockquote><em>L'art de trouver ce que l'on ne cherche pas en cherchant ce que l'on ne trouve pas</em> - <strong>Philippe Quéau</strong></blockquote>
+<p>Il nous a ensuite fait un petit historique des 3 précédents ateliers de bricolage :</p>
+<ol>
+    <li><span style="line-height: 15px;"><strong><a href="http://goo.gl/eBGaX">Running Spree</a> par <a href="http://twitter.com/sylvainw" target="_blank">Sylvain</a></strong></span></li>
+    <li><strong><a href="http://goo.gl/g944T">HTML5 Hero</a> par <a href="http://twitter.com/_jmpp">@_jmpp</a></strong></li>
+    <li><strong><a href="http://goo.gl/nwBmG">Mingo</a> par <a href="http://twitter.com/FlorianReneau">@FlorianReneau</a></strong></li>
+</ol>
+<p>Puis Vladimir prend la parole pour nous présenter son bricolage : Deezer Hero !</p>
+<p>Le principe est le même que celui de GuitarHero mais avec les tracks du catalogue Deezer.
+Les outils : l'API de Deezer, la librairie ProcessingJS (pour l'abstraction de l'API Canvas d'HTML5).
+Pour le design il a simplement utilisé des graphismes en 2D qu'il a passé en fausse 3D grâce aux effets de perspective de CSS3 (<a href="http://www.w3schools.com/cssref/css3_pr_perspective.asp" target="_blank"><a href="http://www.w3schools.com/cssref/css3_pr_perspective.asp">http://www.w3schools.com/cssref/css3_pr_perspective.asp</a></a>).</p>
+<p>Les données : score, trackTime, notePressed et songData (les notes de la track), Queue : index de la dernière note jouée + profondeur de visualisation (depth).</p>
+<p>Les contrôles : jQuery keydown, keyup</p>
+<p>Et enfin la démo ici :</p>
+<p><a href="http://www.youtube.com/watch?v=ml02uX-ioz8">http://www.youtube.com/watch?v=ml02uX-ioz8</a></p>
+<p>Lien de la prez : <a href="http://sylvainw.github.io/HTML5-Future/juin2013.html" target="_blank"><a href="http://sylvainw.github.io/HTML5-Future/juin2013.html">http://sylvainw.github.io/HTML5-Future/juin2013.html</a></a></p>
+<h4>LiveCode AngularJS par Thierry Lau</h4>
+<p>Ce livecode était le même (en plus court) que celui que Thierry a fait au 1er Meetup AngularJS le 19 juin dernier. J'avais fait un article dessus : <a href="http://blog.welcomattic.com/meetup-angularjs-sfeir/">http://blog.welcomattic.com/meetup-angularjs-sfeir/</a></p>
+<p>Lien de la prez : <a href="http://lauterry.github.io/slides-prez-angular/" target="_blank"><a href="http://lauterry.github.io/slides-prez-angular/">http://lauterry.github.io/slides-prez-angular/</a></a></p>
+<h4>Présentation du projet WDMTG par Benoît Vidal</h4>
+<p>WDMTG (Where Does My Tweet Go) est un outil de visualisation de propagation de tweets
+Essayez par vous même : <a href="http://wdmtg.com/" target="_blank"><a href="http://wdmtg.com/">http://wdmtg.com/</a></a></p>
+<h4>WebRTC : Le temps réel dans le browser en P2P par Emmanuel Venisse</h4>
+<p>Cette dernière intervention, plus technique, était dédiée à l'avancée du standard WebRTC (Real Time Communication). Elle était présentée par Emmanuel Venisse qui notamment membre de la Apache Foundation. Sa présentation détaillait surtout 2 points du WebRTC, à savoir le getUserMedia (utilisation des périphériques audio et vidéo) et les DataChannels (transfert de fichiers).</p>
+<p>C'était donc le dernier meetup de la saison ! Retour de vacances prévu à la rentrée ! ;)</p>
+<p>Enjoy, et n'hésitez pas à bricoler du code, du design ou autre et à contacter <a href="http://twitter.com/sylvainw" target="_blank">Sylvain Weber</a> si vous voulez présenter votre travail ! ;)</p>
+<p>PS : en bonus, la petite video de Sylvain Weber sur Deezer Hero ! ;)</p>
+<p><a href="http://www.youtube.com/watch?v=-ZFnom0nbGw">http://www.youtube.com/watch?v=-ZFnom0nbGw</a></p>
+            </p>
+  </article>
+
+  <section id="sidebar">
+    <section id="intro">
+  <header>
+    <h2>welcomattic&#039;s blog</h2>
+  </header>
+</section>
+
+<section>
+  <ul class="posts">
+          <li>
+        <article>
+          <header>
+            <h3><a href="/retour-d-experience-sur-canalplay-20150121/">Retour d&#039;exp&eacute;rience sur CanalPlay, la VOD de Canal+</a></h3>
+            <time class="published">21-01-2015</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/comment-je-suis-devenu-developpeur-20141126/">Comment je suis devenu d&eacute;veloppeur ?</a></h3>
+            <time class="published">26-11-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/la-naivete-de-nos-chers-dirigeants-20141001/">La na&iuml;vet&eacute; de nos chers dirigeants</a></h3>
+            <time class="published">01-10-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/heroku-deployment-status-badges-20140912/">Heroku Deployment Status Badges</a></h3>
+            <time class="published">12-09-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/maman-elle-a-dit-que-je-peux-20140507/">Maman elle a dit qu&#039;je peux !</a></h3>
+            <time class="published">07-05-2014</time>
+          </header>
+        </article>
+      </li>
+      </ul>
+</section>
+
+<section class="blurb">
+  <h2>Encore ?</h2>
+  <ul class="actions">
+    <li><a href="/blog/">Voir tous les articles</a></li>
+  </ul>
+</section>
+
+<section id="footer">
+  <ul class="icons">
+    <li><a href="https://twitter.com/welcomattic" target="_blank" class="fa-twitter"><span class="label">Twitter</span></a></li>
+    <li><a href="https://www.facebook.com/welcoMattic" target="_blank" class="fa-facebook"><span class="label">Facebook</span></a></li>
+    <li><a href="https://www.instagram.com/welcomattic/" target="_blank" class="fa-instagram"><span class="label">Instagram</span></a></li>
+  </ul>
+  <p class="copyright">&copy; welcomattic's blog. Design: <a href="http://html5up.net">HTML5 UP</a>.</p>
+</section>
+  </section>
+
+
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+<script src="/js/main.js"></script>
+
+</body>
+</html>

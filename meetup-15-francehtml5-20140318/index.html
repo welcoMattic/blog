@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>welcomattic&#039;s blog Meetup FranceHTML5 n°15 @ Supinfo</title>
+
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+
+<div id="wrapper">
+  <header id="header">
+    <h1><a href="/">welcomattic&#039;s blog</a></h1>
+    <nav class="links">
+      <ul>
+        <li><a href="/">Home</a></li>
+                <li><a href="https://github.com/welcomattic">Github</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+  <article class="post">
+    <header>
+      <div class="title">
+        <h2>Meetup FranceHTML5 n°15 @ Supinfo</h2>
+      </div>
+      <div class="meta">
+        <time class="published">03-03-2014</time>
+        <a href="#" class="author"><span class="name">welcomattic</span><img src="/images/avatar.jpg" alt="" /></a>
+      </div>
+    </header>
+    <p>            <p>Ce soir (18 Mars 2014) c'est le 15ème Meetup France HTML5 chez Supinfo au 40ème étage de la Tour Montparnasse !</p>
+<p><img src="http://photos4.meetupstatic.com/photos/theme_head/e/7/3/8/full_2279192.jpeg" alt="FranceHTML5 User Group" /></p>
+<p>Au programme :</p>
+<h3>Volière par <a href="https://twitter.com/vladimirkosmala">Vladimir Kosmala</a></h3>
+<p>Talk de bricolage surprise dans la lignée des talks &quot;L'art de bricoler&quot; de <a href="http://twitter.com/sylvainw">Sylvain Weber</a>.
+Un clone de <strong>FlappyBird</strong> multijoueur en JS (<em>PhaserJS + Socket.io + Intel XDK)</em> !
+105 joueurs atteints !
+<a href="http://vladimir.sh/lab/bird/">Jeu ici</a> - <a href="https://github.com/vladimirkosmala/xdk-flappy-multi">Code ici</a></p>
+<p>~</p>
+<h3>Facebook, the true story par le frenchy : <a href="https://www.linkedin.com/in/gillesmischler">Gilles Mischler</a></h3>
+<p>20ème employé de <strong>Facebook</strong> et récemment employé chez <strong>Dropbox</strong>, Gilles nous a raconté son parcours atypique, entre anecdotes savoureuses et <strong>retours d'expériences hors du commun</strong>, il nous a présenté son épopée au sein de ce réseau social connu de tous.</p>
+<p>Un <strong>American Dream</strong> comme on en rêve !
+Embauché pour migrer Sendmail vers Exchange car Sean Parker voulait utiliser <a href="http://www.plaxo.com/">Plaxo</a>. Mission accomplie ! L'évolution de son rôle au sein de Facebook : nettoyage (bureaux, toilettes ...), installation des étagères, IT, ingénieur réseau, admin réseau, manager et ingénieur datacenter, R&amp;D sur de nouveaux équipements hardeware, achat de dizaines de MacBooks chaque semaine et configuration de Blackberry pour les nvx employés du lundi pendant les TGIF. Gilles fut le premier manager du premier datacenter de Facebook qui contenait 12 000 serveurs et 2 Po de data (1 Po = 1 024 To). Le Deployer s'appellait Faceboot et permettait de déployer les mises à jour de façon automatique sur tous les serveurs.</p>
+<p>Après le départ de Gilles : 3000 employés, 356 Millions d'utilisateurs, +13 millions d'utilisateurs par semaine.  </p>
+<p><em>Anecdotes en vrac</em></p>
+<ul>
+<li>Newscorp qui a aider Facebook en tuant MySpace</li>
+<li>Mark Zuckerberg n'est PAS comme dans The Social Network</li>
+<li>Pour le 1er anniversaire de Zuck au sein de Facebook tous le monde avait des flip flop Adidas.</li>
+<li>Les founders n'avaient pas l'âge pour boire de l'alcool aux diners.</li>
+<li>Les jeux d'alcool chez Facebook, interdits jusqu'en 2008, ont été tolérés après un changement du règlement intérieur, car beaucoup d'employés restaient manger, boire et dormir le soir.</li>
+<li>Xbox bleues et blanches offertes par Microsoft.</li>
+</ul>
+<p>~</p>
+<h3>Comment optimiser sa gestion de cache avec l'Application Cache par <a href="http://www.mathieurobin.com/">Mathieu Robin</a></h3>
+<p>Cache manifest pour fluidifier ses apps. Supporté largement par les derniers navigateurs, avec fallback.</p>
+<blockquote>
+<p>Le LocalStorage c'est pour les datas les mecs !</p>
+</blockquote>
+<ul>
+<li>Le browser cache c'est un truc étrange (durée ? ce qu'il contient ?)</li>
+<li>Server cache (Varnish ?)</li>
+</ul>
+<p>Solution : L'Application Cache.
+F5 : pas de requêtes serveur (ni HEAD, ni rien) -&gt; load from cache
+Gestion du offline (ça marche dans le métro !)
+SSL same domain policy
+Debug : chrome://appcache-internals/
+Mettre toutes ses libs (jQuery, Angular, Backbone, Ember ..) dans CACHE
+navigator.onLine -&gt; bool, online or not ?
+Avec PhoneGap : dépend de la version du device sur lequel est déployée l'app
+/!\ Cache commun à tous les users<br />
+LocalForage (SessionStorage + LocalStorage)</p>
+<p><a href="http://mathrobin.github.io/talks/JavaScript/application_cache.html#/">Prez ici</a></p>
+<p>~</p>
+<h3>Faire de la <strong>dataviz</strong> en <strong>JavaScript</strong> sans bibliothèque, par <a href="https://www.linkedin.com/in/jacomyal">Alexis Jacomy</a></h3>
+<p>Lead dev de <a href="http://sigmajs.org/">SigmaJS</a>, il nous a parlé de <strong>Canvas</strong>, <strong>SVG</strong> et l'exploitation du DOM et de <strong>CSS3</strong> pour faire du rendu graphique, et a synthétisé les solutions qu'il faut utiliser dans différents cas, avec l'aide d'exemples simples.</p>
+<p><a href="http://jacomyal.github.io/html5paris-201403/#/">Prez ici</a></p>
+<p>~</p>
+<p>Ce meetup s'est achevé autour d'un verre et de sushis (Merci le sponsor, on n'a pas su qui c'était ;) ). À bientôt pour un prochain Meetup (Angular sûrement !)</p>
+<p>Enjoy();</p>
+            </p>
+  </article>
+
+  <section id="sidebar">
+    <section id="intro">
+  <header>
+    <h2>welcomattic&#039;s blog</h2>
+  </header>
+</section>
+
+<section>
+  <ul class="posts">
+          <li>
+        <article>
+          <header>
+            <h3><a href="/retour-d-experience-sur-canalplay-20150121/">Retour d&#039;exp&eacute;rience sur CanalPlay, la VOD de Canal+</a></h3>
+            <time class="published">21-01-2015</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/comment-je-suis-devenu-developpeur-20141126/">Comment je suis devenu d&eacute;veloppeur ?</a></h3>
+            <time class="published">26-11-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/la-naivete-de-nos-chers-dirigeants-20141001/">La na&iuml;vet&eacute; de nos chers dirigeants</a></h3>
+            <time class="published">01-10-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/heroku-deployment-status-badges-20140912/">Heroku Deployment Status Badges</a></h3>
+            <time class="published">12-09-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/maman-elle-a-dit-que-je-peux-20140507/">Maman elle a dit qu&#039;je peux !</a></h3>
+            <time class="published">07-05-2014</time>
+          </header>
+        </article>
+      </li>
+      </ul>
+</section>
+
+<section class="blurb">
+  <h2>Encore ?</h2>
+  <ul class="actions">
+    <li><a href="/blog/">Voir tous les articles</a></li>
+  </ul>
+</section>
+
+<section id="footer">
+  <ul class="icons">
+    <li><a href="https://twitter.com/welcomattic" target="_blank" class="fa-twitter"><span class="label">Twitter</span></a></li>
+    <li><a href="https://www.facebook.com/welcoMattic" target="_blank" class="fa-facebook"><span class="label">Facebook</span></a></li>
+    <li><a href="https://www.instagram.com/welcomattic/" target="_blank" class="fa-instagram"><span class="label">Instagram</span></a></li>
+  </ul>
+  <p class="copyright">&copy; welcomattic's blog. Design: <a href="http://html5up.net">HTML5 UP</a>.</p>
+</section>
+  </section>
+
+
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+<script src="/js/main.js"></script>
+
+</body>
+</html>

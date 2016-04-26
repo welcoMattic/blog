@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>welcomattic&#039;s blog [GUIDE] Installer un environnement de développement web sur OS X</title>
+
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+
+<div id="wrapper">
+  <header id="header">
+    <h1><a href="/">welcomattic&#039;s blog</a></h1>
+    <nav class="links">
+      <ul>
+        <li><a href="/">Home</a></li>
+                <li><a href="https://github.com/welcomattic">Github</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+  <article class="post">
+    <header>
+      <div class="title">
+        <h2>[GUIDE] Installer un environnement de développement web sur OS X</h2>
+      </div>
+      <div class="meta">
+        <time class="published">12-04-2014</time>
+        <a href="#" class="author"><span class="name">welcomattic</span><img src="/images/avatar.jpg" alt="" /></a>
+      </div>
+    </header>
+    <p>            <p>DISCLAIMER :</p>
+<blockquote>
+<p>Ce guide a été réalisé sous OS X Mavericks, il est possible que certaines choses ne fonctionnent pas/plus sous OS X Yosemite et supérieur.</p>
+</blockquote>
+<p>~</p>
+<p>Dans cet article je vais tenter de détailler  l'installation d'un environnement de développement web (Apache, PHP, MySQL + Node.js, MongoDB) sur Mac OS X.</p>
+<p>Il y a un long moment que je pense à écrire cet article, pour enfin avoir quelque part un guide &quot;complet&quot; qui permette d'installer un environnement de développement web local sur Mac OS X (10.9.2 dans ce tuto).</p>
+<p>Pour la petite histoire, j'ai écumé plusieurs fois le web afin de tenter de trouver la meilleure façon de configurer mon environnement de dev sur mon MacBook. À chaque fois je ne trouvais que des bouts de tutos, ou bien des articles obsolètes, donc aujourd'hui après avoir trouvé et installé l'environnement qui me convient, je le partage !</p>
+<p><em>PS : pour les novices, le symboles $ devant les commandes symbolise que je suis loggué en tant que user et non en tant que root. Si vous copiez-collez les commandes, ne prenez donc pas le $</em></p>
+<p>;-)</p>
+<p>--- ~ ---</p>
+<p>Pour commencer un petit sommaire :</p>
+<ol>
+    <li><a href="#preambule">Préambule</a></li>
+    <li><a href="#on-repart-de-zero">On (re)part de zéro</a></li>
+    <li><a href="#poser-des-bases-saines">Poser des bases saines</a></li>
+    <li><a href="#activer-apache">Activer Apache</a></li>
+    <li><a href="#installer-php">Installer PHP</a></li>
+    <li><a href="#installer-mysql">Installer MySQL</a></li>
+    <li><a href="#installer-nodejs">Installer Node.js</a></li>
+    <i>À venir :</i>
+    <li><a href="#installer-mongodb">Installe MongoDB</a></li>
+    <li><a href="#paquets-npm-utiles">Paquets NPM utiles</a></li>
+    <li><a href="#pour-affiner">Pour affiner</a></li>
+</ol>
+<p>--- ~ ---</p>
+<h3> 1. <a name="preambule"></a>Préambule</h3>
+<p>Avant de commencer, sachez que dans ce guide je vais beaucoup utiliser le Terminal, pour ceux qui y sont allergique et qui cherche à s'en éloigner le plus possible, forcez vous ! Sincèrement, au début c'est chiant, c'est pas beau, c'est rebutant, mais une fois que vous aurez compris et appris un minimum de commandes vous ne pourrez plus vous en passer ! Croyez moi, c'est du vécu !</p>
+<h3> 2. <a name="on-repart-de-zero"></a>On (re)part de zéro</h3>
+<p>Pour commencer, c'est violent, mais le mieux c'est de partir de zéro ! Comprendre, on formate son Mac !
+Bien entendu vous n'êtes pas obligés de le faire, mais pour que ça soit le plus propre possible c'est ce que je vous conseille. Et pour se faire, je vous recommande l'article d'<a href="http://www.antoineguilbert.fr">Antoine Guilbert</a> :</p>
+<blockquote>
+<p><a href="http://www.antoineguilbert.fr/comment-bien-reinstaller-son-mac/">http://www.antoineguilbert.fr/comment-bien-reinstaller-son-mac/</a></p>
+</blockquote>
+<p>Voilà maintenant on va pouvoir configurer son environnement de développement aux petits oignons !</p>
+<h3>3. <a name="poser-des-bases-saines"></a>Poser des bases saines</h3>
+<p>Maintenant que votre Mac est tout propre, on va installer le premier outil qui va nous servir de base pour la suite, à savoir <a href="http://brew.sh/">Homebrew</a>. Homebrew est un gestionnaire de paquets pour Mac OS X, et c'est une alternative à <a href="http://www.macports.org/">MacPorts</a>. Le choix d'Homebrew n'a pas été fait par hasard, j'ai bien entendu testé les 2 outils et à mon sens Homebrew sort largement vainqueur pour plusieurs raisons (ça sera l'objet d'un futur article ;) ).</p>
+<p>Avant d'installer Homebrew, quelques vérifications s'imposent : être sûr un Mac Intel, être sur Mac OS X 10.5 minimum, avoir installé <a href="https://itunes.apple.com/us/app/xcode/id497799835">Xcode</a> (ou au moins les <a href="https://developer.apple.com/downloads">Command Line Tools</a>, si vous avez un compte Développeur chez Apple).</p>
+<p>Pour installer Homebrew (que j'appellerai &quot;<strong>brew</strong>&quot; pour le reste de l'article), ouvrez votre Terminal (/Applications/Utilitaires/Terminal) et copiez-collez la commande suivante</p>
+<p><code>$ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)</code></p>
+<p>Le script va vous expliquer ce qu'il va faire et faire une pause, pour le lancer appuyez sur Entrée.</p>
+<p>Vous avez donc maintenant <strong>homebrew</strong> installé sur votre Mac. Cet outil s'utilise bien évidemment dans le Terminal (ou équivalent comme <a href="http://www.iterm2.com/">iTerm</a>) avec la commande brew (<code>$ brew --help</code>  pour avoir plus d'infos) et le wiki officiel ici :</p>
+<blockquote>
+<p><a href="https://github.com/mxcl/homebrew/wiki"><a href="https://github.com/mxcl/homebrew/wiki">https://github.com/mxcl/homebrew/wiki</a></a></p>
+</blockquote>
+<p>Pour être sûr que l'installation s'est bien déroulée, lancez la commande <code>$ brew doctor</code>. Si cette commande vous retourne des erreurs, 2 solutions : soit la commande pour résoudre le problème est dans le message d'erreur, soit la réponse est très certainement sur le wiki. Sinon, <a href="http://www.giyf.com/">GYIF</a> :-D</p>
+<h3> 4. <a name="activer-apache"></a>Activer Apache</h3>
+<p>Depuis la sortie de Mac OS X 10.9 (Mavericks), le partage web a disparu de la fenêtre de configuration des partages de Mac OS X.</p>
+<p><img src="https://dl.dropboxusercontent.com/u/11998051/web-sharing.png" alt="Partage web sur Mac OS X Mavericks" /></p>
+<p>Pour activer Apache, nous allons passer par le Terminal avec cette commande :</p>
+<p><code>$ sudo apachectl start</code></p>
+<p>Vous aurez compris sans trop de mal que cette commande démarre tout simplement Apache.</p>
+<h4><em>Bonus :</em></h4>
+<p>Un développeur a besoin de temps en temps de redémarrer Apache (changement de config, création d'un nouveau vhost etc ...). Voici comment créer un alias qui permet de redémarrer Apache en 5 caractères (un bon dev est un dev féniant) :</p>
+<p>On ouvre le fichier de config de notre Terminal (ici Bash, mais si vous avez zsh, votre fichier de config sera ici : ~/.zshrc) :</p>
+<p><code>$ sudo nano ~/.bashrc</code></p>
+<p>On se place en fin de fichier et on ajoute l'alias suivant (si <code>apchr</code> ne vous plait pas, mettez l'alias que vous souhaitez ;-) ) :</p>
+<p><code>alias apchr="sudo apachectl restart"</code></p>
+<p>On ferme le fichier en faisant <code>ctrl+x</code>, là Nano nous demande si l'on veut sauver les modifs, on tape : <code>y</code>, et enfin on appuie sur Entrée.</p>
+<p>On indique ensuite au Terminal que l'on a modifié la config et qu'il doit la recharger avec la commande suivante :</p>
+<p><code>$ source ~/.bashrc</code></p>
+<h3>5. <a name="installer-php"></a>Installer PHP</h3>
+<p>Avant d'installer PHP, il faut &quot;taper&quot; de nouveaux repository pour Homebrew pour avoir accès aux paquets dont on a besoin et à leurs dépendances :</p>
+<p><code>$ brew tap homebrew/dupes</code></p>
+<p><code>$ brew tap homebrew/versions</code></p>
+<p><code>$ brew tap homebrew/homebrew-php</code></p>
+<p>Maintenant, on peut installer PHP :</p>
+<p><code>$ brew install --with-mysql php55</code></p>
+<p>Tout simplement. Eh oui, Homebrew est tellement magique qu'il trouve tout seul toutes les dépendances dont PHP 5.5 a besoin.</p>
+<p>Le <code>--with-mysql</code> sert uniquement à préciser lors de la compilation de PHP que nous avons besoin du driver MySQL.</p>
+<p>Si vous voulez connaître les autres options de compilation :</p>
+<p><code>$ brew options php55</code></p>
+<p>On indique maintenant à Apache qu'il doit utiliser cette version de PHP :</p>
+<p><code>$ sudo nano /etc/apache2/httpd.conf</code></p>
+<p>Trouvez la ligne commençant par LoadModule php5_module et la remplacer par :</p>
+<p><code>LoadModule php5_module    /usr/local/opt/php55/libexec/apache2/libphp5.so</code></p>
+<p>Fermez le fichier en faisant <code>ctrl+x</code>, là Nano nous demande si l'on veut sauver les modifs, on tape : <code>y</code>, et enfin on appuie sur Entrée.</p>
+<p>On redémarre Apache en utilisant l'alias que nous avons créer tout à l'heure :</p>
+<p><code>$ apchr</code></p>
+<h4><em>Extensions de PHP</em></h4>
+<p>Je vais détailler ici comment installer certaines extensions PHP avec Homebrew :</p>
+<ul>
+<li>INTL</li>
+<li>Xdebug</li>
+<li>Memcache (et Memcached)</li>
+<li>APC (<a href="https://github.com/krakjoe/apcu">APCu</a> plus exactement)</li>
+<li>mcrypt</li>
+</ul>
+<p><code>$ brew install php55-intl php55-xdebug php55-memcache php55-memcached php55-apcu php55-mcrypt</code></p>
+<p>Petite spécificité pour Memcached, voici la commande pour le lancer au démarrage d'OS X :</p>
+<p><code>$ ln -sfv /usr/local/opt/memcached/*.plist ~/Library/LaunchAgents</code></p>
+<h4><em>Bonus :</em></h4>
+<p>En parcourant le web je suis tombé sur cette petite extension pour les Préférences Système d'OS X : <a href="https://github.com/jimbojsb/launchrocket">LaunchRocket</a></p>
+<p>Une fois installé, cette extension vous permet de démarrer ou arrêter vos services installés avec Homebrew, comme ceci :</p>
+<p><img src="https://dl.dropboxusercontent.com/u/11998051/launchrocket.png" alt="LaunchRocket" /></p>
+<p>Si vous installez <a href="http://redis.io/">Redis</a> par exemple, vous pourrez le démarrer ou l'arrêter ici aussi</p>
+<h3>6. <a name="installer-mysql"></a>Installer MySQL</h3>
+<p>Pour MySQL, j'ai choisi de passer par une installaton classique, car j'ai rencontré quelques difficultés avec l'installation via Homebrew.</p>
+<p>Téléchargez donc la version que vous souhaitez à cette adresse : <a href="http://dev.mysql.com/downloads/mysql/"><a href="http://dev.mysql.com/downloads/mysql/">http://dev.mysql.com/downloads/mysql/</a></a></p>
+<p>Montez le .dmg téléchargé, installez d'abord le fichier contenant le numéro de version que vous avez choisi, ensuite le fichier <code>MySQLStartupItem.pkg</code>, et enfin <code>MySQL.prefPane</code>.</p>
+<p>Voici ce que vous devriez avoir dans les Préférences Système :</p>
+<p><img src="https://dl.dropboxusercontent.com/u/11998051/mysql.png" alt="mysql" /></p>
+<h3>7. <a name="installer-nodejs"></a>Installer Node.js</h3>
+<p>Pour installer Node.js sur OS X il y a bien sûr plusieurs manières de procéder :</p>
+<ul>
+<li>Passer par Homebrew (comme nous le faisons depuis le début de cet article) : <code>$ brew install node</code></li>
+<li>Passer par le .pkg officiel (<a href="http://nodejs.org/">ici</a>)</li>
+<li>Sûrement d'autres, à base de compilation via <code>make</code> etc ...</li>
+</ul>
+<p>Faites donc comme bon vous semble, car pour avoir essayer l'installation via le .pkg et via <code>brew</code> je n'ai trouvé aucun point négatif, ni d'un côté, ni de l'autre.</p>
+<h4><em>Bonus :</em></h4>
+<p>Si vous voulez pouvoir switcher facilement entre plusieurs versions de Node.js :</p>
+<p><code>$ npm install -g n</code></p>
+<p>Pour installer et swticher vers une version spécifique (0.10.26 par exemple) de Node.js :</p>
+<p><code>$ n 0.10.26</code></p>
+<p>Pour switcher vers la dernière version table de Node.js :</p>
+<p><code>$ n stable</code></p>
+            </p>
+  </article>
+
+  <section id="sidebar">
+    <section id="intro">
+  <header>
+    <h2>welcomattic&#039;s blog</h2>
+  </header>
+</section>
+
+<section>
+  <ul class="posts">
+          <li>
+        <article>
+          <header>
+            <h3><a href="/retour-d-experience-sur-canalplay-20150121/">Retour d&#039;exp&eacute;rience sur CanalPlay, la VOD de Canal+</a></h3>
+            <time class="published">21-01-2015</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/comment-je-suis-devenu-developpeur-20141126/">Comment je suis devenu d&eacute;veloppeur ?</a></h3>
+            <time class="published">26-11-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/la-naivete-de-nos-chers-dirigeants-20141001/">La na&iuml;vet&eacute; de nos chers dirigeants</a></h3>
+            <time class="published">01-10-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/heroku-deployment-status-badges-20140912/">Heroku Deployment Status Badges</a></h3>
+            <time class="published">12-09-2014</time>
+          </header>
+        </article>
+      </li>
+          <li>
+        <article>
+          <header>
+            <h3><a href="/maman-elle-a-dit-que-je-peux-20140507/">Maman elle a dit qu&#039;je peux !</a></h3>
+            <time class="published">07-05-2014</time>
+          </header>
+        </article>
+      </li>
+      </ul>
+</section>
+
+<section class="blurb">
+  <h2>Encore ?</h2>
+  <ul class="actions">
+    <li><a href="/blog/">Voir tous les articles</a></li>
+  </ul>
+</section>
+
+<section id="footer">
+  <ul class="icons">
+    <li><a href="https://twitter.com/welcomattic" target="_blank" class="fa-twitter"><span class="label">Twitter</span></a></li>
+    <li><a href="https://www.facebook.com/welcoMattic" target="_blank" class="fa-facebook"><span class="label">Facebook</span></a></li>
+    <li><a href="https://www.instagram.com/welcomattic/" target="_blank" class="fa-instagram"><span class="label">Instagram</span></a></li>
+  </ul>
+  <p class="copyright">&copy; welcomattic's blog. Design: <a href="http://html5up.net">HTML5 UP</a>.</p>
+</section>
+  </section>
+
+
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+<script src="/js/main.js"></script>
+
+</body>
+</html>
