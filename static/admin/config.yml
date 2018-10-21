@@ -1,6 +1,7 @@
 backend:
-  name: github
-  repo: welcomattic/blog
+  name: git-gateway
+  accept_roles:
+    - admin
 
 media_folder: static/img
 public_folder: /img
