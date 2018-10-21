@@ -1,27 +1,29 @@
 ---
 templateKey: blog-post
-title: A beginners’ guide to brewing with Chemex
-date: 2017-01-04T15:04:10.000Z
-description: Brewing with a Chemex probably seems like a complicated, time-consuming ordeal, but once you get used to the process, it becomes a soothing ritual that's worth the effort every time.
+title: La naïveté de nos chers dirigeants
+date: 2014-10-01T07:42:00.000Z
+description: >-
+  Aujourd'hui, j'ai eu envie de réagir au Projet de loi Anti Terroriste, suite à
+  l'écoute du podcast (à partir de 17 minutes) de Patrick Beja, et à la lecture
+  d'un article chez Korben.
 tags:
   - brewing
   - chemex
 ---
-![chemex](/img/chemex.jpg)
+Aujourd'hui, j'ai eu envie de réagir au Projet de loi Anti Terroriste, suite à l'écoute du [podcast](http://frenchspin.com/2014/09/rdv-tech-142-kindles-iphones-6/) (à partir de 17 minutes) de Patrick Beja, et à la lecture d'un [article](http://korben.info/bonjour-genie.html) chez Korben.
 
-This week we’ll **take** a look at all the steps required to make astonishing coffee with a Chemex at home. The Chemex Coffeemaker is a manual, pour-over style glass-container coffeemaker that Peter Schlumbohm invented in 1941, and which continues to be manufactured by the Chemex Corporation in Chicopee, Massachusetts.
+Dans ce projet de loi, il est question d'autoriser le blocage, par le biais d'un black listing DNS, de sites faisant l'apologie du terrorisme.
 
-In 1958, designers at the [Illinois Institute of Technology](https://www.spacefarm.digital) said that the Chemex Coffeemaker is _"one of the best-designed products of modern times"_, and so is included in the collection of the Museum of Modern Art in New York City.
+Bon, je vais ressortir mes cours de réseau de BTS, et démontrer que ce cher Monsieur Cazeneuve et ses conseillers "techniques" sont des burnes totales et qu'ils n'ont absolument rien compris au fonctionnement d'Internet :
 
-## The little secrets of Chemex brewing
+Un serveur DNS (Domain Name Server (ou Service)) est chargé de transformer une adresse comme http://google.fr en adresse IP (ex : 64.233.167.94).
 
-The Chemex Coffeemaker consists of an hourglass-shaped glass flask with a conical funnel-like neck (rather than the cylindrical neck of an Erlenmeyer flask) and uses proprietary filters, made of bonded paper (thicker-gauge paper than the standard paper filters for a drip-method coffeemaker) that removes most of the coffee oils, brewing coffee with a taste that is different than coffee brewed in other coffee-making systems; also, the thicker paper of the Chemex coffee filters may assist in removing cafestol, a cholesterol-containing compound found in coffee oils. Here’s three important tips newbies forget about:
+Si vous avez déjà mis en ligne un site vous devez savoir que l'on peut changer les serveurs DNS d'un site en 3 clics et que le nouveau serveur peut tout à fait se trouver à l'étranger (hors de portée de la loi française donc).
 
-1. Always buy dedicated Chemex filters.
-2. Use a scale, don’t try to eyeball it.
-3. Never skip preheating the glass.
-4. Timing is key, don’t forget the clock.
+Cela m'étonnerait sincèrement que des conseillers "techniques" du gouvernement n'aient pas pensé à cela. Ce qui amène donc à penser que cette loi est encore plus mal foutue qu'on ne peut l'imaginer et, ils se serviront de ce genre de loi en place pour (tenter) avoir un contrôle total des DNS (uniquement) français ...
 
-The most visually distinctive feature of the Chemex is the heatproof wooden collar around the neck, allowing it to be handled and poured when full of hot water. This is turned, then split in two to allow it to fit around the glass neck. The two pieces are held loosely in place by a tied leather thong. The pieces are not tied tightly and can still move slightly, retained by the shape of the conical glass.
+![](https://imgflip.com/readImage?iid=412211)
 
-For a design piece that became popular post-war at a time of Modernism and precision manufacture, this juxtaposition of natural wood and the organic nature of a hand-tied knot with the laboratory nature of glassware was a distinctive feature of its appearance.
+Imbéciles dans vos tours d'ivoire ! Un DNS se change en 3 clics pour être hors de portée de votre stupide loi, et quand bien même, on ne pourrait pas accéder à un site terroriste (ou non) par son URL, il suffit de connaître son adresse IP ! Regardez ces pays où la liberté d'expression est bafouée et où le blocage d'internet est total, la population parvient quand même à accéder au réseau pour diffuser de l'information !
+
+Alors merci d'arrêter de dilapider l'argent public dans des projets de loi comparables à des coups de pelle dans le vent, et admettez enfin qu'Internet est un média que vous ne contrôlerez jamais ! Apprenez plutôt à vous en servir correctement et contribuez à son apprentissage par les jeunes afin qu'ils n'aient jamais à connaître un Internet censuré et corrompu (comme notre cher poste de télévision).
