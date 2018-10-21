@@ -2,10 +2,7 @@
 templateKey: blog-post
 title: La naïveté de nos chers dirigeants
 date: 2014-10-01T07:42:00.000Z
-description: >-
-  Aujourd'hui, j'ai eu envie de réagir au Projet de loi Anti Terroriste, suite à
-  l'écoute du podcast (à partir de 17 minutes) de Patrick Beja, et à la lecture
-  d'un article chez Korben.
+description: '-'
 tags:
   - brewing
   - chemex
