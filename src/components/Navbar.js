@@ -12,7 +12,7 @@ const Navbar = () => (
       </div>
       <div className="navbar-start">
         <Link className="navbar-item" to="/about">
-          About
+          À propos
         </Link>
       </div>
       <div className="navbar-end">

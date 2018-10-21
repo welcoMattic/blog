@@ -1,6 +1,6 @@
 ---
 templateKey: about-page
-title: About me
+title: À propos
 ---
 Après un BTS Informatique de Gestion (option Développement d’Applications) et un passage par l’IESA Multimédia, Je me suis perfectionné sur les technologies PHP et Javascript. Après quelques années de développement avec symfony 1, je rencontre JoliCode via une formation Symfony donnée à l’IESA Multimédia par mes actuels collègues. Aujourd’hui, j'explore Symfony et y contribue dès que je le peut. Depuis peu, je dispense à mon tour la formation Symfony que j'ai reçu auprès d’étudiants. Ma curiosité pour le monde DevOps grandit de jour en jour, notamment autour de technologies comme Docker et Traefik.
 
