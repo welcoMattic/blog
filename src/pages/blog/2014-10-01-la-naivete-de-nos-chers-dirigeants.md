@@ -4,8 +4,10 @@ title: La naïveté de nos dirigeants
 date: 2014-10-01T07:42:00.000Z
 description: '-'
 tags:
-  - brewing
-  - chemex
+  - loi
+  - technologie
+  - politique
+  - podcast
 ---
 Aujourd'hui, j'ai eu envie de réagir au Projet de loi Anti Terroriste, suite à l'écoute du [podcast](http://frenchspin.com/2014/09/rdv-tech-142-kindles-iphones-6/) (à partir de 17 minutes) de Patrick Beja, et à la lecture d'un [article](http://korben.info/bonjour-genie.html) chez Korben.
 
