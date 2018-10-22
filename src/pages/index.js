@@ -12,33 +12,37 @@ export default class IndexPage extends React.Component {
       <Layout>
         <section className="section">
           <div className="container">
-            <div className="content">
-              <h1 className="has-text-weight-bold is-size-2">Derniers billets</h1>
-            </div>
-            {posts
-              .map(({ node: post }) => (
-                <div
-                  className="content"
-                  style={{ border: '1px solid #eaecee', padding: '2em 4em' }}
-                  key={post.id}
-                >
-                  <p>
-                    <Link className="has-text-primary" to={post.fields.slug}>
-                      {post.frontmatter.title}
-                    </Link>
-                    <span> &bull; </span>
-                    <small>{post.frontmatter.date}</small>
-                  </p>
-                  <p>
-                    {post.excerpt}
-                    <br />
-                    <br />
-                    <Link className="button is-small" to={post.fields.slug}>
-                      Lire la suite →
-                    </Link>
-                  </p>
+            <div className="columns">
+              <div className="column is-three-fifths is-offset-one-fifth">
+                <div className="content">
+                  <h1 className="has-text-weight-bold is-size-2">Derniers billets</h1>
                 </div>
-              ))}
+                {posts
+                  .map(({ node: post }) => (
+                    <div
+                      className="content is-medium"
+                      style={{ border: '1px solid #eaecee', padding: '2em 4em' }}
+                      key={post.id}
+                    >
+                      <p>
+                        <Link className="has-text-primary" to={post.fields.slug}>
+                          {post.frontmatter.title}
+                        </Link>
+                        <span> &bull; </span>
+                        <small>{post.frontmatter.date}</small>
+                      </p>
+                      <p>
+                        {post.excerpt}
+                        <br />
+                        <br />
+                        <Link className="button is-small" to={post.fields.slug}>
+                          Lire la suite →
+                        </Link>
+                      </p>
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
         </section>
       </Layout>
@@ -49,6 +53,9 @@ export default class IndexPage extends React.Component {
 IndexPage.propTypes = {
   data: PropTypes.shape({
     allMarkdownRemark: PropTypes.shape({
+      edges: PropTypes.array,
+    }),
+    markdownRemark: PropTypes.shape({
       edges: PropTypes.array,
     }),
   }),
@@ -70,7 +77,7 @@ export const pageQuery = graphql`
           frontmatter {
             title
             templateKey
-            date(formatString: "DD MMMM YYYY")
+            date(formatString: "DD/MM/YYYY")
           }
         }
       }

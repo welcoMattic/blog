@@ -9,6 +9,9 @@ const TemplateWrapper = ({ children }) => (
     <Helmet title="Blog - welcomattic" />
     <Navbar />
     <div>{children}</div>
+    <footer className="container has-text-centered margin-bottom-md">
+      © Mathieu Santo Stefano--Féron | {(new Date()).getFullYear()}
+    </footer>
   </div>
 )
 

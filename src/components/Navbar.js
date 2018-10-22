@@ -1,21 +1,21 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import github from '../img/github-icon.svg'
+import twitter from '../img/twitter-icon.svg'
 
 const Navbar = () => (
-  <nav className="navbar is-transparent">
-    <div className="container">
+  <div className="container">
+    <nav className="navbar is-transparent">
       <div className="navbar-brand">
-        <Link to="/" className="navbar-item">
-          <h1>Blog welcomattic</h1>
-        </Link>
+        <h1>
+          <Link to="/" className="navbar-item title">welcomattic's blog</Link>
+        </h1>
       </div>
-      <div className="navbar-start">
+      
+      <div className="navbar-end">
         <Link className="navbar-item" to="/about">
           À propos
         </Link>
-      </div>
-      <div className="navbar-end">
         <a
           className="navbar-item"
           href="https://github.com/welcomattic"
@@ -26,9 +26,19 @@ const Navbar = () => (
             <img src={github} alt="Github" />
           </span>
         </a>
+        <a
+          className="navbar-item"
+          href="https://twitter.com/welcomattic"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span className="icon">
+            <img src={twitter} alt="Twitter" />
+          </span>
+        </a>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 )
 
 export default Navbar
