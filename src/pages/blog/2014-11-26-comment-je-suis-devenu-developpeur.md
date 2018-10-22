@@ -2,14 +2,13 @@
 templateKey: blog-post
 title: Comment je suis devenu développeur ?
 date: 2014-11-26T08:42:00.000Z
-description: >-
-  On va commencer à répondre à cette question par élimination : non, je n'ai pas
-  fait d'école d'ingénieur, non je n'ai pas fait d'école privée d'informatique
-  (SUPINFO, EPITECH, 42 etc ...), non, je n'ai fait aucun stage en Californie.
+description: '-'
 tags:
   - flavor
   - tasting
 ---
+On va commencer à répondre à cette question par élimination : non, je n'ai pas fait d'école d'ingénieur, non je n'ai pas fait d'école privée d'informatique (SUPINFO, EPITECH, 42 etc ...), non, je n'ai fait aucun stage en Californie.
+
 En fait j'ai juste été infecté par un virus quand j'étais petit. Ce virus c'est mon grand père qui me l'a transmis. À l'époque (en 1996-97), mon grand père avait un ordinateur, qui tournait sous Windows 95 (ultra récent !). Il s'en servait principalement pour maquetter (sur Designer 3.5) des plans 2D d'une maison qu'il retapait. Moi, qui devait avoir 4-5 ans, je le regardais faire les yeux écarquillés en voyant que l'on pouvait dessiner à l'infini sans avoir du feutre partout sur les doigts.
 
 Un jour alors que mon grand père était au téléphone dans son bureau, je lui demande si je peux dessiner sur l'ordinateur. Il acquiesce , et me dit que l'on enregistrera mon œuvre sur une disquette ensuite, mais surtout que je l'attende pour faire ça. D'après ce qu'il m'a raconté, il est revenu 15 minutes plus tard et j'avais enregistré mon fichier sur une disquette tout seul "comme un grand". À force de le regarder j'avais mémorisé les actions sans même savoir lire.
