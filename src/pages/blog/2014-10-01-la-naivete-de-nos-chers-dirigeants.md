@@ -1,6 +1,6 @@
 ---
 templateKey: blog-post
-title: La naïveté de nos chers dirigeants
+title: La naïveté de nos dirigeants
 date: 2014-10-01T07:42:00.000Z
 description: '-'
 tags:
