@@ -4,8 +4,12 @@ title: Comment je suis devenu développeur ?
 date: 2014-11-26T08:42:00.000Z
 description: '-'
 tags:
-  - flavor
-  - tasting
+  - histoire
+  - 3615-ma-vie
+  - développeur
+  - formation
+  - études
+  - école
 ---
 On va commencer à répondre à cette question par élimination : non, je n'ai pas fait d'école d'ingénieur, non je n'ai pas fait d'école privée d'informatique (SUPINFO, EPITECH, 42 etc ...), non, je n'ai fait aucun stage en Californie.
 
