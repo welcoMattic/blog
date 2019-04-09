@@ -1,6 +1,6 @@
 ---
 templateKey: blog-post
-title: How to deploy Ghost on CleverCloud?
+title: '[WIP] How to deploy Ghost on CleverCloud?'
 date: 2019-04-09T09:15:22.370Z
 description: Here's a step-by-step tutorial to deploy a Ghost application on CleverCloud
 tags:
@@ -17,7 +17,7 @@ Then, we can install a local Ghost with this command:
 
 `$ ghost install local`
 
-🎉 We have a brand new Ghost application accessible via [http://localhost:2368](http://localhost:2368)!
+🎉 We have a brand new Ghost application accessible via <http://localhost:2368>!
 
 🤔 Where is my data?
 
@@ -25,3 +25,4 @@ Then, we can install a local Ghost with this command:
 
 Okay, now let's explore what's just been installed:
 
+![Ghost directory tree](/img/ghost-tree.png)
