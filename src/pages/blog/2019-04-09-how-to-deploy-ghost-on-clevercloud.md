@@ -39,12 +39,61 @@ Clever Cloud documentation says:
 
 With our Ghost app, we have 2 problems:
 - We don't listen on 8080 (default port of Ghost is 2368)
-- We don't have a package.json at the root of our app*
+- We don't have a `package.json` at the root of our app
 
 Let's fix this!
 
-`current` directory contains
+# 🔧 Make Ghost ready to be deployed
 
-![Ghost directory tree](/img/ghost-version-tree.png)
+The directory `versions/2.19.3` directory contains this:
 
-We need to move the content of `current` directory to the root of our app
+![Ghost version directory tree](/img/ghost-version-tree.png)
+
+We can see a `content` directory, which contains the same structure as the root `content` directory. So, I suppose that we can merge them.
+
+Let's move this structure to the root of our app (make sure to replace version number by our own):
+
+- backup our `content` directory
+
+`$ mv content _content`
+
+- move Ghost instance to the root directory
+
+`$ mv versions/2.19.3/* .`
+
+⚠ You have to merge manually `_content` which contains **your data, files and themes** and `content` which contains default things.
+
+- see the result
+
+![root directory result](/img/ghost-mv.png)
+
+Now, we have to configure Ghost for production environment. To do this, we copy `config.development.json` to `config.production.json` and edit it like this:
+
+```
+{
+  "url": "https://YOUR_CC_APP_ID.cleverapps.io/",
+  "server": {
+    "port": 8080,
+    "host": "0.0.0.0"
+  },
+  "database": {
+    "client": "sqlite3",
+    "connection": {
+      "filename": "content/data/ghost-prod.db"
+    }
+  },
+  "mail": {
+    "transport": "Direct"
+  },
+  "logging": {
+    "transports": [
+      "file",
+      "stdout"
+    ]
+  },
+  "process": "local",
+  "paths": {
+    "contentPath": "content/c"
+  }
+}
+```
