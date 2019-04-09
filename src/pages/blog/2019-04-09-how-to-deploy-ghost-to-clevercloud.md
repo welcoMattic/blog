@@ -5,6 +5,10 @@ date: 2019-04-09T10:45:47.332Z
 description: >-
   Here's a step-by-step tutorial for deploying a Ghost application to
   CleverCloud
+tags:
+  - ghost
+  - clevercloud
+  - deployment
 ---
 # 👻 Install Ghost locally
 
@@ -92,7 +96,19 @@ Now, we have to configure Ghost for production environment. To do this, we copy 
   },
   "process": "local",
   "paths": {
-    "contentPath": "content/c"
+    "contentPath": "content/"
   }
 }
 ```
+
+As mentionned earlier, CleverCloud needs a `start` entry under `scripts` in package.json. By default Ghost gets one, but we have to update it to force Ghost to to start in production mode:
+
+```
+"start": "NODE_ENV=production node index",
+```
+
+Now, our app is ready. Let's open CleverCloud dashboard to prepare the deployment.
+
+# 💡☁ Create a NodeJS application on CleverCloud
+
+I invite you to follow [official documentation](https://www.clever-cloud.com/doc/clever-cloud-overview/add-application/#create-an-application) to create your app. Choose a NodeJS
