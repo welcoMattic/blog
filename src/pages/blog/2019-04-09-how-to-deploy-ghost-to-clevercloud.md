@@ -1,18 +1,18 @@
 ---
 templateKey: blog-post
-title: How to deploy Ghost to CleverCloud?
+title: How to deploy Ghost to Clever Cloud?
 date: 2019-04-09T10:45:47.332Z
 description: >-
-  Here's a step-by-step tutorial for deploying a Ghost application to
-  CleverCloud
+  Here's a step-by-step tutorial for deploying a brand new Ghost application to
+  Clever Cloud.
 tags:
   - ghost
-  - clevercloud
+  - clever cloud
   - deployment
 ---
 # 👻 Install Ghost locally
 
-🧰 First, we need to init a fresh new Ghost application. According to the documentation, we need to install the `ghost-cli` package globally:
+First, we need to init a fresh new Ghost application. According to the documentation, we need to install the `ghost-cli` package globally:
 
 `$ npm install ghost-cli -g`
 
@@ -22,7 +22,9 @@ Then, we can install a local Ghost with this command:
 
 🎉 We have a brand new Ghost application accessible via <http://localhost:2368>
 
-🤔 "Where is my data?"
+> 🤔 "Where is my data?"
+
+Ghost documentation says:
 
 > The SQLite3 database is auto-setup and located in`/content/data/`
 
@@ -30,7 +32,7 @@ Okay, now let's explore what's just been installed:
 
 ![Ghost directory tree](/img/ghost-tree.png)
 
-🤔 bis "Where is package.json?"
+> 🤔 bis "Where is package.json?"
 
 It's located in `current` which is a symlink to the current version of Ghost for our instance. Yes, it's a bit strange but ok, let's deal with it.
 
@@ -64,7 +66,7 @@ Let's move this structure to the root of our app (make sure to replace version n
 
 `$ mv versions/2.19.3/* .`
 
-⚠ You have to merge manually `_content` which contains **your data, files and themes** and `content` which contains default things.
+> ⚠ You have to merge manually `_content` which contains **your data, files and themes** and `content` which contains default things.
 
 - see the result
 
@@ -101,14 +103,34 @@ Now, we have to configure Ghost for production environment. To do this, we copy 
 }
 ```
 
-As mentionned earlier, CleverCloud needs a `start` entry under `scripts` in package.json. By default Ghost gets one, but we have to update it to force Ghost to to start in production mode:
+As mentionned earlier, Clever Cloud needs a `start` entry under `scripts` in package.json. By default Ghost gets one, but we have to update it to force Ghost to to start in production mode:
 
 ```
 "start": "NODE_ENV=production node index",
 ```
 
-Now, our app is ready. Let's open CleverCloud dashboard to prepare the deployment.
+Now, our app is ready. Let's open Clever Cloud dashboard to prepare the deployment.
 
-# 💡☁ Create a NodeJS application on CleverCloud
+# 💡☁ Create a NodeJS application on Clever Cloud
 
-I invite you to follow [official documentation](https://www.clever-cloud.com/doc/clever-cloud-overview/add-application/#create-an-application) to create your app. Choose a NodeJS
+I invite you to follow [official documentation](https://www.clever-cloud.com/doc/clever-cloud-overview/add-application/#create-an-application) to create a NodeJS application.
+
+Once it's done, we need to link an FS addon to our application. To do this, go to the [addon creation page](https://console.clever-cloud.com/users/me/addons/new) and select FS Bucket:
+
+![Addon creation page](/img/console-clever-cloud.png)
+
+Then, go back in your application settings, go to "Service dependencies" item, and link your addon to your app.
+
+The last step takes place in "Environment variables". You should see a `BUCKET_HOST` variable on the second aprt of the page. Now, create a new variable `CC_FS_BUCKET` with this value `content:<the value of BUCKET_HOST>`.
+
+# 🚀 Let's push!
+
+If your create your Clever Cloud application from a GitHub repository, you only have to `git push` your code to GitHub, and Clever Cloud will automatically deploy your code!
+
+If not, you have to follow this documentation to add Clever Cloud remote to your git configuration. Then you will be able to push to Clever Cloud!
+
+<hr>
+
+Thanks for reading!
+
+enjoy();
