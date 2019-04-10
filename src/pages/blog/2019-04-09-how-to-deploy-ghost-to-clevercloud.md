@@ -10,7 +10,7 @@ tags:
   - clever cloud
   - deployment
 ---
-# 👻 Install Ghost locally
+## 👻 Install Ghost locally
 
 First, we need to init a fresh new Ghost application. According to the documentation, we need to install the `ghost-cli` package globally:
 
@@ -48,7 +48,7 @@ With our Ghost app, we have 2 problems:
 
 Let's fix this!
 
-# 🔧 Make Ghost ready to be deployed
+## 🔧 Make Ghost ready to be deployed
 
 The directory `versions/2.19.3` directory contains this:
 
@@ -111,7 +111,7 @@ As mentionned earlier, Clever Cloud needs a `start` entry under `scripts` in pac
 
 Now, our app is ready. Let's open Clever Cloud dashboard to prepare the deployment.
 
-# 💡☁ Create a NodeJS application on Clever Cloud
+## 💡☁ Create a NodeJS application on Clever Cloud
 
 I invite you to follow [official documentation](https://www.clever-cloud.com/doc/clever-cloud-overview/add-application/#create-an-application) to create a NodeJS application.
 
@@ -123,7 +123,7 @@ Then, go back in your application settings, go to "Service dependencies" item, a
 
 The last step takes place in "Environment variables". You should see a `BUCKET_HOST` variable on the second aprt of the page. Now, create a new variable `CC_FS_BUCKET` with this value `content:<the value of BUCKET_HOST>`.
 
-# 🚀 Let's push!
+## 🚀 Let's push!
 
 If your create your Clever Cloud application from a GitHub repository, you only have to `git push` your code to GitHub, and Clever Cloud will automatically deploy your code!
 
