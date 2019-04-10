@@ -2,7 +2,7 @@
 templateKey: blog-post
 title: Heroku Deployment Status Badges
 date: 2014-09-12T07:42:00.000Z
-description: '-'
+description: _
 tags:
   - badges
   - github
