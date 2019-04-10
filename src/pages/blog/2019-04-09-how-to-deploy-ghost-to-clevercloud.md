@@ -12,7 +12,7 @@ tags:
 ---
 ## 👻 Install Ghost locally
 
-First, we need to init a fresh new Ghost application. According to the documentation, we need to install the `ghost-cli` package globally:
+First, we need to init a fresh new Ghost application. According to [the documentation](https://github.com/TryGhost/Ghost#quickstart-install), we need to install the `ghost-cli` package globally:
 
 `$ npm install ghost-cli -g`
 
@@ -107,6 +107,14 @@ As mentionned earlier, Clever Cloud needs a `start` entry under `scripts` in pac
 
 ```
 "start": "NODE_ENV=production node index",
+```
+
+A last step before next chapter, we must add `content` directory to the `.gitignore` file, which should be like this:
+
+```
+node_modules/
+content/
+.ghostpid
 ```
 
 Now, our app is ready. Let's open Clever Cloud dashboard to prepare the deployment.
