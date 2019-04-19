@@ -33,6 +33,14 @@ module.exports = {
         modulePath: `${__dirname}/src/cms/cms.js`,
       },
     },
+    {
+      resolve: 'gatsby-plugin-matomo',
+      options: {
+        siteId: '1',
+        matomoUrl: 'https://welcomattic.matomo.cloud',
+        siteUrl: 'https://blog.welcomattic.com'
+      }
+    }
     'gatsby-plugin-netlify', // make sure to keep it last in the array
   ],
 }
