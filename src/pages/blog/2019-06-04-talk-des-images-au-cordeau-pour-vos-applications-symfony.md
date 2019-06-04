@@ -1,7 +1,7 @@
 ---
 templateKey: blog-post
 title: Talk - Des images au cordeau pour vos applications Symfony
-date: 2019-06-04T08:51:52.486Z
+date: 2019-04-14T12:42:00.000Z
 description: Talk donné lors de la conférence SymfonyLive Paris 2019
 tags:
   - symfony
