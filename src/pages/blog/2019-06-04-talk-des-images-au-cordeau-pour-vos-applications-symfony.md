@@ -14,4 +14,6 @@ J'ai eu la chance cette année d'être retenu en tant que conférencier au Symfo
 
 <https://slides.com/welcomattic/des-images-au-cordeau-pour-vos-applications-symfony/#/>
 
-La conférence a été filmée, je mettrais cet article à jour avec la vidéo de la présentation dès qu'elle sera disponible 😉
+La conférence a été filmée, voici la vidéo :
+
+https://symfonycasts.com/screencast/paris2019/des-images-au-cordeau-pour-vos-applications-symfony
