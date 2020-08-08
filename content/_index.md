@@ -1,4 +1,4 @@
 ---
 heading: "Hi, I'm welcomattic"
-subheading: ""
+subheading: "I'm speaking 🇫🇷 & 🇬🇧, mainly working with 🐘 PHP"
 ---
