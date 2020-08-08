@@ -1,9 +1,9 @@
 ---
 templateKey: blog-post
-title: How to deploy Ghost to Clever Cloud?
+title: How to deploy Ghost on Clever Cloud?
 date: 2019-04-09T10:45:47.332Z
 description: >-
-  Here's a step-by-step tutorial for deploying a brand new Ghost application to
+  Here's a step-by-step tutorial for deploying a brand new Ghost application on
   Clever Cloud.
 tags:
   - ghost
