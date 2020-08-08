@@ -6,7 +6,6 @@ description: >-
 tags:
   - ghost
   - clever cloud
-  - deployment
 ---
 ## 👻 Install Ghost locally
 

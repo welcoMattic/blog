@@ -1,4 +1,12 @@
 ---
 heading: "Hi, I'm welcomattic"
-subheading: "I'm speaking 🇫🇷 & 🇬🇧, mainly working with 🐘 PHP"
+handle: "welcomattic"
+subheading: >-
+    I'm speaking 🇫🇷 & 🇬🇧, working daily with </br></br>
+    🐧 Linux </br>
+    🐘 PHP </br>
+    🎨 HTML/CSS </br>
+    🤖 Javascript </br>
+    🐳 Docker </br>
+    🔍 Elasticsearch
 ---
