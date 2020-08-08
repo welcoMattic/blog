@@ -1,2 +1,0 @@
-# Redirect default Netlify subdomain to primary domain
-https://welcomattic-blog.netlify.com/* http://blog.welcomattic.com/:splat 301!
