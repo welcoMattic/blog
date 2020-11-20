@@ -6,7 +6,6 @@ description: >-
 tags:
   - ghost
   - clever cloud
-  - english
 ---
 ## 👻 Install Ghost locally
 

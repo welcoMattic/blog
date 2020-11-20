@@ -63,5 +63,17 @@ copyright = "© {year}"
   title = "Blog"
   url = "/blog/"
 
+[[menu.main]]
+  identifier = "talks"
+  name = "talks"
+  title = "Talks"
+  url = "/talks/"
+
+[[menu.main]]
+  identifier = "oss"
+  name = "oss"
+  title = "OSS"
+  url = "/oss/"
+
 
 
