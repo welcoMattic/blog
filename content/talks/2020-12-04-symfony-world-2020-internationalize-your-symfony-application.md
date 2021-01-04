@@ -9,10 +9,6 @@ tags:
   - i18n
 ---
 <br>
-<a href="https://symfonycasts.com/screencast/paris2019/des-images-au-cordeau-pour-vos-applications-symfony">
-    📺 Vidéo
-</a>
-<br>
-<a href="https://slides.com/welcomattic/des-images-au-cordeau-pour-vos-applications-symfony/">
+<a href="https://docs.google.com/presentation/d/1Zz5Oxa-6jedobK4jOhuQ9ggTyVTtGcEP3Un_y0LdBoM/">
     💬 Slides
 </a>
