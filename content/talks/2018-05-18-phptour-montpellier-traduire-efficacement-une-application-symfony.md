@@ -1,5 +1,5 @@
 ---
-title: Traduire efficacement une application Symfony - PHP Tour Montpellier 2018
+title: "[PHP Tour Montpellier 2018] - Traduire efficacement une application Symfony"
 date: 2018-05-18T12:10:00.000Z
 description: Présentation faite lors du PHP Tour 2018 à Montpellier
 tags:
@@ -8,12 +8,10 @@ tags:
   - traduction
   - i18n
 ---
-<br>
+
 {{< youtube XdG5BZnJXFk >}}
-<br>
-<a href="https://welcomattic.github.io/traduire-efficacement-une-app-symfony/phptour-2018/index.html#/" title="Slides 'Traduire efficacement une application Symfony' - PHP Tour Montpellier 2018">
-    💬 Slides
-</a>
+
+[💬 Slides](https://welcomattic.github.io/traduire-efficacement-une-app-symfony/phptour-2018/index.html#/)
 
 La traduction d'une application est une étape primordiale dans un projet international. 
 Mais sa mise en place est souvent douloureuse, et ça le reste tout au long de la vie de l'application. 

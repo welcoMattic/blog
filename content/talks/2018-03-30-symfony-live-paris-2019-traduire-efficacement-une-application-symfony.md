@@ -1,5 +1,5 @@
 ---
-title: Traduire efficacement une application Symfony - SymfonyLive Paris 2018
+title: "[SymfonyLive Paris 2018] - Traduire efficacement une application Symfony"
 date: 2018-03-30T12:00:00.000Z
 description: Présentation faite lors du SymfonyLive à Paris en 2018
 tags:
@@ -8,12 +8,10 @@ tags:
   - traduction
   - i18n
 ---
-<br>
+
 {{< youtube zP6vbkc-GJY >}}
-<br>
-<a href="https://welcomattic.github.io/traduire-efficacement-une-app-symfony/symfony-live-paris-2018/index.html#/" title="Slides 'Traduire efficacement une application Symfony' - SymfonyLive Paris 2018">
-    💬 Slides
-</a>
+
+[💬 Slides](https://welcomattic.github.io/traduire-efficacement-une-app-symfony/symfony-live-paris-2018/index.html#/)
 
 La traduction d'une application est une étape primordiale dans un projet international. 
 Comment faire travailler toutes ces personnes efficacement, et garder l'intégrité des traductions de l'application ? 
