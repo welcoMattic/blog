@@ -1,3 +1,7 @@
+---
+title: Veille matinale #1
+date: 2021-03-02T10:00:00.000Z
+---
 - [Arduino Blog » Announcing the Arduino IDE 2.0 (beta)](https://blog.arduino.cc/2021/03/01/announcing-the-arduino-ide-2-0-beta/)
 - [https://youtube.com/watch?v=3e_RzLCPM-Y&feature=share](https://youtube.com/watch?v=3e_RzLCPM-Y&feature=share)
  - [Un hacker a siphonné l’intégralité des messages de Gab, l’autre réseau de l’extrême droite - Cybergu
