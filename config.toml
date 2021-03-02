@@ -23,7 +23,7 @@ buildExpired = false
   [params.homeInfoParams]
     Title = "Hi, I'm Mathieu"
     Content = "Web developer @ JoliCode"
-    imageUrl = "https://pbs.twimg.com/profile_images/1324297516972724224/XXCTwpRv_400x400.jpg"
+    imageUrl = "/img/profile_image.jpg"
   [[params.socialIcons]]
     name = "twitter"
     url = "https://twitter.com/welcomattic"
