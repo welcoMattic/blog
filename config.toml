@@ -75,5 +75,10 @@ copyright = "© {year}"
   title = "OSS"
   url = "/oss/"
 
+[[menu.main]]
+  identifier = "veille"
+  name = "veille"
+  title = "Veille"
+  url = "/veille/"
 
 
