@@ -1,7 +1,10 @@
 ---
 title: "Veille matinale #1"
+author: welcomattic
 date: 2021-03-02T09:00:00.000Z
 description: News du jour
+categories: ["News du jour"]
+tags: ["cybersec", "symfony", "password"]
 ---
 - [Arduino Blog » Announcing the Arduino IDE 2.0 (beta)](https://blog.arduino.cc/2021/03/01/announcing-the-arduino-ide-2-0-beta/)
 - [Le plus grand CYBERESPIONNAGE du 21e siècle ! (SolarWinds)](https://youtube.com/watch?v=3e_RzLCPM-Y)

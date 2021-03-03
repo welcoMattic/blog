@@ -1,7 +1,10 @@
 ---
 title: "Veille matinale #2"
+author: welcomattic
 description: News du jour
-date: 2021-03-03T08:30:00.000Z
+date: 2021-03-03T08:30:00+01:00
+categories: ["News du jour"]
+tags: ["space", "bitcoin", "cybersec", "jeux vidéo"]
 ---
 - [NASA’s latest Mars rover has the same processor as an iMac from 1998](https://www.theverge.com/tldr/2021/3/2/22309412/nasa-perseverance-mars-rover-processor-cpu-imac-1998)
 - [Cryptomonnaies : Tether refuse de payer une rançon de 500 bitcoins](https://www.zdnet.fr/actualites/cryptomonnaies-tether-refuse-de-payer-une-rancon-de-500-bitcoins-39918723.htm#xtor=RSS-1)
