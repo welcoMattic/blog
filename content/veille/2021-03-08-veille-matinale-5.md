@@ -11,3 +11,4 @@ tags: ["bitcoin", "cybersec", "cloud"]
 - [PHP Language Level for Symfony 6](https://github.com/symfony/symfony/issues/40389)
 - [Comment Jezby Ventures (Octave Klaba) veut reprendre Shadow pour son offre de services européens](https://www.nextinpact.com/article/43489/comment-jezby-ventures-octave-klaba-veut-reprendre-shadow-pour-son-offre-services-europeens)
 - [Sécurité globale : la future loi remaniée en commission des lois au Sénat](https://www.nextinpact.com/article/43488/securite-globale-future-loi-remaniee-en-commission-lois-au-senat)
+- [Sylius v1.9 – upgrade to Symfony 5, richer API, PayPal by default & more](https://sylius.com/blog/new-release-sylius-1-9/)
