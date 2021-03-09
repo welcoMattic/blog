@@ -10,10 +10,12 @@ wget https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/hugo_exte
 unzip rclone-v$DL_RCLONE_VERSION-linux-amd64.zip
 tar xvf hugo_extended_"$HUGO_VERSION"_Linux-64bit.tar.gz
 
+# Build Twitter cards images
+./bin/tcardgen -o static/tcard -t og-picture-assets/og-picture-template.png -f og-picture-assets/fonts content/veille/*.md
+
 # Execute the site generation with Hugo
 chmod +x ./hugo
 ./hugo --gc --minify
- ./bin/tcardgen -o static/tcard -t og-picture-assets/og-picture-template.png -f og-picture-assets/fonts content/veille/*.md
 
 # Sync the site to Cellar
 ./rclone-v$DL_RCLONE_VERSION-linux-amd64/rclone sync ./public mys3:$MY_DOMAIN --progress --s3-acl=public-read
