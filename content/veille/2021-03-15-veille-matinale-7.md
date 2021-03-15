@@ -4,7 +4,7 @@ author: welcomattic
 description: News du jour
 date: 2021-03-15T08:00:00+01:00
 categories: ["News du jour"]
-tags: [""]
+tags: ["streaming", "loi", "gaming"]
 ---
 Après quelques jours sans veille matinale (urgences suite a l’incendie chez OVH), voici une nouvelle fournée de liens que j’ai pu lire ce matin.
 
