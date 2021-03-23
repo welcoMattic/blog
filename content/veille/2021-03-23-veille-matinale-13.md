@@ -10,4 +10,4 @@ tags: ["emoji", "RGPD", "space"]
 - [What’s new in SQLite 3.35 | Anton Zhiyanov](https://antonz.org/sqlite-3-35/)
 - [La grande braderie de vos données personnelles sur Le Bon Coin | Pixel de tracking](https://www.pixeldetracking.com/fr/home/le-bon-coin-donnees-personnelles-rgpd)
 - [Objectif Lune : la fusée Space Launch System (SLS) réussit son test de mise à feu statique](https://www.nextinpact.com/article/45516/objectif-lune-fusee-space-launch-system-sls-reussit-son-test-mise-a-feu-statique)
-- [LHC du CERN : 59 nouveaux hadrons découverts… « et ce n'est pas fini ! »](https://www.nextinpact.com/article/45540/lhc-cern-59-nouveaux-hadrons-decouverts-et-ce-nest-pas-fini)
+- [LHC du CERN : 59 nouveaux hadrons découverts… « et ce n’est pas fini ! »](https://www.nextinpact.com/article/45540/lhc-cern-59-nouveaux-hadrons-decouverts-et-ce-nest-pas-fini)
