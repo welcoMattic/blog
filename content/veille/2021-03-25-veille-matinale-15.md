@@ -10,3 +10,4 @@ tags: ["cybersec", "twitter", "cloud"]
 - [Pourquoi la contre-attaque contre ProxyLogon est-elle exceptionnelle ? - Cyberguerre](https://cyberguerre.numerama.com/11301-pourquoi-la-contre-attaque-contre-proxylogon-est-elle-exceptionnelle.html#utm_medium=distibuted&utm_source=rss&utm_campaign=11301)
 - [Incendie OVH : « la technologie SlapOS existe »](https://www.toolinux.com/?incendie-ovh-la-technologie-slapos-existe-rappelle-rapid-space&utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+toolinux+%28Toolinux+-+L%27actu+Linux+-+L%27actu+libre%29)
 - [JoliCode - Comment tester fonctionnellement un projet legacy](https://jolicode.com/blog/comment-tester-fonctionnellement-un-projet-legacy)
+- [Setting up a redirection server on Azure Cloud - redirection.io](https://redirection.io/documentation/knowledge-base/setting-up-a-redirection-server-on-azure-cloud)
