@@ -4,7 +4,7 @@ author: welcomattic
 description: News du jour
 date: 2021-05-05T08:00:00+01:00
 categories: ["News du jour"]
-tags: [""]
+tags: ["linux", "symfony", "afup", "ads"]
 ---
 
 - [elementary OS 6 dévoile de profonds remaniements dans une première bêta](https://www.nextinpact.com/article/45643/elementary-os-6-devoile-profonds-remaniements-dans-premiere-beta)
