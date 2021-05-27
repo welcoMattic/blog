@@ -5,6 +5,11 @@ admin_path:
 webhook_url: 
 sections:
 - type: directory
+  path: content/veille
+  label: Veille
+  create: all
+  match: "**/*"
+- type: directory
   path: content/oss
   label: Oss
   create: all
@@ -17,11 +22,6 @@ sections:
 - type: directory
   path: content/talks
   label: Talks
-  create: all
-  match: "**/*"
-- type: directory
-  path: content/veille
-  label: Veille
   create: all
   match: "**/*"
 - type: directory
