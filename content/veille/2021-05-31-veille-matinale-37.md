@@ -7,5 +7,5 @@ categories: ["News du jour"]
 tags: ["Cloud souverain", "SecNumCloud", "Bleu"]
 ---
 
-- [Cloud de confiance : le jour d'après](https://www.nextinpact.com/article/46140/cloud-confiance-jour-dapres)
+- [Cloud de confiance : le jour d’après](https://www.nextinpact.com/article/46140/cloud-confiance-jour-dapres)
 - [Doctrine Cloud au centre : un pas de géant pour la modernisation numérique de l’État, et des interrogations](https://blog.scaleway.com/fr/doctrine-cloud-au-centre-un-pas-de-geant-pour-la-modernisation-numerique-de-letat-et-des-interrogations/)
