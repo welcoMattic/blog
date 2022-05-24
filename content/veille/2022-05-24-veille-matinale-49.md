@@ -4,7 +4,7 @@ author: welcomattic
 description: News du jour
 date: 2022-05-24T08:00:00+01:00
 categories: ["News du jour"]
-tags: []
+tags: ["btrfs", "php", "beer"]
 ---
 
 - [Btrfs : révolution ou catastrophe ? Où en est-on aujourd’hui ?](https://blog.flozz.fr/2022/05/22/btrfs-revolution-ou-catastrophe-ou-en-est-on-aujourdhui)
