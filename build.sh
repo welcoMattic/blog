@@ -19,3 +19,5 @@ chmod +x ./hugo
 
 # Sync the site to Cellar
 ./rclone-v$DL_RCLONE_VERSION-linux-amd64/rclone sync ./public mys3:$MY_DOMAIN --progress --s3-acl=public-read
+
+clever stop
