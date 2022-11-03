@@ -4,7 +4,7 @@ author: welcomattic
 description: News du jour
 date: 2022-11-03T08:00:00+01:00
 categories: ["News du jour"]
-tags: ["twitter", "Symfony", "cybersec", "rgpd"]
+tags: ["twitter", "Symfony", "cybersec", "rgpd", "infra"]
 ---
 
 - [Using Tailwind CSS with Symfony Encore](https://chrisshennan.com/blog/using-tailwindcss-with-symfony-encore)
@@ -13,3 +13,4 @@ tags: ["twitter", "Symfony", "cybersec", "rgpd"]
 - [La lutte des classes du microblogging](https://www.zdnet.fr/blogs/zapping-decrypte/la-lutte-des-classes-du-microblogging-39949234.htm)
 - [New in Symfony 6.2: Better Emoji Support 🎉](https://symfony.com/blog/new-in-symfony-6-2-better-emoji-support?utm_source=Symfony%20Blog%20Feed&utm_medium=feed)
 - [New in Symfony 6.2: Built-in Cache, Security, Template and Doctrine Attributes](https://symfony.com/blog/new-in-symfony-6-2-built-in-cache-security-template-and-doctrine-attributes)
+- [Dans Les COULISSES De L’Un Des Plus GRANDS Data Centers en France ! - YouTube](https://www.youtube.com/watch?v=J9p-k-FFztQ)
