@@ -1,8 +1,8 @@
 ---
-title: "Veille matinale #51"
+title: "Veille matinale #52"
 author: welcomattic
 description: News du jour
-date: 2022-08-08T08:00:00+01:00
+date: 2022-11-03T08:00:00+01:00
 categories: ["News du jour"]
 tags: ["twitter", "Symfony", "cybersec", "rgpd"]
 ---
