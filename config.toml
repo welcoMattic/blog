@@ -20,6 +20,7 @@ buildExpired = false
   disableThemeToggle = false
   ShowReadingTime = true
   ShowShareButtons = true
+  mainSections = [ "blog", "veille" ]
   [params.homeInfoParams]
     Title = "Hi, I'm Mathieu"
     Content = "Web developer @ JoliCode"
