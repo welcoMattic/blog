@@ -23,11 +23,11 @@ buildExpired = false
   mainSections = [ "blog", "veille" ]
   [params.homeInfoParams]
     Title = "Hi, I'm Mathieu"
-    Content = "Web developer @ JoliCode"
+    Content = "Tech Expert at SensioLabs | Open Source Contributor | Speaker"
     imageUrl = "/img/profile_image.jpg"
   [[params.socialIcons]]
-    name = "twitter"
-    url = "https://twitter.com/welcomattic"
+    name = "bluesky"
+    url = "https://bsky.app/profile/welcomattic.com"
   [[params.socialIcons]]
     name = "github"
     url = "https://github.com/welcomattic"
