@@ -15,6 +15,14 @@ tags:
 
 [💬 Slides](https://welcomattic.github.io/slides-real-time-ai-chatbot-with-mercure)
 
+<embed
+    src="/pdf/mercure-sse-api-platform-et-un-llm-elevent-un-chat-bot.pdf#toolbar=0&navpanes=0&scrollbar=0"
+    type="application/pdf"
+    frameBorder="0"
+    scrolling="auto"
+    height="100%"
+    width="100%"></embed>
+
 Construire un chat temps réel avec Mercure, c'est le cas d'exemple basique, mais parlant. Bien.
 
 Mais à l'ère de l'IA, voyons ensemble comment intégrer un LLM dans un chatbot mettant en scène un client JS, une API PHP et Mercure ! Notre challenge sera de faire communiquer les différentes briques à travers Mercure uniquement, pour un maximum de performance et de fluidité!
