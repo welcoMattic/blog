@@ -1,1 +1,12 @@
-{"apps":[{"app_id":"app_946d4610-6b79-4665-8d78-fe57b14b937e","org_id":"user_b05c182b-cfec-4509-81f0-6b6bd3f85c49","deploy_url":"https://push-par-clevercloud-customers.services.clever-cloud.com/app_946d4610-6b79-4665-8d78-fe57b14b937e.git","name":"blog-builder","alias":"blog-builder"}]}
+{
+  "apps": [
+    {
+      "app_id": "app_40439c87-7dc0-4260-9f48-d0861575b52d",
+      "org_id": "user_b05c182b-cfec-4509-81f0-6b6bd3f85c49",
+      "deploy_url": "https://push-n3-par-clevercloud-customers.services.clever-cloud.com/app_40439c87-7dc0-4260-9f48-d0861575b52d.git",
+      "git_ssh_url": "git+ssh://git@push-n3-par-clevercloud-customers.services.clever-cloud.com/app_40439c87-7dc0-4260-9f48-d0861575b52d.git",
+      "name": "blog",
+      "alias": "blog"
+    }
+  ]
+}

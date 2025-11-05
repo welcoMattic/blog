@@ -5,11 +5,11 @@
         height="{{- .imageHeight | default 150 -}}" width="{{- .imageWidth | default 150 -}}" />{{- end}}
         <h1 style="margin-left: 2rem; align-self: center">{{- .Title | markdownify }}</h1>
     </header>
-    <section class="entry-content">
-        <p>{{- .Content | markdownify }}</p>
-    </section>
+    <div class="entry-content">
+        {{- .Content | markdownify }}
+    </div>
     <footer class="entry-footer">
-        {{- partial "social_icons.html" $.Site.Params.socialIcons -}}
+        {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
     </footer>
 </article>
 {{- end}}

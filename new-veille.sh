@@ -1,3 +1,5 @@
+#!/bin/bash
+
 date=$(date '+%Y-%m-%d')
 count=$(ls content/veille/ | wc -l)
 count=$((count+1))

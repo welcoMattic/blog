@@ -1,6 +1,5 @@
 baseURL = "https://blog.welcomattic.com"
 title = "welcomattic"
-paginate = 5
 theme = "PaperMod"
 language = "fr"
 enableRobotsTXT = true
@@ -8,6 +7,9 @@ enableInlineShortcodes = true
 buildDrafts = false
 buildFuture = false
 buildExpired = false
+
+[pagination]
+  pagerSize = 5
 
 [minify]
   disableXML = true
@@ -20,7 +22,7 @@ buildExpired = false
   disableThemeToggle = false
   ShowReadingTime = true
   ShowShareButtons = true
-  mainSections = [ "blog", "veille" ]
+  mainSections = [ "blog", "veille", "talks", "oss" ]
   [params.homeInfoParams]
     Title = "Hi, I'm Mathieu"
     Content = "Tech Expert at SensioLabs | Open Source Contributor | Speaker"
@@ -49,7 +51,7 @@ buildExpired = false
     safari_pinned_tab = "/safari-pinned-tab.svg"
 
 [privacy]
-  [privacy.twitter]
+  [privacy.x]
   disabled = false
   enableDNT = true
   simple = true
@@ -63,6 +65,8 @@ buildExpired = false
   privacyEnhanced = true
 
 [markup]
+  [markup.goldmark]
+    renderer.unsafe = true
   [markup.highlight]
     anchorLineNos = true
     codeFences = true
