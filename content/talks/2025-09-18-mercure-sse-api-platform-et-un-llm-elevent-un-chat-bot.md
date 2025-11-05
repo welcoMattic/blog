@@ -13,15 +13,9 @@ tags:
   - php
 ---
 
-[💬 Slides](https://welcomattic.github.io/slides-real-time-ai-chatbot-with-mercure)
+{{< youtube bvM82QfgVBo >}}
 
-<embed
-    src="/pdf/mercure-sse-api-platform-et-un-llm-elevent-un-chat-bot.pdf#toolbar=0&navpanes=0&scrollbar=0"
-    type="application/pdf"
-    frameBorder="0"
-    scrolling="auto"
-    height="100%"
-    width="100%"></embed>
+[💬 Slides](https://welcomattic.github.io/slides-real-time-ai-chatbot-with-mercure)
 
 Construire un chat temps réel avec Mercure, c'est le cas d'exemple basique, mais parlant. Bien.
 
