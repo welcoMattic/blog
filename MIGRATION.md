@@ -155,51 +155,43 @@ sur-mesure).
 
 ## 5. Propositions de thèmes
 
-Puisque le but est de **changer** de l'esthétique PaperMod, voici deux séries de propositions :
-des thèmes résolument modernes (animations, view transitions, identité visuelle forte), puis des
-options plus classiques gardées pour référence. Tous sont compatibles avec la parité de
-fonctionnalités (dark mode, tags, RSS).
+Direction retenue après itérations : un design **pro et « aesthetic »** pour un blog technique —
+propre, typographie soignée, inspirant. (Les pistes « animées » type Fuwari/AntfuStyle et les
+minimalistes type AstroPaper/Cactus ont été écartées.)
 
-### Thèmes modernes (recommandés)
+### Option A — [astro-erudite](https://github.com/jktrn/astro-erudite) ⭐ recommandé
+La référence du blog technique haut de gamme (821 ⭐, très activement maintenu, v2.0.1 juin 2026).
+Typographie fluide (Utopia), blocs de code **Expressive Code** (les plus beaux de l'écosystème :
+titres de fichiers, surlignage de lignes, diff), callouts façon GitHub, TOC avec scrollspy,
+dark/light natif, tags, RSS, sitemap, multi-auteurs. Zéro framework CSS — sobre, dense, précis.
+Démo : <https://astro-erudite.vercel.app> · en production : <https://enscribe.dev>.
+Effort : **moyen** (adapter aux 4 collections).
 
-#### Option A — [Fuwari](https://github.com/saicaca/fuwari) ⭐ recommandé
-Le thème « moderne » de référence (~4 000 ⭐, activement maintenu). Astro + Tailwind, transitions
-animées entre pages (Swup), cartes avec bannières, couleur d'accent personnalisable (hue picker),
-light/dark, TOC, recherche. Un rendu vivant et coloré, à l'opposé de PaperMod.
-Démo : <https://fuwari.vercel.app>. Effort : **moyen** (structuré autour d'une seule collection
-`posts` → adapter aux 4 sections).
+### Option B — [Dante](https://github.com/JustGoodUI/dante-astro-theme)
+Par le studio JustGoodUI : esthétique **éditoriale** épurée et élégante (grandes marges, typo
+sérif/sans mixée), blog + portfolio, dark/light, tags, RSS, formulaire d'abonnement. Le plus
+« magazine » des trois — inspirant et intemporel.
+Démo : <https://dante-astro-theme.netlify.app>. Effort : **moyen**.
 
-#### Option B — [AntfuStyle](https://github.com/lin-stephanie/astro-antfustyle-theme)
-Inspiré d'antfu.me, l'esthétique dev la plus « 2026 » : fonds animés configurables (plum, dots…),
-view transitions, recherche full-text, OG images générées dynamiquement, zoom d'images, zéro
-framework UI (Astro 7 pur + UnoCSS). Activement maintenu (v3.0.0 en juillet 2026). Pages
-projects/talks natives — colle bien à ta structure blog/talks/oss.
-Démo : <https://astro-antfustyle-theme.vercel.app>. Effort : **moyen**.
+### Option C — [Nordlys](https://astro.build/themes/details/nordlys/)
+Minimal et très propre, pensé blog + projets : blocs de code avec en-têtes personnalisés,
+thèmes de couleurs intégrés, dark/light. Bon équilibre sobriété/personnalité pour un blog dev.
+Effort : **moyen**.
 
-#### Option C — [Retypeset](https://github.com/radishzzz/astro-theme-retypeset)
-« Revive the beauty of typography » : mise en page éditoriale magnifique façon livre, animations
-subtiles, i18n multilingue, light/dark. Le plus élégant si tu veux un blog au rendu premium et
-intemporel plutôt que gadget. Démo : <https://retypeset.radishzz.cc>. Effort : **moyen**.
+### Option D — [Litos](https://github.com/Dnzzk2/Litos)
+Design system poli inspiré de shadcn/ui, animations fluides discrètes, layouts d'articles
+multiples, Astro 5 + React 19 + Tailwind 4. Très beau mais jeune (140 ⭐, v1.0.0 févr. 2026) —
+choix plus risqué en maintenance. Démo : <https://litos.vercel.app>. Effort : **moyen**.
 
-#### Option D — [Astro Sphere](https://github.com/markhorn-dev/astro-sphere)
-Portfolio + blog animé (particules en fond de hero, micro-interactions), Lighthouse 100/100,
-recherche, sections blog/projects/work proches de ta structure. Bémol : maintenance en retrait
-(dernière release avril 2024). Effort : **moyen**.
+### Option E — Premium : [The Void](https://the-void.cosmicthemes.com/) (Cosmic Themes, 79 $)
+Qualité « agence » : blog sleek et minimaliste, animations soignées, i18n, SEO, support pro.
+Alternative : [Blogsmith Pro](https://blogsmith-pro.cosmicthemes.com/) (49 $).
+Effort : **faible à moyen**, coût licence en sus.
 
-#### Option E — [Multiterm](https://github.com/stelcodes/multiterm-astro)
-Ambiance « terminal de dev » assumée avec 60 palettes de couleurs au choix — très fort marqueur
-d'identité pour un blog de dev PHP/Symfony, fun et différenciant. Effort : **faible à moyen**.
-
-### Options classiques (pour référence)
-
-- [Astro Cactus](https://github.com/chrismwilliams/astro-theme-cactus) — sobre et soigné,
-  Pagefind, activement maintenu. Effort : **faible à moyen**.
-- [AstroPaper](https://github.com/satnaing/astro-paper) — le plus populaire, mais esthétiquement
-  proche de PaperMod. Effort : **faible**.
-- [Astro Micro](https://github.com/trevortylerlee/astro-micro) — ultra-minimaliste. Effort :
-  **faible**.
-- Thème sur-mesure (Tailwind) — identité visuelle unique à définir ensemble. Effort :
-  **+1 à 2 jours**.
+### Option F — Sur-mesure guidé par références
+Design custom Tailwind inspiré des meilleurs blogs techniques (leerob.com, joshwcomeau.com,
+rauno.me, paco.me) : 2-3 maquettes HTML de la home + d'une page article à valider avant
+implémentation. Identité unique, aucune dette envers un thème tiers. Effort : **+1 à 2 jours**.
 
 Dans tous les cas le thème n'affecte que la phase 3 ; les phases contenus/URLs/flux sont
 indépendantes du choix.
