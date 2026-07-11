@@ -153,45 +153,40 @@ sur-mesure).
 6. **Trailing slashes** : Hugo sert `/blog/xxx/` ; configurer Astro en `directory` + redirections
    Clever Cloud inchangées.
 
-## 5. Propositions de thèmes
+## 5. Thème retenu : Dante
 
-Direction retenue après itérations : un design **pro et « aesthetic »** pour un blog technique —
-propre, typographie soignée, inspirant. (Les pistes « animées » type Fuwari/AntfuStyle et les
-minimalistes type AstroPaper/Cactus ont été écartées.)
+**Décision : [Dante](https://github.com/JustGoodUI/dante-astro-theme)** (JustGoodUI) — esthétique
+éditoriale épurée, blog + portfolio, dark/light, tags, RSS.
+Démo : <https://dante-astro-theme.netlify.app>.
+(Écartés au fil des itérations : PaperMod-likes, thèmes animés type Fuwari/AntfuStyle,
+astro-erudite, Nordlys, Litos, premium Cosmic Themes.)
 
-### Option A — [astro-erudite](https://github.com/jktrn/astro-erudite) ⭐ recommandé
-La référence du blog technique haut de gamme (821 ⭐, très activement maintenu, v2.0.1 juin 2026).
-Typographie fluide (Utopia), blocs de code **Expressive Code** (les plus beaux de l'écosystème :
-titres de fichiers, surlignage de lignes, diff), callouts façon GitHub, TOC avec scrollspy,
-dark/light natif, tags, RSS, sitemap, multi-auteurs. Zéro framework CSS — sobre, dense, précis.
-Démo : <https://astro-erudite.vercel.app> · en production : <https://enscribe.dev>.
-Effort : **moyen** (adapter aux 4 collections).
+### Validation du rendu des code blocks PHP (fait le 11/07/2026)
 
-### Option B — [Dante](https://github.com/JustGoodUI/dante-astro-theme)
-Par le studio JustGoodUI : esthétique **éditoriale** épurée et élégante (grandes marges, typo
-sérif/sans mixée), blog + portfolio, dark/light, tags, RSS, formulaire d'abonnement. Le plus
-« magazine » des trois — inspirant et intemporel.
-Démo : <https://dante-astro-theme.netlify.app>. Effort : **moyen**.
+Test réel : thème buildé localement avec un article contenant du PHP (authenticator Symfony),
+du YAML et du Twig. Résultat :
 
-### Option C — [Nordlys](https://astro.build/themes/details/nordlys/)
-Minimal et très propre, pensé blog + projets : blocs de code avec en-têtes personnalisés,
-thèmes de couleurs intégrés, dark/light. Bon équilibre sobriété/personnalité pour un blog dev.
-Effort : **moyen**.
+- ✅ Coloration Shiki `github-dark` (défaut Astro) : PHP, YAML et Twig bien colorés, lisibles,
+  cartes sombres arrondies dans les deux modes (light/dark) ;
+- ✅ Longues lignes : scroll horizontal (`overflow-x: auto`), pas de troncature ;
+- ✅ Mobile : blocs lisibles, scroll horizontal fonctionnel ;
+- ⚠️ Code inline : backticks affichés autour du code (comportement par défaut de
+  `@tailwindcss/typography`) — à neutraliser si non désiré (2 lignes de CSS) ;
+- 💡 Amélioration possible en phase 3 : brancher **Expressive Code** (titres de fichiers,
+  surlignage de lignes, diff, bouton copier) à la place de Shiki nu — compatible Astro 5,
+  s'intègre sans toucher au contenu Markdown.
 
-### Option D — [Litos](https://github.com/Dnzzk2/Litos)
-Design system poli inspiré de shadcn/ui, animations fluides discrètes, layouts d'articles
-multiples, Astro 5 + React 19 + Tailwind 4. Très beau mais jeune (140 ⭐, v1.0.0 févr. 2026) —
-choix plus risqué en maintenance. Démo : <https://litos.vercel.app>. Effort : **moyen**.
+### Adaptations du thème à prévoir (phase 3)
 
-### Option E — Premium : [The Void](https://the-void.cosmicthemes.com/) (Cosmic Themes, 79 $)
-Qualité « agence » : blog sleek et minimaliste, animations soignées, i18n, SEO, support pro.
-Alternative : [Blogsmith Pro](https://blogsmith-pro.cosmicthemes.com/) (49 $).
-Effort : **faible à moyen**, coût licence en sus.
-
-### Option F — Sur-mesure guidé par références
-Design custom Tailwind inspiré des meilleurs blogs techniques (leerob.com, joshwcomeau.com,
-rauno.me, paco.me) : 2-3 maquettes HTML de la home + d'une page article à valider avant
-implémentation. Identité unique, aucune dette envers un thème tiers. Effort : **+1 à 2 jours**.
+1. **Menu mobile à restyler** (demande explicite) : actuellement un petit dropdown à bordure
+   pointillée en haut à gauche qui chevauche le contenu — à remplacer (ex. panneau plein écran
+   ou drawer coulissant avec fond opaque). Design précis à valider sur maquette.
+2. Retirer les backticks du code inline (cf. ci-dessus).
+3. Ajouter les sections `veille` et `talks` à la navigation (Dante est mono-section blog +
+   projects → mapper `projects` sur `oss` et créer les listes veille/talks).
+4. Traduction FR des libellés du thème (Read Next, Share, newsletter — supprimer ou brancher
+   le formulaire d'abonnement).
+5. Reprendre la home actuelle (photo + bio + icônes sociales) dans le hero de Dante.
 
 Dans tous les cas le thème n'affecte que la phase 3 ; les phases contenus/URLs/flux sont
 indépendantes du choix.
