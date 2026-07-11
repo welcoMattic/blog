@@ -155,28 +155,51 @@ sur-mesure).
 
 ## 5. Propositions de thèmes
 
-Puisque le but est de **changer** de l'esthétique PaperMod (minimalisme sobre), voici quatre
-directions, toutes compatibles avec la parité de fonctionnalités (dark mode, tags, RSS, i18n fr) :
+Puisque le but est de **changer** de l'esthétique PaperMod, voici deux séries de propositions :
+des thèmes résolument modernes (animations, view transitions, identité visuelle forte), puis des
+options plus classiques gardées pour référence. Tous sont compatibles avec la parité de
+fonctionnalités (dark mode, tags, RSS).
 
-### Option A — [Astro Cactus](https://github.com/chrismwilliams/astro-theme-cactus) ⭐ recommandé
-Thème Astro + Tailwind très soigné et activement maintenu : dark/light, recherche Pagefind
-intégrée, pages de tags, RSS, excellent SEO. Plus de personnalité que PaperMod (accents colorés,
-typo travaillée) tout en restant lisible et rapide. Effort d'adaptation : **faible à moyen**
-(ajouter les 4 collections et les routes de compat URL).
+### Thèmes modernes (recommandés)
 
-### Option B — [AstroPaper](https://github.com/satnaing/astro-paper)
-Le thème blog Astro le plus populaire : ultra-accessible, recherche Pagefind, OG images
-dynamiques, light/dark. Esthétiquement proche de PaperMod (minimal) — bon choix si tu veux
-moderniser la stack sans dépayser tes lecteurs. Effort : **faible**.
+#### Option A — [Fuwari](https://github.com/saicaca/fuwari) ⭐ recommandé
+Le thème « moderne » de référence (~4 000 ⭐, activement maintenu). Astro + Tailwind, transitions
+animées entre pages (Swup), cartes avec bannières, couleur d'accent personnalisable (hue picker),
+light/dark, TOC, recherche. Un rendu vivant et coloré, à l'opposé de PaperMod.
+Démo : <https://fuwari.vercel.app>. Effort : **moyen** (structuré autour d'une seule collection
+`posts` → adapter aux 4 sections).
 
-### Option C — [Astro Micro](https://github.com/trevortylerlee/astro-micro)
-Ultra-minimaliste et élégant (successeur d'Astro Nano), Pagefind, commentaires Giscus en option.
-Radicalement épuré : idéal si tu veux un site « carte de visite » très sobre. Effort : **faible**,
-mais la structure multi-sections (blog/veille/talks/oss) demandera un peu d'adaptation.
+#### Option B — [AntfuStyle](https://github.com/lin-stephanie/astro-antfustyle-theme)
+Inspiré d'antfu.me, l'esthétique dev la plus « 2026 » : fonds animés configurables (plum, dots…),
+view transitions, recherche full-text, OG images générées dynamiquement, zoom d'images, zéro
+framework UI (Astro 7 pur + UnoCSS). Activement maintenu (v3.0.0 en juillet 2026). Pages
+projects/talks natives — colle bien à ta structure blog/talks/oss.
+Démo : <https://astro-antfustyle-theme.vercel.app>. Effort : **moyen**.
 
-### Option D — Thème sur-mesure (Tailwind)
-Design custom construit sur les gabarits de la phase 3 : identité visuelle unique (à définir
-ensemble : palette, typo, ambiance), aucune dette envers un thème tiers. Effort : **+1 à 2 jours**.
+#### Option C — [Retypeset](https://github.com/radishzzz/astro-theme-retypeset)
+« Revive the beauty of typography » : mise en page éditoriale magnifique façon livre, animations
+subtiles, i18n multilingue, light/dark. Le plus élégant si tu veux un blog au rendu premium et
+intemporel plutôt que gadget. Démo : <https://retypeset.radishzz.cc>. Effort : **moyen**.
+
+#### Option D — [Astro Sphere](https://github.com/markhorn-dev/astro-sphere)
+Portfolio + blog animé (particules en fond de hero, micro-interactions), Lighthouse 100/100,
+recherche, sections blog/projects/work proches de ta structure. Bémol : maintenance en retrait
+(dernière release avril 2024). Effort : **moyen**.
+
+#### Option E — [Multiterm](https://github.com/stelcodes/multiterm-astro)
+Ambiance « terminal de dev » assumée avec 60 palettes de couleurs au choix — très fort marqueur
+d'identité pour un blog de dev PHP/Symfony, fun et différenciant. Effort : **faible à moyen**.
+
+### Options classiques (pour référence)
+
+- [Astro Cactus](https://github.com/chrismwilliams/astro-theme-cactus) — sobre et soigné,
+  Pagefind, activement maintenu. Effort : **faible à moyen**.
+- [AstroPaper](https://github.com/satnaing/astro-paper) — le plus populaire, mais esthétiquement
+  proche de PaperMod. Effort : **faible**.
+- [Astro Micro](https://github.com/trevortylerlee/astro-micro) — ultra-minimaliste. Effort :
+  **faible**.
+- Thème sur-mesure (Tailwind) — identité visuelle unique à définir ensemble. Effort :
+  **+1 à 2 jours**.
 
 Dans tous les cas le thème n'affecte que la phase 3 ; les phases contenus/URLs/flux sont
 indépendantes du choix.
