@@ -73,8 +73,8 @@ body {
   background: var(--shell);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 1.125rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -104,9 +104,9 @@ h1, h2, h3, h4 {
   text-wrap: balance;
 }
 
-h1 { font-size: 2rem; }
-h2 { font-size: 1.45rem; }
-h3 { font-size: 1.15rem; }
+h1 { font-size: 2.3rem; }
+h2 { font-size: 1.65rem; }
+h3 { font-size: 1.3rem; }
 
 a {
   color: var(--accent);
@@ -240,7 +240,7 @@ th, td {
 
 .entry-title {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 600;
   margin: 0.15rem 0;
 }
@@ -257,7 +257,7 @@ th, td {
 .entry-excerpt {
   margin: 0.25rem 0 0.4rem;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
 }
 
 .flag {
@@ -267,10 +267,13 @@ th, td {
 /* Prose d'article, typographie maudet.cloud : corps ET titres en Newsreader */
 .prose {
   font-family: var(--font-serif);
-  font-size: 1.0625rem;
-  line-height: 1.62;
+  font-size: 1.25rem;
+  line-height: 1.72;
   color: var(--text-prose);
   overflow-wrap: break-word;
+  /* Colonne de lecture : assez large pour du code, mais bornee pour le confort */
+  max-width: 48rem;
+  margin: 0 auto;
 }
 
 .prose a {
@@ -433,15 +436,25 @@ th, td {
   }
 
   body {
+    font-size: 1.0625rem;
     line-height: 1.6;
   }
 
   h1 {
-    font-size: 1.6rem;
+    font-size: 1.95rem;
+  }
+
+  .prose {
+    font-size: 1.15rem;
+    line-height: 1.68;
+  }
+
+  .entry-title {
+    font-size: 1.3rem;
   }
 
   pre {
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     padding: 0.8rem;
   }
 }
