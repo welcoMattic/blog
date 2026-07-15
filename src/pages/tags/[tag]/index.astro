@@ -1,0 +1,20 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EntryList from '../../../components/EntryList.astro';
+import { tagsIndex } from '../../../lib/taxonomies';
+
+export async function getStaticPaths() {
+  const index = await tagsIndex();
+  return Object.entries(index).map(([slug, data]) => ({
+    params: { tag: slug },
+    props: data,
+  }));
+}
+
+const { label, entries } = Astro.props;
+---
+
+<Base title={`#${label.toLowerCase()}`} description={`Contenus tagués ${label} sur le blog de Mathieu Santostefano.`}>
+  <h1>#{label.toLowerCase()}</h1>
+  <EntryList entries={entries} />
+</Base>

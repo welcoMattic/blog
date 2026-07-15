@@ -1,0 +1,20 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EntryList from '../../../components/EntryList.astro';
+import { categoriesIndex } from '../../../lib/taxonomies';
+
+export async function getStaticPaths() {
+  const index = await categoriesIndex();
+  return Object.entries(index).map(([slug, data]) => ({
+    params: { category: slug },
+    props: data,
+  }));
+}
+
+const { label, entries } = Astro.props;
+---
+
+<Base title={label} description={`Contenus de la catégorie ${label} sur le blog de Mathieu Santostefano.`}>
+  <h1>{label}</h1>
+  <EntryList entries={entries} />
+</Base>

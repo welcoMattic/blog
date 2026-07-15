@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description: string;
+  canonicalURL?: string;
+  noindex?: boolean;
+  lang?: 'fr' | 'en';
+  ogImage?: string;
+  article?: { publishedTime: Date; modifiedTime?: Date; tags?: string[] };
+}
+
+const { lang = 'fr', ...head } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <BaseHead lang={lang} {...head} />
+    <Font cssVariable="--font-serif" preload />
+    <Font cssVariable="--font-sans" preload />
+    <script is:inline>
+      (() => {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.dataset.theme = saved;
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="frame">
+      <Header />
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

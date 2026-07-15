@@ -11,6 +11,8 @@ tags:
   - chatbot
   - ia
   - php
+type: conference
+pdf: /pdf/mercure-sse-api-platform-et-un-llm-elevent-un-chat-bot.pdf
 ---
 
 {{< youtube bvM82QfgVBo >}}

@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import EntryList from '../components/EntryList.astro';
+import { excerpt, veilleDescription } from '../lib/utils';
+import profile from '../assets/profile_image.jpg';
+
+const [blog, veille, talks] = await Promise.all([
+  getCollection('blog'),
+  getCollection('veille'),
+  getCollection('talks'),
+]);
+
+const entries = [
+  ...blog.map((e) => ({
+    href: `/blog/${e.id}/`,
+    title: e.data.title,
+    date: e.data.date,
+    eyebrow: 'blog',
+    excerpt: e.data.description ?? excerpt(e.body, 120),
+    lang: e.data.lang,
+  })),
+  ...veille.map((e) => ({
+    href: `/veille/${e.id}/`,
+    title: e.data.title,
+    date: e.data.date,
+    eyebrow: 'veille',
+    excerpt: veilleDescription(e.body, e.data.date),
+  })),
+  ...talks.map((e) => ({
+    href: `/talks/${e.id}/`,
+    title: e.data.title,
+    date: e.data.date,
+    eyebrow: 'talks',
+    excerpt: e.data.description ?? excerpt(e.body, 120),
+    lang: e.data.lang,
+  })),
+]
+  .sort((a, b) => b.date.valueOf() - a.date.valueOf())
+  .slice(0, 8);
+
+const description =
+  'Blog de Mathieu Santostefano (welcomattic), Tech Expert chez SensioLabs, membre de la Symfony Core Team : PHP, Symfony, web et open source.';
+---
+
+<Base description={description}>
+  <section class="bio">
+    <Image src={profile} alt="Portrait de Mathieu Santostefano" width={150} height={150} loading="eager" />
+    <div>
+      <h1>Hi, I'm Mathieu</h1>
+      <p>
+        Tech Expert at <a href="https://sensiolabs.com">SensioLabs</a>
+        {' | '}
+        <a href="https://www.clever.cloud">Clever Cloud</a> Ambassador
+        {' | '}Open Source Contributor{' | '}Speaker
+      </p>
+    </div>
+  </section>
+
+  <h2 class="eyebrow" data-i18n="latest">Derniers contenus</h2>
+  <EntryList entries={entries} />
+</Base>
+
+<style>
+  .bio {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .bio img {
+    border-radius: 50%;
+  }
+
+  .bio h1 {
+    margin: 0 0 0.35rem;
+  }
+
+  .bio p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  h2.eyebrow {
+    font-size: 0.72rem;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 30rem) {
+    .bio {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+  }
+</style>

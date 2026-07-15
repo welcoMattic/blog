@@ -1,0 +1,37 @@
+name: Deploy to Cellar
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-cellar
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Cache du traitement images + telechargement des polices (API Fonts)
+      - uses: actions/cache@v4
+        with:
+          path: node_modules/.astro
+          key: astro-cache-${{ hashFiles('content/**', 'src/assets/**', 'astro.config.mjs') }}
+          restore-keys: astro-cache-
+
+      # aws CLI est preinstalle sur ubuntu-latest ; le script build + synchronise.
+      - name: Build & deploy
+        run: bash scripts/deploy-cellar.sh
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.CELLAR_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CELLAR_KEY_SECRET }}

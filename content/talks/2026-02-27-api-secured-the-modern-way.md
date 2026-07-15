@@ -9,8 +9,10 @@ tags:
   - oauth2
   - oidc
   - jwt
+lang: en
+type: conference
+pdf: /pdf/2026-02-27-api-secured-the-modern-way.pdf
 ---
-
 [💬 Slides](https://speakerdeck.com/welcomattic/api-secured-the-modern-way)
 
 Securing APIs has become more standardized with modern solutions like OAuth2, OIDC, JWT and rate limiting. 

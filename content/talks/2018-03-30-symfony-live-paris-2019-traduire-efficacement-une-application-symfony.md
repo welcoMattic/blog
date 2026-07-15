@@ -7,6 +7,7 @@ tags:
   - talk
   - traduction
   - i18n
+type: conference
 ---
 
 {{< youtube zP6vbkc-GJY >}}

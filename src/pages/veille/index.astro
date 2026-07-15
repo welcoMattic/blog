@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import EntryList from '../../components/EntryList.astro';
+import { veilleDescription } from '../../lib/utils';
+
+const issues = (await getCollection('veille')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const entries = issues.map((e) => ({
+  href: `/veille/${e.id}/`,
+  title: e.data.title,
+  date: e.data.date,
+  eyebrow: 'veille',
+  excerpt: veilleDescription(e.body, e.data.date),
+}));
+---
+
+<Base title="Veille" description="Veille matinale de Mathieu Santostefano : liens du jour sur le web, PHP, Symfony et la tech.">
+  <h1>Veille</h1>
+  <EntryList entries={entries} />
+</Base>

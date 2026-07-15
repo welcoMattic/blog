@@ -1,0 +1,104 @@
+---
+import Base from '../../layouts/Base.astro';
+import { contributions, bridges, projects, archived, type OssProject } from '../../data/oss';
+
+const sections: Array<{ title: string; items: OssProject[]; allUnmaintained?: boolean }> = [
+  { title: 'Contributions', items: contributions },
+  { title: 'Bridges & providers Symfony', items: bridges },
+  { title: 'Mes projets', items: projects },
+  { title: 'Archivés', items: archived, allUnmaintained: true },
+];
+---
+
+<Base title="OSS" description="Open Source Software projects to which I contribute">
+  <h1>OSS</h1>
+  <p class="meta">Open Source Software projects to which I contribute</p>
+
+  {
+    sections.map(({ title, items, allUnmaintained }) => (
+      <section>
+        <h2 class="eyebrow">{title}</h2>
+        <ul class="hairline-list">
+          {items.map((p) => {
+            const unmaintained = allUnmaintained || p.unmaintained;
+            const openSource = p.openSource !== false;
+            return (
+              <li class={unmaintained ? 'is-unmaintained' : undefined}>
+                <div class="row-top">
+                  <p class="entry-title">
+                    <a href={p.url}>{p.name}</a>
+                    {openSource ? (
+                      <span class="badge badge-oss" title="Code open source">open source</span>
+                    ) : (
+                      <span class="badge" title="Projet propriétaire">propriétaire</span>
+                    )}
+                    {unmaintained && <span class="badge" title="Projet non maintenu">non maintenu</span>}
+                  </p>
+                  <span class="meta">
+                    {p.stars ? `★ ${p.stars}` : ''}
+                    {p.stars && p.language ? ' · ' : ''}
+                    {p.language ?? ''}
+                  </span>
+                </div>
+                <p class="entry-excerpt">{p.description}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))
+  }
+</Base>
+
+<style>
+  h2.eyebrow {
+    font-size: 0.72rem;
+    margin: 2.5rem 0 0;
+  }
+
+  .row-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .entry-title {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .entry-excerpt {
+    margin-top: 0.2rem;
+  }
+
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    padding: 0.02rem 0.45rem;
+  }
+
+  /* Distinction visuelle : open source teinté accent, propriétaire neutre */
+  .badge-oss {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* Différenciation visuelle discrète du non-maintenu */
+  .is-unmaintained {
+    opacity: 0.65;
+  }
+
+  .is-unmaintained:hover,
+  .is-unmaintained:focus-within {
+    opacity: 1;
+  }
+</style>

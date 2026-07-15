@@ -1,0 +1,43 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <span>© {year} Mathieu Santostefano</span>
+  <nav>
+    <a href="/veille/" data-i18n="veilleArchive">Archive de veille</a>
+    <a href="/index.xml">RSS</a>
+    <a href="https://github.com/welcomattic">GitHub</a>
+    <a rel="me" href="https://phpc.social/@welcomattic">Mastodon</a>
+    <a href="https://bsky.app/profile/welcomattic.com">Bluesky</a>
+  </nav>
+</footer>
+
+<style>
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--hairline);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  footer nav {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  footer a {
+    color: var(--muted);
+  }
+
+  footer a:hover {
+    color: var(--accent);
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import EntryList from '../../components/EntryList.astro';
+import { excerpt } from '../../lib/utils';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const entries = posts.map((e) => ({
+  href: `/blog/${e.id}/`,
+  title: e.data.title,
+  date: e.data.date,
+  eyebrow: 'blog',
+  excerpt: e.data.description ?? excerpt(e.body, 140),
+  lang: e.data.lang,
+}));
+---
+
+<Base title="Blog" description="Articles de Mathieu Santostefano : PHP, Symfony, web et open source.">
+  <h1>Blog</h1>
+  <EntryList entries={entries} />
+</Base>

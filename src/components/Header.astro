@@ -1,0 +1,143 @@
+---
+const sections = [
+  { href: '/blog/', label: 'blog' },
+  { href: '/talks/', label: 'speaking' },
+  { href: '/oss/', label: 'oss' },
+];
+const current = Astro.url.pathname;
+---
+
+<header>
+  <a class="brand" href="/">welcomattic</a>
+  <nav>
+    {
+      sections.map((s) => (
+        <a href={s.href} aria-current={current.startsWith(s.href) ? 'page' : undefined}>
+          {s.label}
+        </a>
+      ))
+    }
+    <button id="lang-toggle" aria-label="Switch language">EN</button>
+    <button id="theme-toggle" aria-label="Changer de thème">◐</button>
+  </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 44rem) {
+    header {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .brand {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text);
+  }
+
+  .brand:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  nav {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  nav a {
+    color: var(--muted);
+  }
+
+  nav a:hover,
+  nav a[aria-current='page'] {
+    color: var(--accent);
+  }
+
+  #theme-toggle,
+  #lang-toggle {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 1rem;
+    padding: 0;
+    line-height: 1;
+  }
+
+  #lang-toggle {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  #theme-toggle:hover,
+  #lang-toggle:hover {
+    color: var(--accent);
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    // Theme toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const root = document.documentElement;
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const active = root.dataset.theme ?? (prefersDark ? 'dark' : 'light');
+        const next = active === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    // UI locale switcher: static chrome strings only, content untouched. fr = index 0, en = index 1.
+    const I18N = {
+      latest: ['Derniers contenus', 'Latest content'],
+      readingTime: ['{n} min de lecture', '{n} min read'],
+      origin: ['Publié à l’origine sur', 'Originally published on'],
+      notFound: ['Cette page n’existe pas (ou plus).', 'This page does not exist (anymore).'],
+      backHome: ['Retour à l’accueil', 'Back home'],
+      veilleArchive: ['Archive de veille', 'Veille archive'],
+    };
+
+    const langBtn = document.getElementById('lang-toggle');
+
+    const applyLang = (lang) => {
+      const idx = lang === 'en' ? 1 : 0;
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const entry = I18N[el.dataset.i18n];
+        if (!entry) return;
+        let text = entry[idx];
+        if (el.dataset.minutes) text = text.replace('{n}', el.dataset.minutes);
+        el.textContent = text;
+      });
+      if (langBtn) langBtn.textContent = lang === 'en' ? 'FR' : 'EN';
+    };
+
+    const saved = localStorage.getItem('ui-lang');
+    if (saved === 'en') applyLang('en');
+
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const next = (localStorage.getItem('ui-lang') ?? 'fr') === 'fr' ? 'en' : 'fr';
+        localStorage.setItem('ui-lang', next);
+        applyLang(next);
+      });
+    }
+  })();
+</script>

@@ -1,0 +1,48 @@
+---
+import { formatDate, langFlag, sectionLabel } from '../lib/utils';
+
+export interface Entry {
+  href: string;
+  title: string;
+  date: Date;
+  eyebrow: string;
+  excerpt?: string;
+  lang?: 'fr' | 'en';
+  // Optional override for the eyebrow display text (href still uses `eyebrow`).
+  label?: string;
+  // Optional value emitted as `data-type`, used by the speaking CSS filter.
+  type?: string;
+}
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<ul class="hairline-list">
+  {
+    entries.map((e) => (
+      <li data-type={e.type}>
+        <div class="row-top">
+          <a class="eyebrow" href={`/${e.eyebrow}/`}>{e.label ?? sectionLabel(e.eyebrow)}</a>
+          <span class="meta">{formatDate(e.date, 'fr')}</span>
+          <span class="flag" title={e.lang === 'en' ? 'English' : 'Français'}>{langFlag(e.lang)}</span>
+        </div>
+        <p class="entry-title">
+          <a href={e.href} lang={e.lang}>{e.title}</a>
+        </p>
+        {e.excerpt && <p class="entry-excerpt">{e.excerpt}</p>}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .row-top {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+</style>

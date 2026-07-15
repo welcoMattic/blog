@@ -7,6 +7,8 @@ tags:
   - talk
   - images
   - responsive
+type: conference
+pdf: /pdf/2019-03-29-des-images-au-cordeau.pdf
 ---
 
 [📺 Vidéo](https://symfonycasts.com/screencast/paris2019/des-images-au-cordeau-pour-vos-applications-symfony)

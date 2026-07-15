@@ -6,8 +6,10 @@ tags:
   - symfony
   - ai
   - php
+lang: en
+type: conference
+pdf: /pdf/2026-02-25-unveil-symfony-ai.pdf
 ---
-
 [💬 Slides](https://speakerdeck.com/welcomattic/unveil-symfony-ai)
 
 July 2025, the Symfony AI was launched as an initiative, just like Symfony UX, to help developers integrate AI into their apps with ready-to-use components and bundles.

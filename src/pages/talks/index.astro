@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import EntryList from '../../components/EntryList.astro';
+import { excerpt, TALK_TYPE_LABELS, TALK_TYPE_SINGULAR, TALK_TYPE_ORDER } from '../../lib/utils';
+
+const talks = (await getCollection('talks')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const entries = talks.map((e) => ({
+  href: `/talks/${e.id}/`,
+  title: e.data.title,
+  date: e.data.date,
+  eyebrow: 'talks',
+  label: TALK_TYPE_SINGULAR[e.data.type],
+  type: e.data.type,
+  excerpt: e.data.description ?? excerpt(e.body, 140),
+  lang: e.data.lang,
+}));
+
+// Only offer filters for types that actually have entries.
+const presentTypes = TALK_TYPE_ORDER.filter((t) => talks.some((e) => e.data.type === t));
+---
+
+<Base
+  title="Speaking"
+  description="Conférences, podcasts et lightning talks de Mathieu Santostefano : Symfony, PHP, IA, traduction et web."
+>
+  <h1>Speaking</h1>
+
+  <div class="speaking">
+    <fieldset class="seg">
+      <legend class="sr-only">Filtrer par type</legend>
+      <input type="radio" name="speaking-filter" id="f-all" checked />
+      <label for="f-all">Tout</label>
+      {
+        presentTypes.map((t) => (
+          <>
+            <input type="radio" name="speaking-filter" id={`f-${t}`} />
+            <label for={`f-${t}`}>{TALK_TYPE_LABELS[t]}</label>
+          </>
+        ))
+      }
+    </fieldset>
+
+    <EntryList entries={entries} />
+  </div>
+</Base>

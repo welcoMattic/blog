@@ -1,0 +1,452 @@
+/* Design tokens alignés sur blog.maudet.cloud (validé par Mathieu) :
+   page sur fond shell, carte paper avec filet + ombre, prose serif Newsreader,
+   chrome sans Schibsted Grotesk, accent brick. Dark mode zinc conservé.
+   --font-serif et --font-sans sont fournis par l'API Fonts d'Astro. */
+
+:root {
+  --shell: #e7e2d7;
+  --paper: #f6f3ec;
+  --paper-soft: #f1ece1;
+  --text: #1a1a17;
+  --text-prose: #2a2822;
+  --muted: #6b675d;
+  --faint: #8a8578;
+  --accent: #9c3328;
+  --accent-dark: #7e271d;
+  --hairline: #ddd8cc;
+  --code-bg: #f1ece1;
+  --shadow-card: 0 18px 50px -28px rgba(40, 30, 20, 0.32);
+
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+:root[data-theme='dark'] {
+  --shell: #0f0f11;
+  --paper: #1a1a1e;
+  --paper-soft: #222226;
+  --text: #e4e4e7;
+  --text-prose: #d9d9dd;
+  --muted: #a1a1aa;
+  --faint: #7c7c85;
+  --accent: #d98a92;
+  --accent-dark: #c4707a;
+  --hairline: #2a2a2f;
+  --code-bg: #232327;
+  --shadow-card: 0 18px 50px -28px rgba(0, 0, 0, 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --shell: #0f0f11;
+    --paper: #1a1a1e;
+    --paper-soft: #222226;
+    --text: #e4e4e7;
+    --text-prose: #d9d9dd;
+    --muted: #a1a1aa;
+    --faint: #7c7c85;
+    --accent: #d98a92;
+    --accent-dark: #c4707a;
+    --hairline: #2a2a2f;
+    --code-bg: #232327;
+    --shadow-card: 0 18px 50px -28px rgba(0, 0, 0, 0.6);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--shell);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Carte principale, structure .frame de maudet.cloud */
+.frame {
+  max-width: 64rem;
+  margin: 2.5rem auto;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  box-shadow: var(--shadow-card);
+  padding: 2rem clamp(20px, 5vw, 64px) 3.5rem;
+}
+
+main {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 2rem 0 0.75rem;
+  text-wrap: balance;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.15rem; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--hairline);
+  margin: 2rem 0;
+}
+
+sup {
+  font-size: 0.7em;
+  line-height: 0;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+}
+
+pre {
+  padding: 1rem;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* Shiki double thème : bascule vers la palette dark avec le toggle ou l'OS */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .astro-code,
+  :root:not([data-theme='light']) .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+  }
+}
+
+:root[data-theme='dark'] .astro-code,
+:root[data-theme='dark'] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+th, td {
+  border: 1px solid var(--hairline);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+}
+
+/* Utilities */
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 0.05rem 0.55rem;
+  margin-right: 0.35rem;
+}
+
+.pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.hairline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hairline-list > li {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.hairline-list > li:first-child {
+  border-top: 1px solid var(--hairline);
+}
+
+.entry-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0.15rem 0;
+}
+
+.entry-title a {
+  color: var(--text);
+}
+
+.entry-title a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.entry-excerpt {
+  margin: 0.25rem 0 0.4rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.flag {
+  font-size: 0.85em;
+}
+
+/* Prose d'article, typographie maudet.cloud : corps ET titres en Newsreader */
+.prose {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  color: var(--text-prose);
+  overflow-wrap: break-word;
+}
+
+.prose a {
+  overflow-wrap: anywhere;
+}
+
+.prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.prose p {
+  margin: 0 0 1.05em;
+}
+
+.prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+
+.prose a:hover {
+  color: var(--accent-dark);
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.prose ul, .prose ol {
+  margin: 0 0 1.05em;
+  padding-left: 1.2em;
+}
+
+.prose blockquote {
+  margin: 1.5em 0;
+  padding: 4px 0 4px 22px;
+  border-left: 2px solid var(--accent);
+}
+
+.prose blockquote p {
+  font-style: italic;
+  color: var(--text);
+}
+
+.prose :is(h2, h3) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.prose img {
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+}
+
+.attribution-banner {
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.9rem;
+  margin: 1.25rem 0;
+}
+
+.prose audio {
+  width: 100%;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.video-embed {
+  aspect-ratio: 16 / 9;
+  margin: 1.5rem 0;
+}
+
+.video-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 8px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Speaking : segmented control en CSS pur (radios + :has), zéro JS */
+.seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  border: 0;
+  padding: 0;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.seg input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.seg label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+}
+
+.seg label:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.seg input:checked + label {
+  color: var(--shell);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.seg input:focus-visible + label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.speaking .hairline-list {
+  border-top: 1px solid var(--hairline);
+}
+
+.speaking .hairline-list > li:first-child {
+  border-top: 0;
+}
+
+.speaking:has(#f-conference:checked) li:not([data-type='conference']),
+.speaking:has(#f-podcast:checked) li:not([data-type='podcast']),
+.speaking:has(#f-lightning-talk:checked) li:not([data-type='lightning-talk']) {
+  display: none;
+}
+
+@media (max-width: 44rem) {
+  .frame {
+    margin: 0.6rem;
+    padding: 1.25rem 1rem 2.5rem;
+    border-radius: 4px;
+  }
+
+  body {
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  pre {
+    font-size: 0.82rem;
+    padding: 0.8rem;
+  }
+}
+
+/* Native cross-document view transitions, zero JS (plan section 8) */
+@view-transition {
+  navigation: auto;
+}

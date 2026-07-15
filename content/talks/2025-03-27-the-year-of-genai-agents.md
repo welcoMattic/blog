@@ -10,8 +10,10 @@ tags:
   - MCP
   - agents
   - LLM
+lang: fr
+type: lightning-talk
+pdf: /pdf/2025-annee-des-agents-genai.pdf
 ---
-
-[💬 Slides](https://gamma.app/docs/2025-Lannee-des-Agents-GenAI-ulbl1uomqqurvgz)
+[💬 Slides (Speaker Deck)](https://speakerdeck.com/welcomattic/2025-lannee-des-agents-genia) · [Gamma](https://gamma.app/docs/2025-Lannee-des-Agents-GenAI-ulbl1uomqqurvgz)
 
 Lightning talk de 7 minutes présenté lors du SymfonyLive Paris 2025.

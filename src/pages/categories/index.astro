@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import { categoriesIndex } from '../../lib/taxonomies';
+
+const index = await categoriesIndex();
+const categories = Object.entries(index).sort(([a], [b]) => a.localeCompare(b));
+---
+
+<Base title="Catégories" description="Toutes les catégories du blog de Mathieu Santostefano.">
+  <h1>Catégories</h1>
+  <p>
+    {categories.map(([slug, { label, entries }]) => (
+      <a class="pill" href={`/categories/${slug}/`}>{label} ({entries.length})</a>
+    ))}
+  </p>
+</Base>

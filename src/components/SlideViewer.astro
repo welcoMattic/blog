@@ -1,0 +1,217 @@
+---
+interface Props {
+  src: string;
+  title?: string;
+}
+const { src, title } = Astro.props;
+---
+
+<figure class="slides" data-src={src} tabindex="0" aria-label={title ? `Slides : ${title}` : 'Slides'}>
+  <div class="slides-stage">
+    <canvas class="slides-canvas"></canvas>
+    <p class="slides-loading">Chargement des slides…</p>
+  </div>
+  <figcaption class="slides-controls">
+    <button class="slides-btn" data-act="prev" aria-label="Slide précédente" disabled>‹</button>
+    <span class="slides-count" aria-live="polite">– / –</span>
+    <button class="slides-btn" data-act="next" aria-label="Slide suivante" disabled>›</button>
+    <button class="slides-btn slides-fs" data-act="fullscreen" aria-label="Plein écran">⛶</button>
+  </figcaption>
+</figure>
+
+<style>
+  .slides {
+    margin: 1.5rem 0;
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--code-bg);
+  }
+
+  .slides:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .slides-stage {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slides-canvas {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+  }
+
+  .slides-loading {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .slides-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-top: 1px solid var(--hairline);
+    background: var(--bg);
+  }
+
+  .slides-btn {
+    border: 1px solid var(--hairline);
+    background: none;
+    color: var(--text);
+    border-radius: 6px;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slides-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .slides-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .slides-fs {
+    margin-left: 0.5rem;
+  }
+
+  .slides-count {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    min-width: 4.5rem;
+    text-align: center;
+  }
+
+  /* En plein écran, la scène occupe tout l'espace disponible */
+  .slides:fullscreen {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+  }
+
+  .slides:fullscreen .slides-stage {
+    flex: 1;
+    aspect-ratio: auto;
+  }
+</style>
+
+<script>
+  import * as pdfjs from 'pdfjs-dist';
+  import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+
+  pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
+
+  for (const root of document.querySelectorAll<HTMLElement>('.slides')) {
+    initViewer(root);
+  }
+
+  async function initViewer(root: HTMLElement) {
+    const src = root.dataset.src;
+    if (!src) return;
+
+    const canvas = root.querySelector<HTMLCanvasElement>('.slides-canvas')!;
+    const ctx = canvas.getContext('2d')!;
+    const loading = root.querySelector<HTMLElement>('.slides-loading')!;
+    const count = root.querySelector<HTMLElement>('.slides-count')!;
+    const prevBtn = root.querySelector<HTMLButtonElement>('[data-act="prev"]')!;
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-act="next"]')!;
+    const fsBtn = root.querySelector<HTMLButtonElement>('[data-act="fullscreen"]')!;
+
+    let doc: Awaited<ReturnType<typeof pdfjs.getDocument>['promise']>;
+    try {
+      doc = await pdfjs.getDocument({ url: src }).promise;
+    } catch {
+      loading.textContent = 'Impossible de charger les slides.';
+      return;
+    }
+
+    const total = doc.numPages;
+    const stage = root.querySelector<HTMLElement>('.slides-stage')!;
+
+    // File de rendu : un seul render() à la fois (pdf.js interdit deux rendus
+    // concurrents sur le même canvas), et on coalesce vers la dernière page
+    // demandée. Pas d'annulation, donc pas d'état corrompu.
+    let target = 1;
+    let shown = 0;
+    let busy = false;
+
+    async function renderOne(n: number) {
+      const page = await doc.getPage(n);
+      const dpr = window.devicePixelRatio || 1;
+      const base = page.getViewport({ scale: 1 });
+      const scale = (stage.clientWidth || base.width) / base.width;
+      const viewport = page.getViewport({ scale: scale * dpr });
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      canvas.style.width = `${viewport.width / dpr}px`;
+      canvas.style.height = `${viewport.height / dpr}px`;
+      await page.render({ canvas, canvasContext: ctx, viewport }).promise;
+    }
+
+    async function pump() {
+      if (busy) return;
+      busy = true;
+      try {
+        while (shown !== target) {
+          const n = target;
+          await renderOne(n);
+          shown = n;
+          loading.style.display = 'none';
+        }
+      } catch {
+        loading.textContent = 'Erreur de rendu.';
+        loading.style.display = '';
+      } finally {
+        busy = false;
+      }
+    }
+
+    function go(n: number) {
+      target = Math.min(total, Math.max(1, n));
+      count.textContent = `${target} / ${total}`;
+      prevBtn.disabled = target <= 1;
+      nextBtn.disabled = target >= total;
+      pump();
+    }
+
+    prevBtn.addEventListener('click', () => go(target - 1));
+    nextBtn.addEventListener('click', () => go(target + 1));
+    fsBtn.addEventListener('click', () => {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else root.requestFullscreen?.();
+    });
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(target + 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(target - 1); }
+    });
+    // Re-render sur changement de taille / plein écran (force via shown = 0).
+    const rerender = () => { shown = 0; pump(); };
+    document.addEventListener('fullscreenchange', rerender);
+    let resizeTimer: number;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(rerender, 150);
+    });
+
+    go(1);
+  }
+</script>

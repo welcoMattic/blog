@@ -6,8 +6,8 @@ description: >-
 tags:
   - ghost
   - clever cloud
----
-## 👻 Install Ghost locally
+lang: en
+---## 👻 Install Ghost locally
 
 First, we need to init a fresh new Ghost application. According to [the documentation](https://github.com/TryGhost/Ghost#quickstart-install), we need to install the `ghost-cli` package globally:
 
@@ -71,7 +71,7 @@ Let's move this structure to the root of our app (make sure to replace version n
 
 Now, we have to configure Ghost for production environment. To do this, we copy `config.development.json` to `config.production.json` and edit it like this:
 
-```
+```json
 {
   "url": "https://YOUR_CC_APP_ID.cleverapps.io/",
   "server": {
@@ -102,7 +102,7 @@ Now, we have to configure Ghost for production environment. To do this, we copy 
 
 As mentionned earlier, Clever Cloud needs a `start` entry under `scripts` in package.json. By default Ghost gets one, but we have to update it to force Ghost to to start in production mode:
 
-```
+```yaml
 "start": "NODE_ENV=production node index",
 ```
 

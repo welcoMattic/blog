@@ -8,6 +8,7 @@ tags:
   - datetime
   - php
   - tips
+type: lightning-talk
 ---
 
 [💬 Slides](https://welcomattic.github.io/lt-datetime-sflive-2023)

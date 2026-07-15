@@ -1,0 +1,82 @@
+---
+import Base from './Base.astro';
+import SlideViewer from '../components/SlideViewer.astro';
+import { formatDate, readingMinutes, slugifyTag, langFlag, sectionLabel } from '../lib/utils';
+
+interface Props {
+  section: 'blog' | 'veille' | 'talks';
+  title: string;
+  description: string;
+  date: Date;
+  tags?: string[];
+  lang?: 'fr' | 'en';
+  noindex?: boolean;
+  origin?: { url: string; site: string };
+  body?: string;
+  ogImage: string;
+  pdf?: string;
+}
+
+const { section, title, description, date, tags = [], lang = 'fr', noindex = false, origin, body, ogImage, pdf } = Astro.props;
+---
+
+<Base
+  title={title}
+  description={description}
+  lang={lang}
+  noindex={noindex}
+  ogImage={ogImage}
+  article={{ publishedTime: date, tags }}
+>
+  <article class="prose">
+    <header>
+      <a class="eyebrow" href={`/${section}/`}>{sectionLabel(section)}</a>
+      <h1>{title}</h1>
+      <p class="meta">
+        <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
+        {' · '}
+        <span data-i18n="readingTime" data-minutes={readingMinutes(body)}>
+          {readingMinutes(body)} min de lecture
+        </span>
+        {' '}
+        <span class="flag" title={lang === 'en' ? 'English' : 'Français'}>{langFlag(lang)}</span>
+      </p>
+      {
+        origin && (
+          <p class="attribution-banner">
+            <span data-i18n="origin">Publié à l’origine sur</span>
+            {' '}
+            <a href={origin.url}>{origin.site}</a>.
+          </p>
+        )
+      }
+    </header>
+
+    {pdf && <SlideViewer src={pdf} title={title} />}
+
+    <slot />
+
+    {
+      tags.length > 0 && (
+        <footer class="tags">
+          {tags.map((tag) => (
+            <a class="pill" href={`/tags/${slugifyTag(tag)}/`}>
+              #{tag}
+            </a>
+          ))}
+        </footer>
+      )
+    }
+  </article>
+</Base>
+
+<style>
+  h1 {
+    margin-top: 0.35rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .tags {
+    margin-top: 2.25rem;
+  }
+</style>

@@ -8,8 +8,9 @@ tags:
   - translation
   - i18n
   - tips
+lang: en
+type: conference
 ---
-
 [💬 Slides](https://welcomattic.github.io/sylius-ui-translation-slides/#/1)
 
 Leverage Symfony's Translation component to efficiently translate the UIs of your Sylius applications.

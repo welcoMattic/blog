@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import { tagsIndex } from '../../lib/taxonomies';
+
+const index = await tagsIndex();
+const tags = Object.entries(index).sort(([a], [b]) => a.localeCompare(b));
+---
+
+<Base title="Tags" description="Tous les tags du blog de Mathieu Santostefano.">
+  <h1>Tags</h1>
+  <p class="cloud">
+    {tags.map(([slug, { label, entries }]) => (
+      <a class="pill" href={`/tags/${slug}/`}>#{label.toLowerCase()} ({entries.length})</a>
+    ))}
+  </p>
+</Base>
+
+<style>
+  .cloud {
+    line-height: 2.1;
+  }
+</style>
