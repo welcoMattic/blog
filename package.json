@@ -20,7 +20,7 @@
     "astro": "^7.0.9",
     "lightningcss": "^1.32.0",
     "pagefind": "^1.5.2",
-    "pdfjs-dist": "^6.1.200",
+    "pdfjs-dist": "^6.2.108",
     "satori": "^0.28.0",
     "satori-html": "^0.3.2"
   },
