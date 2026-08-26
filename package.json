@@ -10,8 +10,6 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "publish:obsidian": "node scripts/obsidian-publish.mjs",
-    "publish:obsidian:dry": "node scripts/obsidian-publish.mjs --dry-run",
     "deploy": "bash scripts/deploy-cellar.sh"
   },
   "dependencies": {

@@ -16,12 +16,6 @@ npm run preview    # sert le build de dist/
 ## Contenu
 
 Les articles vivent dans `content/` (collections `blog`, `veille`, `talks`), en Markdown.
-Un article se rédige aussi depuis Obsidian (vault iCloud) puis se publie avec :
-
-```bash
-npm run publish:obsidian:dry   # apercu
-npm run publish:obsidian       # publication
-```
 
 ## Déploiement
 
