@@ -131,6 +131,6 @@ $ castor restart app_42
 composer require welcomattic/clevercloud-php-sdk
 ```
 
-That gets you [2.0](https://github.com/welcoMattic/clevercloud-php-sdk/releases/tag/v2.0.0), the current release. The major bump exists because I stopped trusting the documentation and ran every call against the live API instead: paths that answered 404, payload shapes that never matched the models, fields the API has never sent. What you install today is what Clever Cloud actually serves, and the breaking changes are listed in the release notes.
+That gets you [2.0](https://github.com/welcoMattic/clevercloud-php-sdk/releases/tag/v2.0.0), the current release. The major bump comes from a pass where I exercised every call against the live API: a handful of my paths, payload shapes and field names did not line up with what the platform returns, and correcting them meant removing public symbols. What you install today matches what Clever Cloud actually serves, and the breaking changes are listed in the release notes.
 
 If you run PHP on Clever Cloud, or just want to automate it from a PHP script, I would love your feedback. Issues, pull requests, and "it would be great if it also did X" are all welcome on [GitHub](https://github.com/welcoMattic/clevercloud-php-sdk).
