@@ -17,6 +17,20 @@ npm run preview    # sert le build de dist/
 
 Les articles vivent dans `content/` (collections `blog`, `veille`, `talks`), en Markdown.
 
+### Publication programmée
+
+Un article daté du futur reste invisible du build (page en 404, absent des index,
+des flux RSS, du sitemap et des `llms*.txt`). Le filtre est dans `src/lib/publish.ts`
+et compare au **jour calendaire** (Europe/Paris) : un article daté du 1er septembre
+sort le matin du 1er septembre, quelle que soit l'heure de son front matter.
+
+La mise en ligne a lieu au rebuild quotidien de la CI (cron `30 6 * * *` UTC, soit
+8h30 Paris l'été et 7h30 l'hiver), pas à l'heure inscrite dans le front matter.
+
+Pour relire un article programmé avant sa date : `npm run dev:drafts`
+(`INCLUDE_DRAFTS=1`), qui lève le filtre et charge en plus les brouillons de
+`drafts/` (répertoire local, gitignoré).
+
 ## Déploiement
 
 Vers le bucket Cellar `blog.welcomattic.com` :

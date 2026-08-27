@@ -1,9 +1,10 @@
 import { getCollection } from 'astro:content';
+import { isPublished } from '../lib/publish';
 
 const SITE = 'https://blog.welcomattic.com';
 
 export async function GET() {
-  const [blog, talks] = await Promise.all([getCollection('blog'), getCollection('talks')]);
+  const [blog, talks] = await Promise.all([getCollection('blog', isPublished), getCollection('talks')]);
 
   const byDate = <T extends { data: { date: Date } }>(entries: T[]) =>
     entries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());

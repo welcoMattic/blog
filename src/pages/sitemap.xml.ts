@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { isPublished } from '../lib/publish';
 import { tagsIndex, categoriesIndex } from '../lib/taxonomies';
 
 // Custom sitemap kept at Hugo's historical path /sitemap.xml (parity requirement).
@@ -13,7 +14,7 @@ interface UrlEntry {
 
 export async function GET() {
   const [blog, veille, talks, tags, categories] = await Promise.all([
-    getCollection('blog'),
+    getCollection('blog', isPublished),
     getCollection('veille'),
     getCollection('talks'),
     tagsIndex(),

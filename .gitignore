@@ -12,3 +12,6 @@ yarn-error.log
 # Astro
 dist/
 .astro/
+
+# Brouillons locaux (npm run dev:drafts)
+drafts/

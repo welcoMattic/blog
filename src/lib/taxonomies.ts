@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { isPublished } from './publish';
 import { slugifyTag, excerpt, veilleDescription } from './utils';
 import type { Entry } from '../components/EntryList.astro';
 
@@ -9,7 +10,7 @@ export interface TaxonomyIndex {
 
 async function allEntries(): Promise<Array<Entry & { tags: string[]; categories: string[] }>> {
   const [blog, veille, talks] = await Promise.all([
-    getCollection('blog'),
+    getCollection('blog', isPublished),
     getCollection('veille'),
     getCollection('talks'),
   ]);

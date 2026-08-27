@@ -1,10 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
+import { isPublished } from '../../lib/publish';
 import Base from '../../layouts/Base.astro';
 import EntryList from '../../components/EntryList.astro';
 import { excerpt } from '../../lib/utils';
 
-const posts = (await getCollection('blog')).sort(
+const posts = (await getCollection('blog', isPublished)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 

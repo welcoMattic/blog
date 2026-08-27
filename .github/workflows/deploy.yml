@@ -3,6 +3,11 @@ name: Deploy to Cellar
 on:
   push:
     branches: [master]
+  # Publication programmee : rebuild quotidien pour mettre en ligne les articles
+  # dont la date est arrivee (voir src/lib/publish.ts). Cron en UTC, sans heure
+  # d'ete : 8h30 Paris l'ete, 7h30 l'hiver.
+  schedule:
+    - cron: '30 6 * * *'
   workflow_dispatch:
 
 concurrency:
