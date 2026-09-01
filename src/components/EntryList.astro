@@ -1,5 +1,5 @@
 ---
-import { formatDate, langFlag, sectionLabel } from '../lib/utils';
+import { formatDate, langFlag, sectionLabel, frenchPunctuation } from '../lib/utils';
 
 export interface Entry {
   href: string;
@@ -31,7 +31,7 @@ const { entries } = Astro.props;
           <span class="flag" title={e.lang === 'en' ? 'English' : 'Français'}>{langFlag(e.lang)}</span>
         </div>
         <p class="entry-title">
-          <a href={e.href} lang={e.lang}>{e.title}</a>
+          <a href={e.href} lang={e.lang}>{frenchPunctuation(e.title, e.lang)}</a>
         </p>
         {e.excerpt && <p class="entry-excerpt">{e.excerpt}</p>}
       </li>

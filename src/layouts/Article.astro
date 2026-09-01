@@ -1,7 +1,7 @@
 ---
 import Base from './Base.astro';
 import SlideViewer from '../components/SlideViewer.astro';
-import { formatDate, readingMinutes, slugifyTag, langFlag, sectionLabel } from '../lib/utils';
+import { formatDate, readingMinutes, slugifyTag, langFlag, sectionLabel, frenchPunctuation } from '../lib/utils';
 
 interface Props {
   section: 'blog' | 'veille' | 'talks';
@@ -31,7 +31,7 @@ const { section, title, description, date, tags = [], lang = 'fr', noindex = fal
   <article class="prose">
     <header>
       <a class="eyebrow" href={`/${section}/`}>{sectionLabel(section)}</a>
-      <h1>{title}</h1>
+      <h1>{frenchPunctuation(title, lang)}</h1>
       <p class="meta">
         <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
         {' · '}

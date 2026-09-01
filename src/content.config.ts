@@ -34,7 +34,14 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     lang: z.enum(['fr', 'en']).default('fr'),
     noindex: z.boolean().default(false),
-    origin: z.object({ url: z.string().url(), site: z.string() }).optional()
+    origin: z.object({ url: z.string().url(), site: z.string() }).optional(),
+    // Sommaire de série, rendu avant le corps de l'article par SeriesNav.astro.
+    // `name` regroupe les articles (une valeur par langue), `order` les classe,
+    // `label` est le titre court affiché dans le sommaire, sans le préfixe de
+    // série que le titre complet répète déjà.
+    series: z
+      .object({ name: z.string(), order: z.number().int().positive(), label: z.string() })
+      .optional()
   })
 });
 

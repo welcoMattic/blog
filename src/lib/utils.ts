@@ -20,6 +20,22 @@ export function langFlag(lang: 'fr' | 'en' = 'fr'): string {
   return lang === 'en' ? '🇬🇧' : '🇫🇷';
 }
 
+// Typographie française : la ponctuation double (: ; ! ?) et les guillemets
+// prennent une espace fine insécable. Avec une espace normale, le navigateur y
+// voit une occasion de couper la ligne et laisse le signe orphelin en tête de
+// la ligne suivante, ce qui saute aux yeux sur un titre d'article.
+// Appliqué à l'affichage seulement : les sources gardent des espaces normales,
+// plus simples à taper et à relire.
+const NARROW_NO_BREAK_SPACE = '\u202F';
+
+export function frenchPunctuation(text: string, lang: 'fr' | 'en' = 'fr'): string {
+  if (lang !== 'fr') return text;
+
+  return text
+    .replace(/ +([;:!?»])/g, `${NARROW_NO_BREAK_SPACE}$1`)
+    .replace(/(«) +/g, `$1${NARROW_NO_BREAK_SPACE}`);
+}
+
 // Display label for a section slug. The talks collection lives at /talks/ (URL
 // parity) but is surfaced as "speaking" everywhere it's shown.
 const SECTION_LABELS: Record<string, string> = {

@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import { isPublished } from '../../lib/publish';
 import Article from '../../layouts/Article.astro';
+import SeriesNav from '../../components/SeriesNav.astro';
 import { excerpt } from '../../lib/utils';
 
 export async function getStaticPaths() {
@@ -26,5 +27,10 @@ const description = entry.data.description ?? excerpt(entry.body);
   body={entry.body}
   ogImage={`/og/blog/${entry.id}.png`}
 >
+  {
+    entry.data.series && (
+      <SeriesNav name={entry.data.series.name} lang={entry.data.lang} currentId={entry.id} />
+    )
+  }
   <Content />
 </Article>

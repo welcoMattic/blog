@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import { isPublished } from '../lib/publish';
+import { frenchPunctuation } from '../lib/utils';
+
+interface Props {
+  name: string;
+  lang: 'fr' | 'en';
+  currentId: string;
+}
+
+const { name, lang, currentId } = Astro.props;
+
+// Le filtre de publication programmée s'applique aussi ici : un article encore
+// à venir n'apparaît pas dans le sommaire, donc le sommaire ne peut pas pointer
+// vers une page qui n'existe pas encore dans le build.
+const entries = (await getCollection('blog', isPublished))
+  .filter((entry) => entry.data.series?.name === name && entry.data.lang === lang)
+  .sort((a, b) => a.data.series!.order - b.data.series!.order);
+
+const heading = lang === 'en' ? 'In this series' : 'Dans cette série';
+---
+
+{
+  entries.length > 1 && (
+    <nav class="series" aria-label={heading}>
+      <p class="series-heading">{heading}</p>
+      <ol>
+        {entries.map((entry) => (
+          <li aria-current={entry.id === currentId ? 'page' : undefined}>
+            {entry.id === currentId ? (
+              <span>{frenchPunctuation(entry.data.series!.label, lang)}</span>
+            ) : (
+              <a href={`/blog/${entry.id}/`}>{frenchPunctuation(entry.data.series!.label, lang)}</a>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<style>
+  .series {
+    margin: 0 0 2.25rem;
+    padding: 0.9rem 1.1rem 1rem;
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper-soft);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .series-heading {
+    margin: 0 0 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .series ol {
+    margin: 0;
+    padding-left: 1.4em;
+  }
+
+  .series li {
+    margin: 0.15rem 0;
+    color: var(--muted);
+  }
+
+  .series li[aria-current='page'] {
+    color: var(--text);
+    font-weight: 600;
+  }
+</style>
