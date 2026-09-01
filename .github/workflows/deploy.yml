@@ -3,11 +3,22 @@ name: Deploy to Cellar
 on:
   push:
     branches: [master]
-  # Publication programmee : rebuild quotidien pour mettre en ligne les articles
-  # dont la date est arrivee (voir src/lib/publish.ts). Cron en UTC, sans heure
-  # d'ete : 8h30 Paris l'ete, 7h30 l'hiver.
+  # Publication programmée : rebuild pour mettre en ligne les articles dont la
+  # date est arrivée (voir src/lib/publish.ts). Crons en UTC, sans heure d'été.
+  #
+  # GitHub range les crons dans une file partagée et les sert après tout le
+  # reste : le passage unique de 6h30 UTC arrivait avec 6 à 12h de retard
+  # (12h04, 12h46, 14h13, 18h53 les jours précédents), et l'article du matin
+  # sortait l'après-midi. Deux parades. D'abord des minutes décalées, loin des
+  # heures rondes et des quarts d'heure où toute la planète a programmé son
+  # cron. Ensuite plusieurs passages par jour, pour qu'un retard sur le premier
+  # ne repousse pas la mise en ligne à la nuit suivante. Rejouer le build ne
+  # coûte rien : il est idempotent et se contente de resynchroniser Cellar.
   schedule:
-    - cron: '30 6 * * *'
+    - cron: '23 4 * * *'  # 6h23 Paris l'été, 5h23 l'hiver
+    - cron: '7 7 * * *'   # 9h07 Paris l'été, 8h07 l'hiver
+    - cron: '41 10 * * *' # 12h41 Paris l'été, 11h41 l'hiver
+    - cron: '13 16 * * *' # 18h13 Paris l'été, 17h13 l'hiver
   workflow_dispatch:
 
 concurrency:

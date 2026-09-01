@@ -15,3 +15,6 @@ dist/
 
 # Brouillons locaux (npm run dev:drafts)
 drafts/
+
+# Document de travail de la série, jamais publié
+plan.md
