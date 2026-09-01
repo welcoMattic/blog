@@ -10,11 +10,15 @@ tags:
   - devops
   - serie-symfony-clever
 lang: en
+series:
+  name: "Symfony on Clever Cloud"
+  order: 1
+  label: "Preparing your app to live on a PaaS"
 ---
 
 _Cet article est aussi disponible en 🇫🇷 Français : [Symfony sur Clever Cloud : préparer son app à vivre sur un PaaS](/blog/2026-09-01-symfony-clever-cloud-1-preparer-son-app-paas/)._
 
-> **Transparency.** I am a Clever Cloud ambassador. Nobody on their side proofreads this series, and I allow myself the same criticism here as on any other platform.
+> **Transparency.** I am a Clever Cloud ambassador. I write this series independently, nobody on their side proofreads this series, and I allow myself the same criticism here as on any other platform.
 
 After [a PHP <abbr title="Software Development Kit">SDK</abbr> to drive Clever Cloud's API](/blog/2026-08-26-sdk-php-clever-cloud/) (in French), I am tackling what actually runs on this cloud provider: a series about deploying Symfony applications on their <abbr title="Platform as a Service">PaaS</abbr>. From auditing the application all the way to autoscaling and distributed configuration.
 
