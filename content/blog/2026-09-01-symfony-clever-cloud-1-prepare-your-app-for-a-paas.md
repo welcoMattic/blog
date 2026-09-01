@@ -95,9 +95,11 @@ This is the question that costs the most to ignore, because the symptom is delig
 
 Three places to inspect:
 
-- **Sessions.** By default, Symfony writes them to the filesystem. Two instances, two filesystems, two sets of sessions. You need to switch to a storage shared between the instances (Redis, for instance).
+- **Sessions.** Symfony does not pick where they land. Its default configuration (`session: true`) defers to PHP's native handler, which writes wherever its `php.ini` `session.save_path` points. On a single machine that is a local folder (`/tmp`, or `/var/lib/php/sessions` on Debian) and nobody ever notices. With two instances, each gets its own: two sets of sessions, and your user is logged out every other request. So it is the platform, not the application, that decides whether your sessions survive scaling out. Find out what yours does with them, and absent a clear answer, switch to storage shared between the instances (Redis, for instance).
 - **The cache.** `var/cache/` is local to the instance. For the shared application cache (`cache.app`), you need a distributed adapter (Redis fits here too).
 - **Uploads.** If you write to `public/uploads/`, the file only exists on the instance that received it, and it disappears on the next deployment. You need shared file storage (an object storage such as S3, or a network filesystem such as <abbr title="Network File System">NFS</abbr>).
+
+Clever Cloud handles this on its PHP runtime: an FS Bucket is created automatically for each application, and since Symfony defers to `php.ini`, a default application writes its sessions there, shared between instances, with nothing to change. That bucket does not exist in HDS regions, nor on the Docker and FrankenPHP runtimes. Clever recommends a shared session store such as Redis or Materia KV anyway, which performs better than the bucket.
 
 ### 2. Are my secrets in the code? (factor III)
 
@@ -206,7 +208,7 @@ So much for the universal part. Now, the concrete mapping, on the platform this 
 |---|---|
 | III. Config | Environment variables through the console, `clever env` through the CLI, or a config-provider addon shared between several applications, to share variables whose values are common to several apps |
 | IV. Backing services | Addons: PostgreSQL, MySQL, MongoDB, Redis, Cellar (S3), FS Buckets, Materia KV |
-| VI. Stateless processes | Sessions on Redis or Materia KV, uploads on Cellar, nothing left on the local disk |
+| VI. Stateless processes | Sessions shared out of the box by the PHP runtime's FS Bucket, or on Redis and Materia KV, uploads on Cellar, nothing left on the local disk |
 | VIII. Concurrency | Horizontal scalers, `--min-instances` and `--max-instances` |
 | XI. Logs | Monolog `error_log` handler, plus optional drains to Datadog, Elastic or OVH |
 
