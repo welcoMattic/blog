@@ -199,19 +199,21 @@ Attention à la question posée par Symfony Flex : la recipe d'`apache-pack` vit
 ### Créer l'add-on et le lier
 
 ```bash
-clever addon create postgresql-addon symfony-clever-demo-db --plan dev --region par
-clever service link-addon symfony-clever-demo-db
+clever addon create postgresql-addon symfony-clever-demo-db \
+  --plan dev --region par --link symfony-clever-demo
 ```
 
-La première commande provisionne une base PostgreSQL managée. Le nom du fournisseur, `postgresql-addon`, est bien celui qu'attend la CLI ; `clever addon providers` liste tous les autres. Le plan `dev` est le plus petit de la grille, largement suffisant pour une démonstration, avec une limite à connaître : les extensions PostgreSQL à la demande n'y sont pas disponibles. Regardez la grille tarifaire avant de valider. La CLI vous protège d'ailleurs d'un achat involontaire, puisqu'elle demande confirmation dès que l'add-on n'est pas gratuit, et qu'il faut passer `--yes` pour la sauter.
+Cette commande provisionne une base PostgreSQL managée et la lie à l'application dans la foulée. Le nom du fournisseur, `postgresql-addon`, est bien celui qu'attend la CLI ; `clever addon providers` liste tous les autres. Le plan `dev` est le plus petit de la grille, largement suffisant pour une démonstration, avec une limite à connaître : les extensions PostgreSQL à la demande n'y sont pas disponibles. Regardez la grille tarifaire avant de valider. La CLI vous protège d'ailleurs d'un achat involontaire, puisqu'elle demande confirmation dès que l'add-on n'est pas gratuit, et qu'il faut passer `--yes` pour la sauter.
 
-La seconde commande crée le lien entre l'add-on et l'application. C'est elle qui déclenche l'injection des variables. Vérifiez :
+Le `--link` attend l'alias de l'application, celui inscrit dans le `.clever.json` de l'étape 1. Sans lui, l'add-on est créé mais reste détaché, et il faut faire le lien dans un second temps avec `clever service link-addon symfony-clever-demo-db`. C'est cette commande qu'il vous faudra de toute façon le jour où vous voudrez brancher un add-on qui existait déjà.
+
+C'est le lien qui déclenche l'injection des variables. Vérifiez :
 
 ```bash
 clever env | grep POSTGRESQL
 ```
 
-Vous obtenez `POSTGRESQL_ADDON_URI`, qui contient l'URI de connexion complète, ainsi que les morceaux séparés : `POSTGRESQL_ADDON_HOST`, `POSTGRESQL_ADDON_PORT`, `POSTGRESQL_ADDON_DB`, `POSTGRESQL_ADDON_USER`, `POSTGRESQL_ADDON_PASSWORD`, `POSTGRESQL_ADDON_ROLE`. S'y ajoutent `POSTGRESQL_ADDON_DIRECT_HOST` et `POSTGRESQL_ADDON_DIRECT_PORT`, qui pointent directement sur la machine de la base en court-circuitant le proxy de la plateforme.
+Vous obtenez `POSTGRESQL_ADDON_URI`, qui contient l'URI de connexion complète, ainsi que les morceaux séparés : `POSTGRESQL_ADDON_HOST`, `POSTGRESQL_ADDON_PORT`, `POSTGRESQL_ADDON_DB`, `POSTGRESQL_ADDON_USER`, `POSTGRESQL_ADDON_PASSWORD`, et `POSTGRESQL_ADDON_VERSION`, sur laquelle nous allons revenir dans un instant. Deux autres variables, `POSTGRESQL_ADDON_DIRECT_HOST` et `POSTGRESQL_ADDON_DIRECT_PORT`, pointent directement sur la machine de la base en court-circuitant le proxy de la plateforme, mais elles n'apparaissent que si vous activez l'accès direct sur l'add-on : elles sont absentes par défaut.
 
 ### Le vrai problème : Symfony ne connaît pas ces variables
 
@@ -228,8 +230,9 @@ La réponse est dans Symfony. Le composant DependencyInjection fournit un proces
 
 ```yaml
 parameters:
-    # Repli utilisé en local, quand aucun add-on Clever n'est branché.
+    # Replis utilisés en local, quand aucun add-on Clever n'est branché.
     app.database_url_fallback: '%env(resolve:DATABASE_URL)%'
+    app.database_version_fallback: '%env(resolve:DATABASE_SERVER_VERSION)%'
 
 doctrine:
     dbal:
@@ -237,9 +240,10 @@ doctrine:
         # gagne. En local, elle n'existe pas et Doctrine retombe sur
         # DATABASE_URL, lu depuis .env.
         url: '%env(default:app.database_url_fallback:POSTGRESQL_ADDON_URI)%'
-        # L'URI de l'add-on ne porte pas de serverVersion : sans cette
-        # ligne, la connexion ne peut pas être construite.
-        server_version: '%env(DATABASE_SERVER_VERSION)%'
+        # L'URI de l'add-on ne porte pas de serverVersion, mais l'add-on
+        # injecte la version dans sa propre variable. Même mécanique que
+        # ci-dessus, et donc rien à poser à la main sur la plateforme.
+        server_version: '%env(default:app.database_version_fallback:POSTGRESQL_ADDON_VERSION)%'
 ```
 
 `%env(default:un_parametre:UNE_VARIABLE)%` se lit de droite à gauche : prends `UNE_VARIABLE`, et si elle est absente ou vide, prends le paramètre. Comme ce paramètre contient lui-même un `%env()%`, aucune des deux valeurs n'est inscrite dans le conteneur compilé : Symfony y place un marqueur et lit l'environnement au démarrage. Vérifiable en compilant le cache de production sans `POSTGRESQL_ADDON_URI` puis en démarrant avec, sans rien recompiler : la connexion vise l'hôte de l'add-on, pas celui du `.env`.
@@ -257,7 +261,7 @@ POSTGRESQL_ADDON_URI="postgresql://user:pass@host:5432/db" php bin/console dbal:
 
 Doctrine a besoin de savoir à quelle version de PostgreSQL il parle, pour adapter le SQL qu'il génère. Le `DATABASE_URL` du squelette la porte dans son paramètre `serverVersion`, l'URI de l'add-on non : il faut donc la lui donner autrement.
 
-Côté `.env`, on sort la version de l'URL pour la mettre dans sa propre variable, la même des deux côtés :
+Sur Clever, il n'y a rien à faire : l'add-on injecte déjà `POSTGRESQL_ADDON_VERSION` à côté de son URI, et c'est elle que lit la configuration ci-dessus. Reste le cas local, où cette variable n'existe pas. On sort donc la version de l'URL du `.env` pour la mettre dans sa propre variable :
 
 ```diff
 -DATABASE_URL="postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=17&charset=utf8"
@@ -265,11 +269,9 @@ Côté `.env`, on sort la version de l'URL pour la mettre dans sa propre variabl
 +DATABASE_SERVER_VERSION=17
 ```
 
-Et côté plateforme :
+Et c'est tout : aucun `clever env set` pour la version, la plateforme s'en charge. Les deux environnements suivent exactement la même mécanique, la variable de l'add-on gagne quand elle existe, le `.env` prend le relais sinon.
 
-```bash
-clever env set DATABASE_SERVER_VERSION "17"
-```
+Un intérêt qui dépasse le confort : une variable posée à la main est une copie figée. Le jour où l'add-on est migré vers une version majeure supérieure, `POSTGRESQL_ADDON_VERSION` suit toute seule, là où un `DATABASE_SERVER_VERSION` écrit en dur continuerait de mentir à Doctrine.
 
 PostgreSQL 17 est la version par défaut des nouveaux add-ons chez Clever depuis mars 2025, mais ne me croyez pas sur parole : `clever addon env symfony-clever-demo-db` vous dira ce qui a réellement été provisionné pour vous.
 
