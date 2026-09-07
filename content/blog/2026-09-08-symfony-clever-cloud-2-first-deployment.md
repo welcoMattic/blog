@@ -1,6 +1,6 @@
 ---
 title: "Symfony on Clever Cloud: the first deployment"
-date: 2026-09-08T08:55:00.000Z
+date: 2026-09-07T11:20:00.000Z
 description: "Second article in a series about deploying a scalable Symfony application on the Clever Cloud PaaS"
 tags:
   - symfony
