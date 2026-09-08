@@ -1,5 +1,5 @@
 ---
-title: "Symfony sur Clever Cloud : FrankenPHP, et quand rester sur Apache"
+title: "Symfony sur Clever Cloud #3 : FrankenPHP, et quand rester sur Apache"
 date: 2026-09-14T09:00:00.000Z
 unlisted: true
 description: "3e article d'une série sur le déploiement d'une application Symfony évolutive sur le PaaS Clever Cloud"
@@ -17,7 +17,7 @@ series:
   label: "FrankenPHP, et quand rester sur Apache"
 ---
 
-_This blog post is also available in 🇬🇧 English: [Symfony on Clever Cloud: FrankenPHP, and when to stay on Apache](/blog/2026-09-14-symfony-clever-cloud-3-frankenphp-or-apache/)._
+_This blog post is also available in 🇬🇧 English: [Symfony on Clever Cloud #3: FrankenPHP, and when to stay on Apache](/blog/2026-09-14-symfony-clever-cloud-3-frankenphp-or-apache/)._
 
 > **Transparence.** Je suis ambassadeur Clever Cloud. J'écris cette série en toute indépendance, personne chez eux ne relit cette série, et je m'y autorise les mêmes critiques que sur n'importe quelle autre plateforme.
 

@@ -1,5 +1,5 @@
 ---
-title: "Symfony on Clever Cloud: preparing your app to live on a PaaS"
+title: "Symfony on Clever Cloud #1: preparing your app to live on a PaaS"
 date: 2026-09-01T08:55:00.000Z
 description: "First article in a series about deploying a scalable Symfony application on the Clever Cloud PaaS"
 tags:
@@ -16,7 +16,7 @@ series:
   label: "Preparing your app to live on a PaaS"
 ---
 
-_Cet article est aussi disponible en 🇫🇷 Français : [Symfony sur Clever Cloud : préparer son app à vivre sur un PaaS](/blog/2026-09-01-symfony-clever-cloud-1-preparer-son-app-paas/)._
+_Cet article est aussi disponible en 🇫🇷 Français : [Symfony sur Clever Cloud #1 : préparer son app à vivre sur un PaaS](/blog/2026-09-01-symfony-clever-cloud-1-preparer-son-app-paas/)._
 
 > **Transparency.** I am a Clever Cloud ambassador. I write this series independently, nobody on their side proofreads this series, and I allow myself the same criticism here as on any other platform.
 

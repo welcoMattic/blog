@@ -1,5 +1,5 @@
 ---
-title: "Symfony on Clever Cloud: the first deployment"
+title: "Symfony on Clever Cloud #2: the first deployment"
 date: 2026-09-07T11:20:00.000Z
 description: "Second article in a series about deploying a scalable Symfony application on the Clever Cloud PaaS"
 tags:
@@ -16,7 +16,7 @@ series:
   label: "The first deployment"
 ---
 
-_Cet article est aussi disponible en 🇫🇷 Français : [Symfony sur Clever Cloud : le premier déploiement](/blog/2026-09-08-symfony-clever-cloud-2-premier-deploiement/)._
+_Cet article est aussi disponible en 🇫🇷 Français : [Symfony sur Clever Cloud #2 : le premier déploiement](/blog/2026-09-08-symfony-clever-cloud-2-premier-deploiement/)._
 
 > **Transparency.** I am a Clever Cloud ambassador. I write this series independently, nobody on their side proofreads this series, and I allow myself the same criticism here as on any other platform.
 
