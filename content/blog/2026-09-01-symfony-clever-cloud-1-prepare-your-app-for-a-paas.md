@@ -24,7 +24,7 @@ After [a PHP <abbr title="Software Development Kit">SDK</abbr> to drive Clever C
 
 But I am not going to start with `clever create`. Because while helping teams migrate to a PaaS, I ended up noticing one thing: almost none of the problems come from the platform you picked. They come from the configuration of Symfony applications that were never written to run anywhere other than the original server they were bootstrapped on (often an Nginx + PHP-FPM pair on a single <abbr title="Virtual Private Server">VPS</abbr>). Sessions on disk, uploads in `public/`, logs in `var/log/prod.log`, database host hardcoded in the `.env.prod` file. None of that is a problem on a VPS or in a <abbr title="Virtual Machine">VM</abbr>. All of it can break on a PaaS.
 
-So before picking the size of the Clever instance we are going to deploy on, let's run a quick audit of a typical application. By the end of this article, you will know whether your application is ready, and what to change if it is not. The content holds for Clever Cloud, but also for Scalingo, Upsun, Scaleway, Render, Fly.io, Heroku or just about any other PaaS: it is the same contract.
+So before picking the size of the Clever instance we are going to deploy on, let's run a quick audit of a typical application. By the end of this article, you will know whether your application is ready, and what to change if it is not. The content holds for [Clever Cloud](https://www.clever.cloud/), but also for [Scalingo](https://scalingo.com/), [Upsun](https://upsun.com/), [Scaleway](https://www.scaleway.com/en/), [Render](https://render.com/), [Fly.io](https://fly.io/), [Heroku](https://www.heroku.com/) or just about any other PaaS: it is the same contract.
 
 ## The contract is 12-factor
 
@@ -53,13 +53,13 @@ To make them digestible, let's group them into four families.
 
 A single versioned repository produces every deployment: production, staging and each developer's machine run the same code, at different revisions. Dependencies are declared explicitly, in `composer.json`, and pinned in `composer.lock`, which means nobody is going to install an extension by hand on the server to save the day on a Friday night. And everything that changes from one environment to the next, the database address, the payment provider's API key, the log level, moves out of the code and becomes an environment variable.
 
-On a Symfony application, the first two come for free: Git and Composer do the work without anyone having to decide anything. The third one is where things get stuck, because it does not show as long as you only have one server: it is the `.env.prod` copied over by hand, the old `parameters.yml` inherited from an earlier version of the project, or the database host hardcoded in a configuration file.
+On a Symfony application, the first two come for free: [Git](https://git-scm.com/) and [Composer](https://getcomposer.org/) do the work without anyone having to decide anything. The third one is where things get stuck, because it does not show as long as you only have one server: it is the `.env.prod` copied over by hand, the old `parameters.yml` inherited from an earlier version of the project, or the database host hardcoded in a configuration file.
 
 ### What sits around the application (IV, VII, XI)
 
 The database, the Redis server, the file storage, the mail server are **backing services**: the application reaches them through an address handed to it at startup, and you must be able to unplug one and replace it with another without touching the code. Switching from a local PostgreSQL database to a managed one must be an environment variable change, nothing more.
 
-The application then exposes its service on a port, being self-contained rather than living inside a web server. That is the factor the PHP world applies the least naturally: with the classic Nginx plus PHP-FPM pair, your application is not the thing listening on the network, the web server is the one invoking it. That is not a flaw to fix, the platform's runtime plays that role for you. Just note that FrankenPHP makes this factor literal by embedding the server inside the application itself, and we will come back to it in a future article.
+The application then exposes its service on a port, being self-contained rather than living inside a web server. That is the factor the PHP world applies the least naturally: with the classic Nginx plus PHP-FPM pair, your application is not the thing listening on the network, the web server is the one invoking it. That is not a flaw to fix, the platform's runtime plays that role for you. Just note that [FrankenPHP](https://frankenphp.dev/) makes this factor literal by embedding the server inside the application itself, and we will come back to it in a future article.
 
 Finally, the application does not write log files. It writes its logs to standard output, as they happen, and the environment decides where they land: a developer's console locally, a collection system in production.
 
@@ -95,11 +95,11 @@ This is the question that costs the most to ignore, because the symptom is delig
 
 Three places to inspect:
 
-- **Sessions.** Symfony does not pick where they land. Its default configuration (`session: true`) defers to PHP's native handler, which writes wherever its `php.ini` `session.save_path` points. On a single machine that is a local folder (`/tmp`, or `/var/lib/php/sessions` on Debian) and nobody ever notices. With two instances, each gets its own: two sets of sessions, and your user is logged out every other request. So it is the platform, not the application, that decides whether your sessions survive scaling out. Find out what yours does with them, and absent a clear answer, switch to storage shared between the instances (Redis, for instance).
-- **The cache.** `var/cache/` is local to the instance. For the shared application cache (`cache.app`), you need a distributed adapter (Redis fits here too).
-- **Uploads.** If you write to `public/uploads/`, the file only exists on the instance that received it, and it disappears on the next deployment. You need shared file storage (an object storage such as S3, or a network filesystem such as <abbr title="Network File System">NFS</abbr>).
+- **Sessions.** Symfony does not pick where they land. Its [default configuration](https://symfony.com/doc/current/session.html) (`session: true`) defers to PHP's native handler, which writes wherever its `php.ini` `session.save_path` points. On a single machine that is a local folder (`/tmp`, or `/var/lib/php/sessions` on Debian) and nobody ever notices. With two instances, each gets its own: two sets of sessions, and your user is logged out every other request. So it is the platform, not the application, that decides whether your sessions survive scaling out. Find out what yours does with them, and absent a clear answer, switch to storage shared between the instances ([Redis](https://redis.io/), for instance).
+- **The cache.** `var/cache/` is local to the instance. For the shared application cache (`cache.app`), you need a [distributed adapter](https://symfony.com/doc/current/cache.html) (Redis fits here too).
+- **Uploads.** If you write to `public/uploads/`, the file only exists on the instance that received it, and it disappears on the next deployment. You need shared file storage (an object storage such as [S3](https://aws.amazon.com/s3/), or a network filesystem such as <abbr title="Network File System">NFS</abbr>).
 
-Clever Cloud handles this on its PHP runtime: an FS Bucket is created automatically for each application, and since Symfony defers to `php.ini`, a default application writes its sessions there, shared between instances, with nothing to change. That bucket does not exist in HDS regions, nor on the Docker and FrankenPHP runtimes. Clever recommends a shared session store such as Redis or Materia KV anyway, which performs better than the bucket.
+Clever Cloud handles this on its PHP runtime: an [FS Bucket](https://www.clever.cloud/developers/doc/addons/fs-bucket/) is created automatically for each application, and since Symfony defers to `php.ini`, a default application writes its sessions there, shared between instances, with nothing to change. That bucket does not exist in HDS regions, nor on the Docker and FrankenPHP runtimes. Clever recommends a shared session store such as Redis or [Materia KV](https://www.clever.cloud/developers/doc/addons/materia-kv/) anyway, which performs better than the bucket.
 
 ### 2. Are my secrets in the code? (factor III)
 
@@ -121,7 +121,7 @@ doctrine:
         url: '%env(resolve:DATABASE_URL)%'
 ```
 
-The `%env()%` syntax is not a mere writing convenience: it is what makes that decoupling possible. Symfony does not substitute the value when it compiles its dependency injection container, but when the application starts. The very same, already built application can therefore point at different databases depending on where it runs, without being rebuilt.
+The [`%env()%` syntax](https://symfony.com/doc/current/configuration.html#configuration-based-on-environment-variables) is not a mere writing convenience: it is what makes that decoupling possible. Symfony does not substitute the value when it compiles its dependency injection container, but when the application starts. The very same, already built application can therefore point at different databases depending on where it runs, without being rebuilt.
 
 If you have a hardcoded `host: 10.0.0.12`, or a frozen `dbname`, you have already lost: on a PaaS, the database URL is provided by the platform at startup, and it can change, and that is normal.
 
@@ -129,11 +129,11 @@ And the database is only one example. The same reasoning holds for everything yo
 
 ### 4. Are my assets built at deploy time? (factor V)
 
-Locally, you run `npm run build` or `bin/console asset-map:compile` by hand. On the server, who does it? If the answer is "nobody, I commit `public/build/`", it still works, but you are versioning build artifacts and you are heading straight for a merge conflict. The asset build has to become an automated step of the deployment. AssetMapper, Webpack Encore or Symfony Reprise, it does not matter: what counts is that it is scripted.
+Locally, you run `npm run build` or `bin/console asset-map:compile` by hand. On the server, who does it? If the answer is "nobody, I commit `public/build/`", it still works, but you are versioning build artifacts and you are heading straight for a merge conflict. The asset build has to become an automated step of the deployment. [AssetMapper](https://symfony.com/doc/current/frontend/asset_mapper.html), [Webpack Encore](https://symfony.com/doc/current/frontend/encore/index.html) or [Symfony Reprise](https://symfony.com/bundles/reprise/current/index.html), it does not matter: what counts is that it is scripted.
 
 ### 5. Do my Doctrine migrations run on their own? (factor XII)
 
-Honest question: today, how do you deploy? If the sequence is `git pull` then an SSH session to run `bin/console doctrine:migrations:migrate --no-interaction` by hand, that gesture has to disappear. On a PaaS, you have no server to connect to, and above all you do not want to be in the loop.
+Honest question: today, how do you deploy? If the sequence is `git pull` then an SSH session to run [`bin/console doctrine:migrations:migrate --no-interaction`](https://symfony.com/bundles/DoctrineMigrationsBundle/current/index.html) by hand, that gesture has to disappear. On a PaaS, you have no server to connect to, and above all you do not want to be in the loop.
 
 This is the point that requires the most care, because timing matters: migrations have to run after the build and before the application serves any traffic. And with several instances, you have to prevent them from starting in parallel. We will handle that in detail in the next article.
 
@@ -141,7 +141,7 @@ This is the point that requires the most care, because timing matters: migration
 
 If Monolog writes to `var/log/prod.log`, that file sits on an ephemeral disk, on one instance among N, and nobody will ever read it. The PaaS collects what comes out on `stdout` and `stderr`, full stop.
 
-Good news: if you have never touched `config/packages/monolog.yaml`, the Symfony recipe already does the right thing. The gist of what it sets up in prod:
+Good news: if you have never touched `config/packages/monolog.yaml`, the [Symfony recipe](https://symfony.com/doc/current/logging.html) already does the right thing. The gist of what it sets up in prod:
 
 ```yaml
 when@prod:
@@ -168,7 +168,7 @@ Three things to take away from it. The `nested` handler writes to `php://stderr`
 
 The `fingers_crossed` sitting upstream avoids drowning the collection: it only releases the buffer when an error occurs, which gives you the context of the requests that fail, and silence for the others. Careful how you read `buffer_size: 50`: those are the last 50 records, not the whole request. Beyond that, the beginning of the context is lost.
 
-This is the only point of this checklist where platforms really diverge. Clever Cloud's PHP documentation, for its part, documents an `error_log` handler, which sends to PHP's own logging mechanism rather than directly to standard output:
+This is the only point of this checklist where platforms really diverge. [Clever Cloud's PHP documentation](https://www.clever.cloud/developers/doc/applications/php/), for its part, documents an `error_log` handler, which sends to PHP's own logging mechanism rather than directly to standard output:
 
 ```yaml
 monolog:
@@ -206,11 +206,11 @@ So much for the universal part. Now, the concrete mapping, on the platform this 
 
 | 12-factor principle | At Clever Cloud |
 |---|---|
-| III. Config | Environment variables through the console, `clever env` through the CLI, or a config-provider addon shared between several applications, to share variables whose values are common to several apps |
-| IV. Backing services | Addons: PostgreSQL, MySQL, MongoDB, Redis, Cellar (S3), FS Buckets, Materia KV |
+| III. Config | Environment variables through the console, `clever env` through the CLI, or a [config-provider addon](https://www.clever.cloud/developers/doc/addons/config-provider/) shared between several applications, to share variables whose values are common to several apps |
+| IV. Backing services | Addons: PostgreSQL, MySQL, MongoDB, Redis, [Cellar](https://www.clever.cloud/developers/doc/addons/cellar/) (S3), FS Buckets, Materia KV |
 | VI. Stateless processes | Sessions shared out of the box by the PHP runtime's FS Bucket, or on Redis and Materia KV, uploads on Cellar, nothing left on the local disk |
-| VIII. Concurrency | Horizontal scalers, `--min-instances` and `--max-instances` |
-| XI. Logs | Monolog `error_log` handler, plus optional drains to Datadog, Elastic or OVH |
+| VIII. Concurrency | [Horizontal scalers](https://www.clever.cloud/developers/doc/administrate/scalability/), `--min-instances` and `--max-instances` |
+| XI. Logs | Monolog `error_log` handler, plus optional [drains](https://www.clever.cloud/developers/doc/administrate/log-management/) to Datadog, Elastic or OVH |
 
 Clever officially points back to 12-factor in its best practices documentation: [the 12 factors at Clever](https://www.clever.cloud/developers/doc/best-practices/12-factors). The page fits in three links, but it says what matters: this really is the expected contract.
 

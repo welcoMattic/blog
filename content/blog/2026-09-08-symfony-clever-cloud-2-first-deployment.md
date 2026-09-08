@@ -44,9 +44,9 @@ An **add-on** is a managed service: a database, file storage, a cache. You creat
 
 ## What you need before you start
 
-A Clever Cloud account first. Creating one is free and you can sign up with an email address, GitHub, or GitLab.
+A [Clever Cloud account](https://www.clever.cloud/) first. Creating one is free and you can sign up with an email address, GitHub, or GitLab.
 
-Then Clever Tools, the platform's CLI. It installs through npm, and there are also system packages and an official Docker image:
+Then [Clever Tools](https://www.clever.cloud/developers/doc/cli/install/), the platform's CLI. It installs through npm, and there are also system packages and an official Docker image:
 
 ```bash
 npm install -g clever-tools
@@ -73,7 +73,7 @@ From the root of the repository:
 clever create --type php symfony-clever-demo --region par
 ```
 
-`--type php` selects the platform's historical runtime: Apache 2 in front, PHP-FPM behind. It is the model everyone knows, one PHP process per request, and it is the one that yields the fewest surprises on a first deployment. `--region par` puts the application in Paris; the other regions are listed by `clever create --help`.
+`--type php` selects the [platform's historical runtime](https://www.clever.cloud/developers/doc/applications/php/): Apache 2 in front, PHP-FPM behind. It is the model everyone knows, one PHP process per request, and it is the one that yields the fewest surprises on a first deployment. `--region par` puts the application in Paris; the other regions are listed by `clever create --help`.
 
 The command does two things. On the platform side, it creates the application in your personal organisation. On the repository side, it writes a `.clever.json` file at the root:
 
@@ -173,7 +173,7 @@ All that is left is giving the platform the path:
 clever env set CC_HEALTH_CHECK_PATH "/cc-health"
 ```
 
-Without that variable, the platform calls `/` and expects a response code between 200 and 300. A fresh Symfony application answers 404 there, and the deployment would be declared failed while everything is fine. The `cc-` prefix says this path belongs to the platform, and it leaves `/health` free for your own monitoring, the one that is allowed to query your dependencies.
+Without that variable, [the platform calls `/`](https://www.clever.cloud/developers/doc/develop/healthcheck/) and expects a response code between 200 and 300. A fresh Symfony application answers 404 there, and the deployment would be declared failed while everything is fine. The `cc-` prefix says this path belongs to the platform, and it leaves `/health` free for your own monitoring, the one that is allowed to query your dependencies.
 
 ## Step 4: the Apache trap
 
@@ -186,13 +186,13 @@ ls -a public/
 # .  ..  index.php
 ```
 
-No `.htaccess`. The file was taken out of the skeleton and moved into a dedicated package, because most modern deployments run behind Nginx, which has no use for it. On Clever's Apache runtime, it becomes necessary again:
+No `.htaccess`. The file was taken out of the skeleton and moved into a [dedicated package](https://github.com/symfony/apache-pack), because most modern deployments run behind Nginx, which has no use for it. On Clever's Apache runtime, it becomes necessary again:
 
 ```bash
 composer require symfony/apache-pack
 ```
 
-Watch out for the question Symfony Flex asks: the `apache-pack` recipe lives in the `recipes-contrib` repository, and recent skeletons refuse to execute contrib recipes by default. If you answer no, or if you run the command with `--no-interaction`, the package is installed but its `.htaccess` is never written. Answer yes to the question. Once the recipe has run, `public/.htaccess` exists and contains the expected rewrite rules. Commit it.
+Watch out for the question [Symfony Flex](https://github.com/symfony/flex) asks: the `apache-pack` recipe lives in the [`recipes-contrib`](https://github.com/symfony/recipes-contrib) repository, and recent skeletons refuse to execute contrib recipes by default. If you answer no, or if you run the command with `--no-interaction`, the package is installed but its `.htaccess` is never written. Answer yes to the question. Once the recipe has run, `public/.htaccess` exists and contains the expected rewrite rules. Commit it.
 
 ## Step 5: the database
 
@@ -203,7 +203,7 @@ clever addon create postgresql-addon symfony-clever-demo-db \
   --plan dev --region par --link symfony-clever-demo
 ```
 
-That command provisions a managed PostgreSQL database and links it to the application in one go. The provider name, `postgresql-addon`, is not pretty, but it is the one the CLI expects; `clever addon providers` lists all the others. The `dev` plan is the smallest of the range, more than enough for a demonstration, with one limitation worth knowing: on-demand PostgreSQL extensions are not available on it. Check the pricing page before confirming. The CLI does protect you from an accidental purchase, since it asks for confirmation as soon as an add-on is not free, and you have to pass `--yes` to skip that.
+That command provisions a [managed PostgreSQL database](https://www.clever.cloud/developers/doc/addons/postgresql/) and links it to the application in one go. The provider name, `postgresql-addon`, is not pretty, but it is the one the CLI expects; `clever addon providers` lists all the others. The `dev` plan is the smallest of the range, more than enough for a demonstration, with one limitation worth knowing: on-demand PostgreSQL extensions are not available on it. Check the [pricing page](https://www.clever.cloud/pricing/) before confirming. The CLI does protect you from an accidental purchase, since it asks for confirmation as soon as an add-on is not free, and you have to pass `--yes` to skip that.
 
 `--link` expects the application alias, the one written in the `.clever.json` from step 1. Without it the add-on is created but stays detached, and you have to link it afterwards with `clever service link-addon symfony-clever-demo-db`. That is the command you will need anyway the day you want to attach an add-on that already existed.
 
@@ -226,7 +226,7 @@ clever env set DATABASE_URL "$POSTGRESQL_ADDON_URI"
 
 It is wrong twice over. First because `$POSTGRESQL_ADDON_URI` is expanded by **your** shell, on **your** machine, where that variable does not exist: you have just set an empty `DATABASE_URL` in production. Second because even with the right value fetched by hand, you are building a frozen copy, one the add-on will leave behind on its first password rotation. Writing `DATABASE_URL=${POSTGRESQL_ADDON_URI}` on the platform side saves nothing either: Clever does not interpolate between environment variables, the value would be taken literally.
 
-The answer is in Symfony. The DependencyInjection component ships a `default` processor, which reads an environment variable and falls back to something else if it is missing or empty. In `config/packages/doctrine.yaml`:
+The answer is in Symfony. The DependencyInjection component ships a [`default` processor](https://symfony.com/doc/current/configuration/env_var_processors.html), which reads an environment variable and falls back to something else if it is missing or empty. In `config/packages/doctrine.yaml`:
 
 ```yaml
 parameters:
@@ -279,7 +279,7 @@ PostgreSQL 17 has been the default version for new add-ons at Clever since March
 
 A deployment at Clever happens in four stages: the platform fetches your code, **builds** the application (for PHP, a `composer install` run automatically as soon as a `composer.json` is present at the root), **archives** the result so it can be reused on the next deployment, then **starts** the application on each scaler, and waits for the health check before sending it traffic.
 
-A **hook** is an environment variable whose value is a shell command, or the path to an executable script in your source code. The platform runs it at the moment its name designates. There are five of them:
+A **[hook](https://www.clever.cloud/developers/doc/develop/build-hooks/)** is an environment variable whose value is a shell command, or the path to an executable script in your source code. The platform runs it at the moment its name designates. There are five of them:
 
 | Hook | When it runs | Failure blocks the deployment | Replayed on a deployment from cache |
 |---|---|---|---|
@@ -344,7 +344,7 @@ One more thing before deploying, and it is the one that produces the most puzzli
 
 Your application never receives traffic directly. It goes through Clever's load balancers, which terminate <abbr title="Transport Layer Security">TLS</abbr> and forward the request in clear to your scaler. From Symfony's point of view, every request therefore arrives over HTTP, from an internal IP address. The consequences show up fast: your logs hold the proxy's address instead of the visitor's, the absolute URLs you generate start with `http://`, and if you force HTTPS somewhere, you build yourself a redirect loop.
 
-The standard protocol to deal with this exists, it is the `X-Forwarded-*` headers. Symfony knows how to read them, but by default it refuses to trust them, and rightly so: any client can send them. So you have to tell it which addresses those headers can be trusted from. Clever injects a `CC_REVERSE_PROXY_IPS` variable for that, holding the list of its own addresses.
+The standard protocol to deal with this exists, it is the `X-Forwarded-*` headers. [Symfony knows how to read them](https://symfony.com/doc/current/deployment/proxies.html), but by default it refuses to trust them, and rightly so: any client can send them. So you have to tell it which addresses those headers can be trusted from. Clever injects a `CC_REVERSE_PROXY_IPS` variable for that, holding the list of its own addresses.
 
 In `.env`:
 
@@ -365,7 +365,7 @@ framework:
     trusted_proxies: '%env(TRUSTED_PROXIES)%'
 ```
 
-The `${...}` syntax belongs to Symfony's Dotenv component, which expands one variable inside another when it reads the file. That is what lets you write a single line valid everywhere: locally, `CC_REVERSE_PROXY_IPS` does not exist, it expands to an empty string, and the list boils down to `127.0.0.1`. You can check it with `php bin/console debug:dotenv`.
+The [`${...}` syntax](https://symfony.com/doc/current/configuration.html#configuring-environment-variables-in-env-files) belongs to Symfony's Dotenv component, which expands one variable inside another when it reads the file. That is what lets you write a single line valid everywhere: locally, `CC_REVERSE_PROXY_IPS` does not exist, it expands to an empty string, and the list boils down to `127.0.0.1`. You can check it with `php bin/console debug:dotenv`.
 
 ## Step 8: deploy
 
@@ -395,7 +395,7 @@ curl -s https://your-app.cleverapps.io/cc-health
 {"status":"ok"}
 ```
 
-If something went wrong, the logs are one command away:
+If something went wrong, [the logs](https://www.clever.cloud/developers/doc/administrate/log-management/) are one command away:
 
 ```bash
 clever logs
@@ -417,13 +417,13 @@ clever env set ENABLE_APCU "true"
 
 A good share of the extensions a Symfony application needs is already there, but the exact list of what is active by default varies with the PHP version, and that is especially true on the most recent versions where coverage is still partial. Check [the extensions page](https://www.clever.cloud/developers/doc/applications/php/extensions/) for your version rather than trusting a list copied into an article, this one included.
 
-A side note on APCu, since it is the extension Symfony projects turn on first: it is an in-memory cache, local to one scaler. Perfect for Symfony's system cache, which holds data every scaler can recompute identically. To be avoided for shared application cache, for the reason developed in the previous article: what scaler A put in cache, scaler B does not see.
+A side note on [APCu](https://www.php.net/manual/en/book.apcu.php), since it is the extension Symfony projects turn on first: it is an in-memory cache, local to one scaler. Perfect for Symfony's system cache, which holds data every scaler can recompute identically. To be avoided for shared application cache, for the reason developed in the previous article: what scaler A put in cache, scaler B does not see.
 
 **Memory** is set with `MEMORY_LIMIT`, expressed in MiB, which overrides PHP's `memory_limit`. Its neighbour `CC_CONFIGURATION_PM_MAX_CHILDREN` sets the number of PHP-FPM workers, and the two are related: raising the number of workers lowers the memory the platform computes for each of them. It is a trade-off between requests served in parallel and memory per request, not a slider to push all the way up.
 
-**OpCache** has its own variables, `CC_OPCACHE_MEMORY`, `CC_OPCACHE_MAX_ACCELERATED_FILES` and `CC_OPCACHE_INTERNED_STRINGS_BUFFER`, whose defaults depend on the scaler size. A mid-sized Symfony application easily goes past the default file count, and that is the kind of ceiling that only shows up as diffuse slowness.
+**[OpCache](https://www.php.net/manual/en/book.opcache.php)** has its own variables, `CC_OPCACHE_MEMORY`, `CC_OPCACHE_MAX_ACCELERATED_FILES` and `CC_OPCACHE_INTERNED_STRINGS_BUFFER`, whose defaults depend on the scaler size. A mid-sized Symfony application easily goes past the default file count, and that is the kind of ceiling that only shows up as diffuse slowness.
 
-**The rest of the PHP directives** go into a `.user.ini` file placed in the webroot, so in `public/` since that is where `CC_WEBROOT` points:
+**The rest of the PHP directives** go into a [`.user.ini`](https://www.php.net/manual/en/configuration.file.per-user.php) file placed in the webroot, so in `public/` since that is where `CC_WEBROOT` points:
 
 ```ini
 date.timezone = "Europe/Paris"
