@@ -165,7 +165,7 @@ final class HealthCheckListener
 }
 ```
 
-Un écouteur, et pas un contrôleur, délibérément. Pour atteindre un contrôleur, la requête traverse d'abord tout ce qui écoute `kernel.request` : la validation de la requête, le routage, le pare-feu de sécurité, et les écouteurs de votre propre application. Le jour où l'un d'eux interroge la base de données, votre healthcheck en dépend aussi, sans que son code ait changé d'une ligne. La priorité `4096` place celui-ci avant tous les autres, et `setResponse()` appelle `stopPropagation()` : plus rien ne s'exécute pour cette requête. Vous pouvez vérifier l'ordre chez vous avec `php bin/console debug:event-dispatcher kernel.request`.
+Un listener, et pas un contrôleur, délibérément. Pour atteindre un contrôleur, la requête traverse d'abord tout ce qui écoute `kernel.request` : la validation de la requête, le routage, le pare-feu de sécurité, et les listeners de votre propre application. Le jour où l'un d'eux interroge la base de données, votre healthcheck en dépend aussi, sans que son code ait changé d'une ligne. La priorité `4096` place celui-ci avant tous les autres, et `setResponse()` appelle `stopPropagation()` : plus rien ne s'exécute pour cette requête. Vous pouvez vérifier l'ordre chez vous avec `php bin/console debug:event-dispatcher kernel.request`.
 
 Reste à donner le chemin à la plateforme :
 
@@ -177,7 +177,7 @@ Sans cette variable, la plateforme interroge `/` et attend un code de réponse c
 
 ## Étape 4 : le piège Apache
 
-Le runtime `php` sert vos fichiers avec Apache. Apache, quand on lui demande `/cc-health`, cherche un fichier nommé `cc-health` dans le `DocumentRoot`, ne le trouve pas, et répond 404. Votre écouteur n'y peut rien : la requête n'atteint même pas PHP. Pour qu'il passe la main au contrôleur frontal de Symfony, il lui faut des règles de réécriture, et ces règles vivent dans un fichier `.htaccess`.
+Le runtime `php` sert vos fichiers avec Apache. Apache, quand on lui demande `/cc-health`, cherche un fichier nommé `cc-health` dans le `DocumentRoot`, ne le trouve pas, et répond 404. Votre listener n'y peut rien : la requête n'atteint même pas PHP. Pour qu'il passe la main au contrôleur frontal de Symfony, il lui faut des règles de réécriture, et ces règles vivent dans un fichier `.htaccess`.
 
 Or, depuis Symfony 4, le squelette n'en contient plus. Vérifiez chez vous :
 
@@ -451,4 +451,4 @@ Vous avez une application Symfony en production, une base managée, des migratio
 
 Dans le prochain article, on refait exactement le même déploiement sur FrankenPHP, et on compare : ce que ça change dans la configuration, ce que ça apporte en performance, et surtout dans quels cas rester sur Apache reste le bon choix.
 
-> **Code source.** La branche [`02-first-deployment`](https://github.com/welcoMattic/symfony-clever-cloud-series/tree/02-first-deployment) du dépôt [welcoMattic/symfony-clever-cloud-series](https://github.com/welcoMattic/symfony-clever-cloud-series) contient tout ce que cet article ajoute à l'application : l'écouteur de healthcheck, le script de `clevercloud/`, la configuration Doctrine et celle des proxys de confiance.
+> **Code source.** La branche [`02-first-deployment`](https://github.com/welcoMattic/symfony-clever-cloud-series/tree/02-first-deployment) du dépôt [welcoMattic/symfony-clever-cloud-series](https://github.com/welcoMattic/symfony-clever-cloud-series) contient tout ce que cet article ajoute à l'application : le listener de healthcheck, le script de `clevercloud/`, la configuration Doctrine et celle des proxys de confiance.
