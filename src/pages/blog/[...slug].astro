@@ -1,12 +1,12 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { isPublished } from '../../lib/publish';
+import { isRoutable, isPreview } from '../../lib/publish';
 import Article from '../../layouts/Article.astro';
 import SeriesNav from '../../components/SeriesNav.astro';
 import { excerpt } from '../../lib/utils';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', isPublished);
+  const posts = await getCollection('blog', isRoutable);
   return posts.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 
@@ -22,7 +22,7 @@ const description = entry.data.description ?? excerpt(entry.body);
   date={entry.data.date}
   tags={entry.data.tags}
   lang={entry.data.lang}
-  noindex={entry.data.noindex}
+  noindex={entry.data.noindex || isPreview(entry)}
   origin={entry.data.origin}
   body={entry.body}
   ogImage={`/og/blog/${entry.id}.png`}

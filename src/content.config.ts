@@ -34,6 +34,10 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     lang: z.enum(['fr', 'en']).default('fr'),
     noindex: z.boolean().default(false),
+    // Partage en avance : la page est construite avant la date de l'article et
+    // reste accessible par son URL, mais hors de toute liste, flux ou sitemap, et
+    // en `noindex`. Sans effet une fois la date passée. Voir src/lib/publish.ts.
+    unlisted: z.boolean().default(false),
     origin: z.object({ url: z.string().url(), site: z.string() }).optional(),
     // Sommaire de série, rendu avant le corps de l'article par SeriesNav.astro.
     // `name` regroupe les articles (une valeur par langue), `order` les classe,

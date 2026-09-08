@@ -13,8 +13,9 @@ const { name, lang, currentId } = Astro.props;
 
 // Le filtre de publication programmée s'applique aussi ici : un article encore
 // à venir n'apparaît pas dans le sommaire, donc le sommaire ne peut pas pointer
-// vers une page qui n'existe pas encore dans le build.
-const entries = (await getCollection('blog', isPublished))
+// vers une page qui n'existe pas encore dans le build. Un article partagé en
+// avance n'apparaît que dans son propre sommaire, jamais dans celui des autres.
+const entries = (await getCollection('blog', (entry) => isPublished(entry) || entry.id === currentId))
   .filter((entry) => entry.data.series?.name === name && entry.data.lang === lang)
   .sort((a, b) => a.data.series!.order - b.data.series!.order);
 

@@ -30,3 +30,28 @@ export function isPublished(entry: { data: { date: Date } }): boolean {
 
   return entry.data.date.toISOString().slice(0, 10) <= today();
 }
+
+// `unlisted: true` partage un article en avance, par son URL seule : sa page est
+// construite avant sa date, mais elle n'est dans aucune liste, aucun flux, aucune
+// taxonomie ni le sitemap, et elle porte un `noindex`. Rien n'empêche qui connaît
+// l'URL de la lire : c'est du non référencé, pas du secret.
+//
+// Le drapeau n'agit qu'avant la date de l'article : le jour venu, l'article
+// rejoint le circuit normal sans rien avoir à modifier, et le laisser dans le
+// front matter ne coûte rien. Le poser sur un article déjà publié ne le retire
+// donc pas des listes.
+export function isUnlisted(entry: { data: { unlisted?: boolean } }): boolean {
+  return entry.data.unlisted === true;
+}
+
+// Ce qui a une page dans le build : ce qui est publié, plus ce qui est partagé
+// en avance. Les listes, elles, continuent de filtrer sur `isPublished`.
+export function isRoutable(entry: { data: { date: Date; unlisted?: boolean } }): boolean {
+  return isPublished(entry) || isUnlisted(entry);
+}
+
+// Vrai tant que la page n'est qu'un partage en avance, donc tant qu'elle doit
+// rester en `noindex`.
+export function isPreview(entry: { data: { date: Date; unlisted?: boolean } }): boolean {
+  return isUnlisted(entry) && !isPublished(entry);
+}

@@ -1,10 +1,10 @@
 import { getCollection } from 'astro:content';
-import { isPublished } from '../../lib/publish';
+import { isRoutable } from '../../lib/publish';
 import { renderOgCard, type OgCardInput } from '../../lib/og';
 
 export async function getStaticPaths() {
   const [blog, veille, talks] = await Promise.all([
-    getCollection('blog', isPublished),
+    getCollection('blog', isRoutable),
     getCollection('veille'),
     getCollection('talks'),
   ]);
