@@ -119,6 +119,7 @@ const current = Astro.url.pathname;
 
     const applyLang = (lang) => {
       const idx = lang === 'en' ? 1 : 0;
+      document.documentElement.dataset.uiLang = lang;
       document.querySelectorAll('[data-i18n]').forEach((el) => {
         const entry = I18N[el.dataset.i18n];
         if (!entry) return;
@@ -129,8 +130,17 @@ const current = Astro.url.pathname;
       if (langBtn) langBtn.textContent = lang === 'en' ? 'FR' : 'EN';
     };
 
+    // Le script est en ligne en tête de <body> : au premier passage, les
+    // éléments [data-i18n] du contenu ne sont pas encore analysés. On attend
+    // donc le document complet, sans quoi seul le bouton serait traduit.
     const saved = localStorage.getItem('ui-lang');
-    if (saved === 'en') applyLang('en');
+    if (saved === 'en') {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => applyLang('en'), { once: true });
+      } else {
+        applyLang('en');
+      }
+    }
 
     if (langBtn) {
       langBtn.addEventListener('click', () => {

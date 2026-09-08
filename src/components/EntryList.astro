@@ -24,7 +24,7 @@ const { entries } = Astro.props;
 <ul class="hairline-list">
   {
     entries.map((e) => (
-      <li data-type={e.type}>
+      <li data-type={e.type} data-lang={e.lang ?? 'fr'}>
         <div class="row-top">
           <a class="eyebrow" href={`/${e.eyebrow}/`}>{e.label ?? sectionLabel(e.eyebrow)}</a>
           <span class="meta">{formatDate(e.date, 'fr')}</span>

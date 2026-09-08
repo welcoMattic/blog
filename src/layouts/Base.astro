@@ -30,6 +30,12 @@ const { lang = 'fr', ...head } = Astro.props;
         if (saved === 'dark' || saved === 'light') {
           document.documentElement.dataset.theme = saved;
         }
+
+        // La langue de l'interface décide quels contenus sont grisés dans les
+        // listes. Posée ici, avant le premier rendu, pour éviter que les
+        // entrées apparaissent à pleine opacité le temps d'un éclair.
+        document.documentElement.dataset.uiLang =
+          localStorage.getItem('ui-lang') === 'en' ? 'en' : 'fr';
       })();
     </script>
   </head>

@@ -264,6 +264,26 @@ th, td {
   font-size: 0.85em;
 }
 
+/* Contenu écrit dans l'autre langue que celle de l'interface : grisé dans les
+   listes, pour que l'œil aille d'abord à ce qu'il peut lire. La langue de
+   l'interface vit dans `data-ui-lang` sur <html>, posée par le script de
+   Base.astro puis par le bouton de langue ; son absence vaut français, ce qui
+   laisse la page correcte même si le script n'a pas tourné. Le survol et le
+   focus clavier rendent la ligne à sa pleine opacité, pour qu'elle reste
+   lisible dès qu'on s'y intéresse. */
+html:not([data-ui-lang='en']) .hairline-list > li[data-lang='en'],
+html[data-ui-lang='en'] .hairline-list > li[data-lang='fr'] {
+  opacity: 0.65;
+  transition: opacity 0.15s ease;
+}
+
+:is(
+    html:not([data-ui-lang='en']) .hairline-list > li[data-lang='en'],
+    html[data-ui-lang='en'] .hairline-list > li[data-lang='fr']
+  ):is(:hover, :focus-within) {
+  opacity: 1;
+}
+
 /* Prose d'article, typographie maudet.cloud : corps ET titres en Newsreader */
 .prose {
   font-family: var(--font-serif);
