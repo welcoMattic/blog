@@ -29,11 +29,11 @@ Two things break when you change runtime, and they structure what follows. Worke
 
 ## FrankenPHP in a few words
 
-**FrankenPHP is a PHP application server written in Go.** It embeds PHP's official interpreter inside Caddy and removes the separate process that PHP-FPM used to be: one binary is both the web server and the code execution.
+**[FrankenPHP](https://frankenphp.dev/) is a PHP application server written in Go.** It embeds PHP's official interpreter inside [Caddy](https://caddyserver.com/) and removes the separate process that PHP-FPM used to be: one binary is both the web server and the code execution.
 
-Two modes coexist. **Classic** mode runs your script on every request then cleans everything up, the functional equivalent of PHP-FPM. **Worker** mode boots your application once, keeps it in memory, and hands it requests inside a loop: the model of Laravel Octane and RoadRunner, the one Node and Go have always followed.
+Two modes coexist. **Classic** mode runs your script on every request then cleans everything up, the functional equivalent of PHP-FPM. **Worker** mode boots your application once, keeps it in memory, and hands it requests inside a loop: the model of [Laravel Octane](https://laravel.com/framework/docs/octane) and [RoadRunner](https://roadrunner.dev/), the one Node and Go have always followed.
 
-It is the work of Kévin Dunglas, a Symfony Core Team member, which explains the integration we are about to see. Versions move, and the documentation lags behind them: it announces PHP 8.4.12, my deployment serves `FrankenPHP v1.9.1 PHP 8.4.13 Caddy v2.10.2`.
+It is the work of [Kévin Dunglas](https://dunglas.dev/), a Symfony Core Team member, which explains the integration we are about to see. Versions move, and the documentation lags behind them: it announces PHP 8.4.12, my deployment serves `FrankenPHP v1.9.1 PHP 8.4.13 Caddy v2.10.2`.
 
 ## Creating the second application
 
@@ -83,14 +83,14 @@ Response from GET {:url=>"/cc-health", :expected_response=>200...300} is 200
 
 **The `public/.htaccess` file** becomes inert, Caddy does not read it, and that is not a loss: the `php_server` directive tries `{path}`, then `{path}/index.php`, then `index.php`, and the front controller is reached without a single rewrite rule.
 
-**The `public/.user.ini` file** does not follow, and it is the quietest trap in the list. That mechanism belongs to PHP's CGI and FastCGI interfaces; FrankenPHP is not one of them and will never read that file. The equivalent is a `php.ini` at the root, which FrankenPHP loads automatically. Both files coexist without stepping on each other: the `php` runtime only reads the `.user.ini` in the webroot, a `php.ini` dropped at the root is not on its search path, and one request is enough to check it: `ini_get()` ignores its directives and applies the `.user.ini` ones. A hook exporting `PHP_INI_SCAN_DIR`, the documented way to let the PHP-CLI see the `.user.ini`, is the exception: the directory it names is scanned whole, `php.ini` included, but for that command-line process only, not for Apache.
+**The `public/.user.ini` file** does not follow, and it is the quietest trap in the list. That mechanism belongs to [PHP's CGI and FastCGI interfaces](https://www.php.net/manual/en/configuration.file.per-user.php); FrankenPHP is not one of them and will never read that file. The equivalent is a `php.ini` at the root, which FrankenPHP loads automatically. Both files coexist without stepping on each other: the `php` runtime only reads the `.user.ini` in the webroot, a `php.ini` dropped at the root is not on its search path, and one request is enough to check it: `ini_get()` ignores its directives and applies the `.user.ini` ones. A hook exporting `PHP_INI_SCAN_DIR`, the documented way to let the PHP-CLI see the `.user.ini`, is the exception: the directory it names is scanned whole, `php.ini` included, but for that command-line process only, not for Apache.
 
 ```ini
 ; php.ini, at the repository root. public/.user.ini stays in place for Apache.
 date.timezone = "Europe/Paris"
 ```
 
-It is also through that file that `memory_limit` and the `opcache.*` directives go, the `MEMORY_LIMIT` variable and the `CC_OPCACHE_*` ones being documented only for the `php` runtime.
+It is also through that file that `memory_limit` and the `opcache.*` directives go, the `MEMORY_LIMIT` variable and the `CC_OPCACHE_*` ones being [documented](https://www.clever.cloud/developers/doc/reference/reference-environment-variables/) only for the `php` runtime.
 
 Fine-tuning PHP-FPM, for its part, disappears along with PHP-FPM: **`CC_CONFIGURATION_PM_MAX_CHILDREN`** has no object any more, replaced by PHP threads whose default count is twice the number of <abbr title="Central Processing Unit">CPU</abbr>s and which is set in the Caddyfile. A thread holding a Symfony application in memory consumes, and multiplying threads multiplies that consumption.
 
@@ -106,7 +106,7 @@ Executing script assets:install public [OK]
 Executing script importmap:install [OK]
 ```
 
-On the `frankenphp` runtime, none of those lines, which is in fact the documented behaviour: the surprise is rather that the `php` runtime runs them despite its own `--no-scripts`. Yet our `composer.json` declares `importmap:install` in its `auto-scripts`, and that command is the one downloading the importmap's JavaScript packages into `assets/vendor/`, a gitignored folder. Without it, the post-build hook stops dead on the asset compilation:
+On the `frankenphp` runtime, none of those lines, which is in fact the documented behaviour: the surprise is rather that the `php` runtime runs them despite its own `--no-scripts`. Yet our `composer.json` declares `importmap:install` in its `auto-scripts`, and that command is the one downloading the [importmap](https://symfony.com/doc/current/frontend/asset_mapper.html)'s JavaScript packages into `assets/vendor/`, a gitignored folder. Without it, the post-build hook stops dead on the asset compilation:
 
 ```
 The "@hotwired/stimulus" vendor asset is missing. Try running the "importmap:install" command.
@@ -146,7 +146,7 @@ clever open -a franken
 
 ## Worker mode, and its traps
 
-What we have deployed so far runs in classic mode: a different web server, an identical execution model. Worker mode is another matter, and one variable is enough to turn it on:
+What we have deployed so far runs in classic mode: a different web server, an identical execution model. [Worker mode](https://frankenphp.dev/docs/worker/) is another matter, and one variable is enough to turn it on:
 
 ```bash
 clever env set -a franken CC_FRANKENPHP_WORKER "/public/index.php"
@@ -154,7 +154,7 @@ clever env set -a franken CC_FRANKENPHP_WORKER "/public/index.php"
 
 The path is written from the project root, and the script must sit inside the webroot. A worker tucked anywhere else does start: it simply never receives a request, which takes longer to diagnose than a failure to boot.
 
-On the Symfony side, there is nothing to install. `symfony/runtime`, laid down by the skeleton, spots the `FRANKENPHP_WORKER` that FrankenPHP puts into the script's `$_SERVER` and switches to a `FrankenPhpWorkerRunner` looping on `frankenphp_handle_request()`. That detection is native since Symfony 7.4.
+On the Symfony side, there is nothing to install. [`symfony/runtime`](https://symfony.com/doc/current/components/runtime.html), laid down by the skeleton, spots the `FRANKENPHP_WORKER` that FrankenPHP puts into the script's `$_SERVER` and switches to a `FrankenPhpWorkerRunner` looping on `frankenphp_handle_request()`. That detection is native since Symfony 7.4.
 
 **Worker mode is not a performance setting, it is a change of contract.** PHP has always offered a guarantee nobody bothered to state because it went without saying: at the end of each request, everything disappears, the variables, the objects, the connections, the leaks. Worker mode removes it.
 
@@ -162,7 +162,7 @@ On the Symfony side, there is nothing to install. `symfony/runtime`, laid down b
 
 The framework does more than people think, and less than they hope.
 
-**By default, between two requests, Symfony calls `reset()` on every service implementing `ResetInterface`.** There is no variable to set: the kernel keeps a `services_resetter` and triggers it at the start of the next request. The framework's own services are covered, it is yours that need reviewing and implementing that interface.
+**By default, between two requests, Symfony calls `reset()` on every service implementing [`ResetInterface`](https://symfony.com/doc/current/reference/dic_tags.html#kernel-reset).** There is no variable to set: the kernel keeps a `services_resetter` and triggers it at the start of the next request. The framework's own services are covered, it is yours that need reviewing and implementing that interface.
 
 **`FRANKENPHP_RESET_KERNEL`, introduced in Symfony 8.1, goes further: it throws away the kernel and its container after each request.** The next one rebuilds a fresh one, so nothing that lived inside a service survives, whether it implements `ResetInterface` or not. If it is not on by default, it is because it makes you pay the kernel boot again on every request, which is a good part of what worker mode came for.
 
@@ -174,7 +174,7 @@ One guard rail is left, **`FRANKENPHP_LOOP_MAX`**, which sets the number of requ
 
 A `static $cache = [];` that never needed a bound becomes a leak. A service remembering the current user or the locale, without implementing `ResetInterface`, now lies to the next request in a plausible way, which is worse than a clean error.
 
-To avoid hunting them by hand, Igor PHP is a static analyser designed for exactly this: services missing `ResetInterface`, properties holding state, mutable local statics, calls to `exit()`, writes to superglobals. It also inspects `vendor/`, and that is where its real value lies.
+To avoid hunting them by hand, [Igor PHP](https://github.com/igor-php/igor-php) is a static analyser designed for exactly this: services missing `ResetInterface`, properties holding state, mutable local statics, calls to `exit()`, writes to superglobals. It also inspects `vendor/`, and that is where its real value lies.
 
 ```bash
 composer require --dev igor-php/igor-php
@@ -183,13 +183,13 @@ vendor/bin/igor-php .
 
 `exit()` and `die()`, precisely: under PHP-FPM, `die('error')` ends the request; in a worker, it ends the worker, which is a thread and not a process. FrankenPHP restarts it at the price of a full boot, and every call to that route pays that restart.
 
-Connections, finally. A connection opened when the worker boots now lives for hours, and it goes through the proxy Clever puts in front of PostgreSQL databases, the very one direct access bypasses. A connection left idle can be closed on the other side without your application noticing, and no timeout is documented. The protection sits in DoctrineBundle, which closes at the start of every request any connection left idle for longer than `idle_connection_ttl`, 600 seconds by default: lower that value if you see connections dropped after quiet hours.
+Connections, finally. A connection opened when the worker boots now lives for hours, and it goes through the proxy Clever puts in front of PostgreSQL databases, the very one direct access bypasses. A connection left idle can be closed on the other side without your application noticing, and no timeout is documented. The protection sits in [DoctrineBundle](https://symfony.com/bundles/DoctrineBundle/current/configuration.html), which closes at the start of every request any connection left idle for longer than `idle_connection_ttl`, 600 seconds by default: lower that value if you see connections dropped after quiet hours.
 
 None of these traps shows up on the first request. It is the instance's memory, watched over several hours of real traffic, that reveals them.
 
 ## Sessions, the trap that costs the most
 
-By default, Symfony defers to PHP's native handler, which writes sessions wherever `session.save_path` points. On the `php` runtime, the platform mounts an FS Bucket there, a network filesystem shared between instances, and the problem never comes up. On the `frankenphp` runtime, that bucket does not exist: each instance has its own local folder, and the load balancer does the rest.
+By default, Symfony defers to PHP's native handler, which writes sessions wherever `session.save_path` points. On the `php` runtime, the platform mounts an [FS Bucket](https://www.clever.cloud/developers/doc/addons/fs-bucket/) there, a network filesystem shared between instances, and the problem never comes up. On the `frankenphp` runtime, that bucket does not exist: each instance has its own local folder, and the load balancer does the rest.
 
 Here is what that looks like on two instances, with a probe counting the session's requests and exposing `INSTANCE_NUMBER`:
 
@@ -201,9 +201,9 @@ hits=1  instance=0  sid=0b2303bc   <- and another one
 
 Every instance switch creates a brand new session: user logged out, cart empty, multi-step form back to zero, and not one line of log to say so.
 
-On the `php` runtime, `ENABLE_REDIS=true` and `SESSION_TYPE=redis` are enough to hand sessions over to the platform. On the `frankenphp` runtime, those two variables are indeed injected, they show up in `clever env`, and they do nothing: the probe reads an empty `session.save_path`, so nothing was wired by the platform, and sessions stay local to each instance. It is the textbook case of the variable with no effect announced above.
+On the `php` runtime, `ENABLE_REDIS=true` and `SESSION_TYPE=redis` are enough to [hand sessions over to the platform](https://www.clever.cloud/developers/doc/applications/php/sessions-emails/). On the `frankenphp` runtime, those two variables are indeed injected, they show up in `clever env`, and they do nothing: the probe reads an empty `session.save_path`, so nothing was wired by the platform, and sessions stay local to each instance. It is the textbook case of the variable with no effect announced above.
 
-So it has to be said in the code. First a Redis add-on, linked to the application:
+So it has to be said in the code. First a [Redis add-on](https://www.clever.cloud/developers/doc/addons/redis/), linked to the application:
 
 ```bash
 clever addon create redis-addon symfony-clever-franken-redis \
@@ -219,7 +219,7 @@ when@prod:
             handler_id: '%env(REDIS_URL)%'
 ```
 
-That is all. The add-on injects `REDIS_URL` as is, `SessionHandlerFactory` recognises that URL and builds the handler, and the connection is built by Symfony Cache: you write no service, and you never instantiate `\Redis` yourself. The `when@prod:` keeps your development machine from looking for a Redis server the skeleton's `compose.yaml` does not contain.
+That is all. The add-on injects `REDIS_URL` as is, [`SessionHandlerFactory`](https://symfony.com/doc/current/session.html#store-sessions-in-a-key-value-database-redis) recognises that URL and builds the handler, and the connection is built by Symfony Cache: you write no service, and you never instantiate `\Redis` yourself. The `when@prod:` keeps your development machine from looking for a Redis server the skeleton's `compose.yaml` does not contain.
 
 Verified afterwards on both instances: same session identifier, counter going up, across instance 0 and instance 1.
 
@@ -235,11 +235,11 @@ hits=11  instance=0  sid=ac48c874
 
 That configuration lives in the code both applications share, so the Apache one needs its own Redis add-on. It is progress for it too: its sessions no longer depend on a store mounted by the platform.
 
-Clever offers an in-house alternative, Materia KV, a key-value store compatible with the Redis protocol and free during the beta. I have not wired it here, and I am not going to sell you a path I have not walked. What the documentation says: on this runtime you need, for now, `tcp` mode and port `6378`, so no TLS, and the add-on injects `KV_HOST`, `KV_PORT` and `KV_TOKEN` with their `REDIS_*` aliases, but no ready-made `REDIS_URL` like the Redis add-on's. Neither official demo covers this case: [`php-sessions-kv-example`](https://github.com/CleverCloud/php-sessions-kv-example) is plain PHP relying on `ENABLE_REDIS` and `SESSION_TYPE`, the two variables with no effect here, and [`frankenphp-kv-json-example`](https://github.com/CleverCloud/frankenphp-kv-json-example) stores JSON with Predis, not sessions.
+Clever offers an in-house alternative, [Materia KV](https://www.clever.cloud/developers/doc/addons/materia-kv/), a key-value store compatible with the Redis protocol and free during the beta. I have not wired it here, and I am not going to sell you a path I have not walked. What the documentation says: on this runtime you need, for now, `tcp` mode and port `6378`, so no TLS, and the add-on injects `KV_HOST`, `KV_PORT` and `KV_TOKEN` with their `REDIS_*` aliases, but no ready-made `REDIS_URL` like the Redis add-on's. Neither official demo covers this case: [`php-sessions-kv-example`](https://github.com/CleverCloud/php-sessions-kv-example) is plain PHP relying on `ENABLE_REDIS` and `SESSION_TYPE`, the two variables with no effect here, and [`frankenphp-kv-json-example`](https://github.com/CleverCloud/frankenphp-kv-json-example) stores JSON with Predis, not sessions.
 
 ## The Caddyfile, and what it hands back to you
 
-By default, the platform starts your application with `frankenphp php-server`: that command is the one reading `CC_WEBROOT`, listening on the port from `CC_FRANKENPHP_PORT` (8080) and installing the worker from `CC_FRANKENPHP_WORKER`. Dropping a `Caddyfile` at the root is not enough, nothing loads it: you have to go through `CC_RUN_COMMAND`, which **completely replaces** the platform's command. The listening port, the served root, the `worker` directive, everything then falls back to your file, and an application listening anywhere other than 8080 fails the healthcheck.
+By default, the platform starts your application with `frankenphp php-server`: that command is the one reading `CC_WEBROOT`, listening on the port from `CC_FRANKENPHP_PORT` (8080) and installing the worker from `CC_FRANKENPHP_WORKER`. Dropping a [`Caddyfile`](https://frankenphp.dev/docs/config/) at the root is not enough, nothing loads it: you have to go through `CC_RUN_COMMAND`, which **completely replaces** the platform's command. The listening port, the served root, the `worker` directive, everything then falls back to your file, and an application listening anywhere other than 8080 fails the healthcheck.
 
 ```caddyfile
 :8080 {
@@ -255,7 +255,7 @@ It is rarely worth it, and I did not do it here. Two cases come back: fine-tunin
 
 ## Extensions, a subset
 
-The `php` runtime enabled its extensions through variables, following the `ENABLE_<EXTENSION>` and `DISABLE_<EXTENSION>` pattern. Here, that mechanism is not documented: [the extensions page](https://www.clever.cloud/developers/doc/applications/php/extensions/) lists what is included, and stops there.
+The `php` runtime enabled its extensions through variables, following the `ENABLE_<EXTENSION>` and `DISABLE_<EXTENSION>` pattern. Here, that mechanism is not documented: [the extensions page](https://www.clever.cloud/developers/doc/applications/frankenphp/#included-extensions) lists what is included, and stops there.
 
 The set covers an ordinary Symfony application: `intl`, `mbstring`, `pdo_pgsql`, `opcache`, `redis`, `apcu`, `sodium`, `zip`, `curl`, `gd` and `imagick` are there. Missing are `mongodb`, `xdebug`, `blackfire`, `newrelic`, `grpc` and `event`: if your application or your tooling depends on them, the question is settled.
 
@@ -294,7 +294,7 @@ The `frankenphp` runtime is young and moving fast, its image updates follow upst
 
 **Thread count without taking over the start command.** A dedicated variable would spare you writing a whole `Caddyfile`, and owning the port, the served root and the worker, just to change one number.
 
-**Two or three extensions.** Blackfire and Xdebug first: profiling an application that stays in memory matters more than elsewhere, and that is precisely where they are missing.
+**Two or three extensions.** [Blackfire](https://www.blackfire.io/) and [Xdebug](https://xdebug.org/) first: profiling an application that stays in memory matters more than elsewhere, and that is precisely where they are missing.
 
 **And documentation aligned with behaviour.** Both runtimes announce the same `--no-scripts`, only one applies it.
 
