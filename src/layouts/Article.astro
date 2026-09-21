@@ -18,6 +18,14 @@ interface Props {
 }
 
 const { section, title, description, date, tags = [], lang = 'fr', noindex = false, origin, body, ogImage, pdf } = Astro.props;
+
+// La durée de lecture et la mention d'origine décrivent l'article lui-même :
+// elles suivent sa langue, pas celle que le visiteur a choisie pour l'interface
+// avec le bouton FR/EN. D'où l'absence de `data-i18n` sur ces deux éléments,
+// que le switcher de Header.astro réécrirait sinon.
+const minutes = readingMinutes(body);
+const readingLabel = lang === 'en' ? `${minutes} min read` : `${minutes} min de lecture`;
+const originLabel = lang === 'en' ? 'Originally published on' : 'Publié à l’origine sur';
 ---
 
 <Base
@@ -35,16 +43,14 @@ const { section, title, description, date, tags = [], lang = 'fr', noindex = fal
       <p class="meta">
         <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
         {' · '}
-        <span data-i18n="readingTime" data-minutes={readingMinutes(body)}>
-          {readingMinutes(body)} min de lecture
-        </span>
+        <span>{readingLabel}</span>
         {' '}
         <span class="flag" title={lang === 'en' ? 'English' : 'Français'}>{langFlag(lang)}</span>
       </p>
       {
         origin && (
           <p class="attribution-banner">
-            <span data-i18n="origin">Publié à l’origine sur</span>
+            <span>{originLabel}</span>
             {' '}
             <a href={origin.url}>{origin.site}</a>.
           </p>

@@ -108,8 +108,6 @@ const current = Astro.url.pathname;
     // UI locale switcher: static chrome strings only, content untouched. fr = index 0, en = index 1.
     const I18N = {
       latest: ['Derniers contenus', 'Latest content'],
-      readingTime: ['{n} min de lecture', '{n} min read'],
-      origin: ['Publié à l’origine sur', 'Originally published on'],
       notFound: ['Cette page n’existe pas (ou plus).', 'This page does not exist (anymore).'],
       backHome: ['Retour à l’accueil', 'Back home'],
       veilleArchive: ['Archive de veille', 'Veille archive'],
@@ -124,7 +122,6 @@ const current = Astro.url.pathname;
         const entry = I18N[el.dataset.i18n];
         if (!entry) return;
         let text = entry[idx];
-        if (el.dataset.minutes) text = text.replace('{n}', el.dataset.minutes);
         el.textContent = text;
       });
       if (langBtn) langBtn.textContent = lang === 'en' ? 'FR' : 'EN';
