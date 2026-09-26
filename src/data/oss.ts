@@ -76,6 +76,12 @@ export const bridges: OssProject[] = [
     description: 'Bridge de plateforme Symfony AI pour Perplexity.',
     language: 'PHP',
   },
+  {
+    name: 'Symfony AI · Eden AI',
+    url: 'https://github.com/symfony/ai/tree/main/src/platform/src/Bridge/EdenAi',
+    description: 'Bridge de plateforme Symfony AI pour la passerelle Eden AI.',
+    language: 'PHP',
+  },
 ];
 
 export const projects: OssProject[] = [
