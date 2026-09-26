@@ -120,13 +120,6 @@ export const projects: OssProject[] = [
     stars: 4,
     language: 'PHP',
   },
-  {
-    name: 'symfony-skills',
-    url: 'https://github.com/welcoMattic/symfony-skills',
-    description: 'Skills pour agents de code IA dédiés à l’utilisation du framework Symfony.',
-    stars: 4,
-    language: 'Shell',
-  },
 ];
 
 export const archived: OssProject[] = [
@@ -143,6 +136,13 @@ export const archived: OssProject[] = [
     description: 'CLI pour contrôler Spotify via D-Bus.',
     stars: 15,
     language: 'Rust',
+  },
+  {
+    name: 'symfony-skills',
+    url: 'https://github.com/welcoMattic/symfony-skills',
+    description: 'Skills pour agents de code IA dédiés à l’utilisation du framework Symfony.',
+    stars: 4,
+    language: 'Shell',
   },
   {
     name: 'dotfiles-linux',
