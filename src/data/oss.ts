@@ -93,6 +93,13 @@ export const projects: OssProject[] = [
     openSource: false,
   },
   {
+    name: 'Coolpanion',
+    url: 'https://coolpanion.coolify.kloude.fr/',
+    description: 'Client iPhone et iPad natif pour Coolify : suivi, déploiements, logs. Sans compte, sans backend, sans télémétrie.',
+    language: 'Swift',
+    openSource: false,
+  },
+  {
     name: 'has-attribute',
     url: 'https://github.com/welcoMattic/has-attribute',
     description: 'La fonction has_attribute manquante de PHP.',
