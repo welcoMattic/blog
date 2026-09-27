@@ -173,7 +173,7 @@ Reste à donner le chemin à la plateforme :
 clever env set CC_HEALTH_CHECK_PATH "/cc-health"
 ```
 
-Sans cette variable, [la plateforme interroge `/`](https://www.clever.cloud/developers/doc/develop/healthcheck/) et attend un code de réponse compris entre 200 et 300. Une application Symfony fraîche y répond 404, et le déploiement serait déclaré en échec alors que tout va bien.
+Sans cette variable, [la plateforme interroge `/`](https://www.clever.cloud/developers/doc/develop/common-configuration/healthcheck/) et accepte tout code de 200 à 499 : le 404 d'une application Symfony fraîche passe. Ce contrôle prouve qu'un serveur HTTP répond, le 404 d'Apache compris, rien de plus. Un chemin dédié doit répondre 2xx : là, c'est Symfony qui démarre et répond.
 
 ## Étape 4 : le piège Apache
 

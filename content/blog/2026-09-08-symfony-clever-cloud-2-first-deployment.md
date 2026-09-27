@@ -173,7 +173,7 @@ All that is left is giving the platform the path:
 clever env set CC_HEALTH_CHECK_PATH "/cc-health"
 ```
 
-Without that variable, [the platform calls `/`](https://www.clever.cloud/developers/doc/develop/healthcheck/) and expects a response code between 200 and 300. A fresh Symfony application answers 404 there, and the deployment would be declared failed while everything is fine. The `cc-` prefix says this path belongs to the platform, and it leaves `/health` free for your own monitoring, the one that is allowed to query your dependencies.
+Without that variable, [the platform calls `/`](https://www.clever.cloud/developers/doc/develop/common-configuration/healthcheck/) and accepts any code from 200 to 499: the 404 of a fresh Symfony application passes. That check proves an HTTP server answers, Apache's own 404 included, nothing more. A dedicated path has to answer 2xx: there, it is Symfony that has started and answers. The `cc-` prefix says this path belongs to the platform, and it leaves `/health` free for your own monitoring, the one that is allowed to query your dependencies.
 
 ## Step 4: the Apache trap
 
