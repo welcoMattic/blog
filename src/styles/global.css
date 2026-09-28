@@ -333,6 +333,15 @@ html[data-ui-lang='en'] .hairline-list > li[data-lang='fr'] {
   padding-left: 1.2em;
 }
 
+/* Le navigateur pose `tabular-nums` sur les marqueurs de liste numérotée, pour
+   que les chiffres s'alignent. Nos polices ont un « 1 » bien plus étroit que la
+   chasse tabulaire, et le blanc qui comble la différence se lit comme une faute
+   de frappe : « 1 . » au lieu de « 1. ». On repasse en chiffres proportionnels,
+   au prix d'un premier marqueur imperceptiblement plus à droite que les autres. */
+li::marker {
+  font-variant-numeric: proportional-nums;
+}
+
 .prose blockquote {
   margin: 1.5em 0;
   padding: 4px 0 4px 22px;
@@ -548,10 +557,13 @@ html[data-ui-lang='en'] .hairline-list > li[data-lang='fr'] {
   .article-layout {
     max-width: 66rem;
     display: grid;
-    grid-template-columns: minmax(0, 48rem) 15rem;
+    /* La colonne est à gauche, le texte à droite. L'ordre du DOM reste en-tête,
+       colonne, corps : c'est celui qu'on veut en colonne unique et au clavier,
+       et la grille le remet dans l'ordre visuel voulu. */
+    grid-template-columns: 15rem minmax(0, 48rem);
     grid-template-areas:
-      'head rail'
-      'body rail';
+      'rail head'
+      'rail body';
     column-gap: 3rem;
   }
 
