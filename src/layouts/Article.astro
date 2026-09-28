@@ -40,6 +40,9 @@ const {
 // avec le bouton FR/EN. D'où l'absence de `data-i18n` sur ces deux éléments,
 // que le switcher de Header.astro réécrirait sinon. Même règle, même raison
 // pour les libellés de la colonne latérale (voir ArticleRail.astro).
+// La colonne latérale est posée entre l'en-tête et le corps, pas après : c'est
+// l'ordre qu'on veut en colonne unique (titre, sommaire, texte) et au clavier,
+// et la grille de global.css la renvoie à droite dès qu'il y a la place.
 const minutes = readingMinutes(body);
 const readingLabel = lang === 'en' ? `${minutes} min read` : `${minutes} min de lecture`;
 const originLabel = lang === 'en' ? 'Originally published on' : 'Publié à l’origine sur';
@@ -54,9 +57,6 @@ const originLabel = lang === 'en' ? 'Originally published on' : 'Publié à l’
   article={{ publishedTime: date, tags }}
   wide
 >
-  <!-- L'<aside> est posé entre l'en-tête et le corps, pas après : c'est l'ordre
-       qu'on veut en colonne unique (titre, sommaire, texte) et au clavier, et la
-       grille de global.css le renvoie à droite dès qu'il y a la place. -->
   <article class="prose article-layout">
     <header>
       <a class="eyebrow" href={`/${section}/`}>{sectionLabel(section)}</a>

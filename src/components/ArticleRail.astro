@@ -1,6 +1,6 @@
 ---
 import type { MarkdownHeading } from 'astro';
-import { formatDate, langFlag, slugifyTag, wordCount } from '../lib/utils';
+import { formatDate, frenchPunctuation, langFlag, slugifyTag, wordCount } from '../lib/utils';
 
 interface Props {
   headings: MarkdownHeading[];
@@ -31,16 +31,17 @@ const entries = headings.filter((heading) => heading.depth === 2 || heading.dept
 // veilles n'ont aucun titre : la colonne s'y réduit au bloc de méta.
 const hasToc = entries.length > 1;
 
+// Le slot reçoit le sommaire de série, qui passe avant celui de l'article : il
+// est court et de taille fixe, là où le second peut dépasser la hauteur de
+// l'écran et se mettre à défiler. Dans l'autre ordre, un article à dix-huit
+// titres enterrait la série hors de vue.
+
 const words = wordCount(body);
 const wordsLabel = lang === 'en' ? 'words' : words > 1 ? 'mots' : 'mot';
 const formattedWords = new Intl.NumberFormat(lang === 'en' ? 'en-GB' : 'fr-FR').format(words);
 ---
 
 <aside class="article-rail">
-  <!-- Le sommaire de série passe avant celui de l'article : il est court et de
-       taille fixe, là où le second peut dépasser la hauteur de l'écran et se
-       mettre à défiler. Dans l'autre ordre, un article à dix-huit titres
-       enterrait la série hors de vue. -->
   <slot />
 
   {
@@ -51,7 +52,7 @@ const formattedWords = new Intl.NumberFormat(lang === 'en' ? 'en-GB' : 'fr-FR').
           <ol>
             {entries.map((heading) => (
               <li data-depth={heading.depth}>
-                <a href={`#${heading.slug}`}>{heading.text}</a>
+                <a href={`#${heading.slug}`}>{frenchPunctuation(heading.text, lang)}</a>
               </li>
             ))}
           </ol>

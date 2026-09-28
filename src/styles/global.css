@@ -400,6 +400,13 @@ html[data-ui-lang='en'] .hairline-list > li[data-lang='fr'] {
   margin: 0 0 2.25rem;
 }
 
+/* Une colonne qui n'a que sa carte d'identité, masquée à cette largeur, est une
+   boîte vide : sa marge basse écarterait le texte de son en-tête pour rien.
+   C'est le cas des talks et des veilles, sans titres donc sans sommaire. */
+.article-rail:not(:has(> :not(.article-facts))) {
+  margin-bottom: 0;
+}
+
 .article-rail a {
   color: var(--muted);
   text-decoration: none;
