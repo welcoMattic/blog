@@ -11,9 +11,18 @@ export function formatDate(date: Date, lang: 'fr' | 'en' = 'fr'): string {
   }).format(date);
 }
 
+// Décompte volontairement naïf : les mots du Markdown brut, balisage, URL et
+// blocs de code compris. C'est celui qui alimente le temps de lecture depuis
+// l'origine, et le sortir ici sert surtout à ce que les deux chiffres affichés
+// côte à côte dans la colonne latérale ne se contredisent pas. Filtrer le code
+// donnerait un total plus juste mais raccourcirait d'un coup le temps de
+// lecture de tous les articles déjà publiés.
+export function wordCount(body: string | undefined): number {
+  return (body ?? '').split(/\s+/).filter(Boolean).length;
+}
+
 export function readingMinutes(body: string | undefined): number {
-  const words = (body ?? '').split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / 200));
+  return Math.max(1, Math.round(wordCount(body) / 200));
 }
 
 export function langFlag(lang: 'fr' | 'en' = 'fr'): string {
