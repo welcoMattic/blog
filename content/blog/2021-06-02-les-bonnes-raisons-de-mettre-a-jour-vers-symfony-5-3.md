@@ -217,32 +217,3 @@ Si vous souhaitez en savoir plus sur toutes les nouveautés de Symfony 5.3, [un 
 * * *
 
 1.  articles sur notre blog en [2015](https://jolicode.com/blog/translation-workflow-with-symfony2) et [2017](https://jolicode.com/blog/how-to-properly-manage-translations-in-symfony), conférences au [SymfonyLive Paris 2018](https://www.youtube.com/watch?v=zP6vbkc-GJY), au SymfonyWorld 2020 ([vidéo](https://live.symfony.com/account/replay/video/525), [slides](https://docs.google.com/presentation/d/1Zz5Oxa-6jedobK4jOhuQ9ggTyVTtGcEP3Un_y0LdBoM/edit#slide=id.g35f391192_00)) [↩](#fnref:1)
-    
-
-### Commentaires et discussions
-
-let commentsLoaded = false; var remark\_config = { host: 'https://jolicode.com/comments', site\_id: 'jolicode', components: \['embed'\], url: 'https://jolicode.com/blog/les-bonnes-raisons-de-mettre-a-jour-vers-symfony-5-3', max\_shown\_comments: 20, theme: 'light', page\_title: "Les bonnes raisons de mettre \\u00e0 jour vers Symfony 5.3 !", locale: 'fr', show\_email\_subscription: false }; const observer = new IntersectionObserver((entries) => { if (commentsLoaded || entries\[0\].intersectionRatio <= 0) return; commentsLoaded = true; !function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark\_config.host+"/web/"+e\[o\]+c,d.appendChild(r)}}(remark\_config.components||\["embed"\],document); }, { root: null, rootMargin: '0px 0px 400px 0px', }); observer.observe(document.getElementById('remark42'));
-
-## Nos formations sur ce sujet
-
-Notre expertise est aussi disponible sous forme de formations professionnelles !
-
-[Voir toutes nos formations](https://jolicode.com/nos-metiers/formations)
-
- ![Symfony](/img/jolicode/les-bonnes-raisons-de-mettre-a-jour-vers-symfony-5-3/logo_symfony2.png)
-
-### Symfony
-
-Formez-vous à Symfony, l’un des frameworks Web PHP les complet au monde
-
-[En savoir plus sur cette formation](https://jolicampus.com/formations/symfony)
-
- ![Symfony avancée](/img/jolicode/les-bonnes-raisons-de-mettre-a-jour-vers-symfony-5-3/logo_symfony2.png)
-
-### Symfony avancée
-
-Décou­vrez les fonc­tion­na­li­tés et concepts avan­cés de Symfo­ny
-
-[En savoir plus sur cette formation](https://jolicampus.com/formations/symfony-avancee)
-
-## Ces clients ont profité de notre expertise

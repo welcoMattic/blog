@@ -198,7 +198,7 @@ Ces tâches sont fournies à but informatif, libre à vous de vous en inspirer p
 
 #### Sources et liens
 
--   [https://pgsessions.com/assets/archives/pgs12\_06\_anonymisation\_beyond\_gdpr.pdf](https://pgsessions.com/assets/archives/pgs12_06_anonymisation_beyond_gdpr.pdf)
+-   [https://pgsessions.com/assets/archives/pgs12_06_anonymisation_beyond_gdpr.pdf](https://pgsessions.com/assets/archives/pgs12_06_anonymisation_beyond_gdpr.pdf)
 -   [https://dbtoolsbundle.readthedocs.io/en/stable/](https://dbtoolsbundle.readthedocs.io/en/stable/)
 -   [https://castor.jolicode.com/](https://castor.jolicode.com/)
 
@@ -206,43 +206,4 @@ Ces tâches sont fournies à but informatif, libre à vous de vous en inspirer p
 
 1.  [https://gdpr.algolia.com/fr/gdpr-article-5](https://gdpr.algolia.com/fr/gdpr-article-5) [↩](#fnref:rgpd)
     
-2.  [https://www.cnil.fr/sites/cnil/files/2024–03/cnil\_guide\_securite\_personnelle\_2024.pdf](https://www.cnil.fr/sites/cnil/files/2024-03/cnil_guide_securite_personnelle_2024.pdf) [↩](#fnref:guide-pratique)
-    
-
-### Commentaires et discussions
-
-let commentsLoaded = false; var remark\_config = { host: 'https://jolicode.com/comments', site\_id: 'jolicode', components: \['embed'\], url: 'https://jolicode.com/blog/dbtoolsbundle-enfin-un-outil-pour-utiliser-legalement-nos-donnees-de-prod-en-local', max\_shown\_comments: 20, theme: 'light', page\_title: "DbToolsBundle, enfin un outil pour utiliser l\\u00e9galement nos donn\\u00e9es de prod en local", locale: 'fr', show\_email\_subscription: false }; const observer = new IntersectionObserver((entries) => { if (commentsLoaded || entries\[0\].intersectionRatio <= 0) return; commentsLoaded = true; !function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark\_config.host+"/web/"+e\[o\]+c,d.appendChild(r)}}(remark\_config.components||\["embed"\],document); }, { root: null, rootMargin: '0px 0px 400px 0px', }); observer.observe(document.getElementById('remark42'));
-
-## Nos articles sur le même sujet
-
-### [Améliorer la DX de vos Fixtures PHP](https://jolicode.com/blog/ameliorer-la-dx-de-vos-fixtures-php)
-
-Les fixtures sont utilisées pour charger des données définies par les développeurs dans une base de données. Elles sont très utiles en environnement de développement car elles permettent d’avoir une application…
-
-24/06/2020
-
-par Grégoire Pineau
-
-### [Comment tester fonctionnellement un projet legacy](https://jolicode.com/blog/comment-tester-fonctionnellement-un-projet-legacy)
-
-Travailler sur un projet fraîchement démarré, c’est hype ! Mais beaucoup d’entre nous n’ont pas cette chance. Au travers d’une mission, j’ai dû mettre en place un système d’intégration continue sur un projet considéré…
-
-22/03/2019
-
-par Grégoire Pineau
-
-## Nos formations sur ce sujet
-
-Notre expertise est aussi disponible sous forme de formations professionnelles !
-
-[Voir toutes nos formations](https://jolicode.com/nos-metiers/formations)
-
- ![Symfony avancée](/img/jolicode/dbtoolsbundle-enfin-un-outil-pour-utiliser-legalement-nos-donnees-de-prod-en-local/logo_symfony2.png)
-
-### Symfony avancée
-
-Décou­vrez les fonc­tion­na­li­tés et concepts avan­cés de Symfo­ny
-
-[En savoir plus sur cette formation](https://jolicampus.com/formations/symfony-avancee)
-
-## Ces clients ont profité de notre expertise
+2.  [https://www.cnil.fr/sites/cnil/files/2024-03/cnil_guide_securite_personnelle_2024.pdf](https://www.cnil.fr/sites/cnil/files/2024-03/cnil_guide_securite_personnelle_2024.pdf) [↩](#fnref:guide-pratique)

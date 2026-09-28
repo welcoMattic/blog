@@ -237,33 +237,3 @@ As it was designed to manage OS services, systemd can offer you plenty of other 
 ## Want to try?
 
 The Internet is full of brilliant people, so someone has created a [web-based playground](https://systemd-by-example.com/) to experiment systemd in the browser!
-
-### Commentaires et discussions
-
-let commentsLoaded = false; var remark\_config = { host: 'https://jolicode.com/comments', site\_id: 'jolicode', components: \['embed'\], url: 'https://jolicode.com/blog/symfony-messenger-systemd', max\_shown\_comments: 20, theme: 'light', page\_title: "Symfony Messenger \\ud83d\\udc9b systemd", locale: 'en', show\_email\_subscription: false }; const observer = new IntersectionObserver((entries) => { if (commentsLoaded || entries\[0\].intersectionRatio <= 0) return; commentsLoaded = true; !function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark\_config.host+"/web/"+e\[o\]+c,d.appendChild(r)}}(remark\_config.components||\["embed"\],document); }, { root: null, rootMargin: '0px 0px 400px 0px', }); observer.observe(document.getElementById('remark42'));
-
-## Nos articles sur le même sujet
-
-### [Master task scheduling with Symfony Scheduler](https://jolicode.com/blog/master-task-scheduling-with-symfony-scheduler)
-
-Introduction Nowadays, using a crontab for our recurring tasks is quite common, but not very practical because it’s completely disconnected from our application. The Scheduler component is an excellent alternative.…
-
-06/12/2023
-
-par Baptiste Leduc
-
-## Nos formations sur ce sujet
-
-Notre expertise est aussi disponible sous forme de formations professionnelles !
-
-[Voir toutes nos formations](https://jolicode.com/nos-metiers/formations)
-
- ![Symfony avancée](/img/jolicode/symfony-messenger-systemd/logo_symfony2.png)
-
-### Symfony avancée
-
-Décou­vrez les fonc­tion­na­li­tés et concepts avan­cés de Symfo­ny
-
-[En savoir plus sur cette formation](https://jolicampus.com/formations/symfony-avancee)
-
-## Ces clients ont profité de notre expertise

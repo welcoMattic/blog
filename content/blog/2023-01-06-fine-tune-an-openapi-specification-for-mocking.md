@@ -152,19 +152,3 @@ You can find an example of the final generated file [in /test directory of the G
 ## To infinity and beyond 🚀
 
 In May 2022, I wrote a blog post entitled [Efficiently Mock APIs Locally With Prism](https://jolicode.com/blog/efficiently-mock-apis-locally-with-prism) . Now, you can mix this blog post with the current one to generate the exact OpenAPI file you need to mock super efficiently any API!
-
-### Commentaires et discussions
-
-let commentsLoaded = false; var remark\_config = { host: 'https://jolicode.com/comments', site\_id: 'jolicode', components: \['embed'\], url: 'https://jolicode.com/blog/fine-tune-an-openapi-specification-for-mocking', max\_shown\_comments: 20, theme: 'light', page\_title: "Fine tune an OpenAPI specification for mocking", locale: 'en', show\_email\_subscription: false }; const observer = new IntersectionObserver((entries) => { if (commentsLoaded || entries\[0\].intersectionRatio <= 0) return; commentsLoaded = true; !function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark\_config.host+"/web/"+e\[o\]+c,d.appendChild(r)}}(remark\_config.components||\["embed"\],document); }, { root: null, rootMargin: '0px 0px 400px 0px', }); observer.observe(document.getElementById('remark42'));
-
-## Nos articles sur le même sujet
-
-### [Efficiently Mock APIs Locally With Prism](https://jolicode.com/blog/efficiently-mock-apis-locally-with-prism)
-
-It’s quite common to have to mock an API locally during the development of an application. Although it wasn’t easy the first few times we had to do it, we have learnt and now it’s time to share! So let’s dive into…
-
-30/05/2022
-
-par Mathieu Santostefano
-
-## Ces clients ont profité de notre expertise

@@ -191,7 +191,3 @@ Il est d’ores et déjà possible de [créer vos propres plugins](https://zelli
 Avec tous ces outils, il n’y a plus de raison d’avoir peur de fermer votre terminal avec 12 onglets ouverts, pour lesquels vous auriez passé 30 minutes à tous les rouvrir et réorganiser votre espace de travail.
 
 Simplifiez vous la vie en quelques lignes de YAML pour démarrer facilement chacun de vos projets ! Parlez-en à vos collègues, qui sait, peut-être que vous parviendrez à les convaincre et à maintenir un _workspace_ `tmux` ou `zellij` en commun pour certains de vos projets !
-
-### Commentaires et discussions
-
-let commentsLoaded = false; var remark\_config = { host: 'https://jolicode.com/comments', site\_id: 'jolicode', components: \['embed'\], url: 'https://jolicode.com/blog/organiser-son-terminal-avec-des-workspaces', max\_shown\_comments: 20, theme: 'light', page\_title: "Organiser son terminal avec des workspaces", locale: 'fr', show\_email\_subscription: false }; const observer = new IntersectionObserver((entries) => { if (commentsLoaded || entries\[0\].intersectionRatio <= 0) return; commentsLoaded = true; !function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark\_config.host+"/web/"+e\[o\]+c,d.appendChild(r)}}(remark\_config.components||\["embed"\],document); }, { root: null, rootMargin: '0px 0px 400px 0px', }); observer.observe(document.getElementById('remark42'));

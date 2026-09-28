@@ -118,9 +118,3 @@ Le tout reste du YAML valide, parfaitement compris par le composant YAML de Symf
 ## 🎁 One more thing
 
 Cet opérateur de merge YAML `<<` est utilisable dans n’importe quel fichier YAML. Vous pouvez donc vous en servir pour vos configurations ; HTTPlug, mapping Elasticsearch, Doctrine, etc. C’est en tout cas un bon moyen de réduire la répétition de code dans vos fichiers YAML lorsque ceux ci deviennent trop volumineux !
-
-### Commentaires et discussions
-
-let commentsLoaded = false; var remark\_config = { host: 'https://jolicode.com/comments', site\_id: 'jolicode', components: \['embed'\], url: 'https://jolicode.com/blog/loperateur-de-merge-en-yaml-le-pire-ennemi-de-la-duplication-de-configuration', max\_shown\_comments: 20, theme: 'light', page\_title: "L'op\\u00e9rateur de merge en YAML, le pire ennemi de la duplication de configuration", locale: 'fr', show\_email\_subscription: false }; const observer = new IntersectionObserver((entries) => { if (commentsLoaded || entries\[0\].intersectionRatio <= 0) return; commentsLoaded = true; !function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark\_config.host+"/web/"+e\[o\]+c,d.appendChild(r)}}(remark\_config.components||\["embed"\],document); }, { root: null, rootMargin: '0px 0px 400px 0px', }); observer.observe(document.getElementById('remark42'));
-
-## Ces clients ont profité de notre expertise

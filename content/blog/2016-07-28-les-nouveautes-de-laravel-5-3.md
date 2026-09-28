@@ -46,7 +46,7 @@ Post::search('JoliCode')->get();
 On peut également utiliser la pagination :
 
 ```php
-Post::search('JoliCode')—>where('status', '=', 'published')->paginate();
+Post::search('JoliCode')->where('status', '=', 'published')->paginate();
 ```
 
 ## Laravel Mailable
@@ -143,9 +143,3 @@ Vous pouvez appronfondir avec la [série d’articles de Matt Stauffer](https://
 Et bien sûr suivre ce qui se passe lors des conférences sur le hastash [#Laracon](https://twitter.com/hashtag/laracon?f=tweets&vertical=default).
 
 Photo credit to [@abigailotwell](https://twitter.com/abigailotwell)
-
-### Commentaires et discussions
-
-let commentsLoaded = false; var remark\_config = { host: 'https://jolicode.com/comments', site\_id: 'jolicode', components: \['embed'\], url: 'https://jolicode.com/blog/les-nouveautes-de-laravel-5-3', max\_shown\_comments: 20, theme: 'light', page\_title: "Les nouveaut\\u00e9s de Laravel 5.3", locale: 'fr', show\_email\_subscription: false }; const observer = new IntersectionObserver((entries) => { if (commentsLoaded || entries\[0\].intersectionRatio <= 0) return; commentsLoaded = true; !function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark\_config.host+"/web/"+e\[o\]+c,d.appendChild(r)}}(remark\_config.components||\["embed"\],document); }, { root: null, rootMargin: '0px 0px 400px 0px', }); observer.observe(document.getElementById('remark42'));
-
-## Ces clients ont profité de notre expertise

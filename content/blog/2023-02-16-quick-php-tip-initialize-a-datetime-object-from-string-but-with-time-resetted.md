@@ -116,9 +116,3 @@ $lastDayOfTheLastWeek = new \DateTime('last day of last week');
 ```
 
 Let us know if you have any other quick tips about little-known features of PHP DateTime!
-
-### Commentaires et discussions
-
-let commentsLoaded = false; var remark\_config = { host: 'https://jolicode.com/comments', site\_id: 'jolicode', components: \['embed'\], url: 'https://jolicode.com/blog/quick-php-tip-initialize-a-datetime-object-from-string-but-with-time-resetted', max\_shown\_comments: 20, theme: 'light', page\_title: "Quick PHP tip: Initialize a DateTime object from string, but with time resetted", locale: 'en', show\_email\_subscription: false }; const observer = new IntersectionObserver((entries) => { if (commentsLoaded || entries\[0\].intersectionRatio <= 0) return; commentsLoaded = true; !function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark\_config.host+"/web/"+e\[o\]+c,d.appendChild(r)}}(remark\_config.components||\["embed"\],document); }, { root: null, rootMargin: '0px 0px 400px 0px', }); observer.observe(document.getElementById('remark42'));
-
-## Ces clients ont profité de notre expertise

@@ -299,19 +299,3 @@ ProTips © : ici `auth()` est une méthode globale proposée par Laravel afin d
 Nous avons ici initié rapidement une API REST, avec une authentification simple, sans restrictions d’accès pour faire un article plutôt court (sinon nous serions encore en train de l’écrire). Pour approfondir les exemples de points d’entrées (POST, PUT et DELETE), vous pouvez vous référer à la [documentation](https://github.com/dingo/api/wiki/) de dingo qui est plutôt complète, ainsi qu’à celle de [Fractal](http://fractal.thephpleague.com/) pour les Transformers.
 
 Et si vous souhaitez en savoir plus sur Laravel, nous vous invitons à vous inscrire sur la page [Meetup Laravel Paris](http://www.meetup.com/fr-FR/Paris-Laravel-Meetup/), et à nous rejoindre lors du prochain rendez-vous, nous y serons !
-
-### Commentaires et discussions
-
-let commentsLoaded = false; var remark\_config = { host: 'https://jolicode.com/comments', site\_id: 'jolicode', components: \['embed'\], url: 'https://jolicode.com/blog/initialiser-rapidement-une-api-rest-avec-laravel', max\_shown\_comments: 20, theme: 'light', page\_title: "Initialiser rapidement une API REST avec Laravel", locale: 'fr', show\_email\_subscription: false }; const observer = new IntersectionObserver((entries) => { if (commentsLoaded || entries\[0\].intersectionRatio <= 0) return; commentsLoaded = true; !function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark\_config.host+"/web/"+e\[o\]+c,d.appendChild(r)}}(remark\_config.components||\["embed"\],document); }, { root: null, rootMargin: '0px 0px 400px 0px', }); observer.observe(document.getElementById('remark42'));
-
-## Nos articles sur le même sujet
-
-### [Retour d’expérience d’un développeur Symfony qui découvre Laravel](https://jolicode.com/blog/retour-dexperience-dun-developpeur-symfony-qui-decouvre-laravel)
-
-En tant que développeur PHP junior, mon expérience s’est jusqu’à aujourd’hui limitée à Symfony. Curieux de nature, j’ai décidé de me lancer dans l’aventure Laravel, un framework réputé pour sa simplicité et sa…
-
-04/07/2024
-
-par Julien Cousin-Alliot
-
-## Ces clients ont profité de notre expertise

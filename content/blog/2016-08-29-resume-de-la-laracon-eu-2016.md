@@ -122,15 +122,3 @@ Pour conclure le résumé de cette Laracon EU 2016, n’hésitez pas à aller re
 ### Bonus
 
 Cette Laracon EU était le moyen idéal pour retrouver les quelques développeurs français avec qui nous discutons déjà sur le [Slack Laravel Fr](https://laravel.fr/slack). Nous avons beaucoup échangé à propos de Laravel mais aussi plus généralement de PHP et de développement Web, et avons donc décidé de faire renaître le [Meetup Laravel Paris](http://www.meetup.com/fr-FR/Paris-Laravel-Meetup/) ! N’hésitez pas à suivre le [compte Twitter LaravelFr](https://twitter.com/laravel_fr) pour être informé de la date du prochain meetup ! 😉
-
-* * *
-
-Cet article porte sur la conférence [Laracon EU Amsterdam 2016](https://jolicode.com/nos-metiers/conferences/laracon-eu-amsterdam-2016).
-
- [![Laracon EU Amsterdam 2016](/img/jolicode/resume-de-la-laracon-eu-2016/laracon-eu-2016.png)](https://jolicode.com/nos-metiers/conferences/laracon-eu-amsterdam-2016)
-
-### Commentaires et discussions
-
-let commentsLoaded = false; var remark\_config = { host: 'https://jolicode.com/comments', site\_id: 'jolicode', components: \['embed'\], url: 'https://jolicode.com/blog/resume-de-la-laracon-eu-2016', max\_shown\_comments: 20, theme: 'light', page\_title: "R\\u00e9sum\\u00e9 de la Laracon EU 2016", locale: 'fr', show\_email\_subscription: false }; const observer = new IntersectionObserver((entries) => { if (commentsLoaded || entries\[0\].intersectionRatio <= 0) return; commentsLoaded = true; !function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark\_config.host+"/web/"+e\[o\]+c,d.appendChild(r)}}(remark\_config.components||\["embed"\],document); }, { root: null, rootMargin: '0px 0px 400px 0px', }); observer.observe(document.getElementById('remark42'));
-
-## Ces clients ont profité de notre expertise
