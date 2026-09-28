@@ -1,0 +1,160 @@
+---
+import type { MarkdownHeading } from 'astro';
+import { formatDate, langFlag, slugifyTag, wordCount } from '../lib/utils';
+
+interface Props {
+  headings: MarkdownHeading[];
+  date: Date;
+  tags: string[];
+  lang: 'fr' | 'en';
+  minutes: number;
+  body?: string;
+}
+
+const { headings, date, tags, lang, minutes, body } = Astro.props;
+
+// Tout ce qui est écrit ici décrit l'article : ses titres, sa longueur, sa date.
+// Les libellés suivent donc sa langue, comme le temps de lecture de l'en-tête et
+// pour la même raison (voir le commentaire de Article.astro). Un « Reading time »
+// posé au-dessus d'un sommaire de titres français ne dirait rien de plus et
+// sonnerait faux : pas de `data-i18n` ici non plus.
+const t =
+  lang === 'en'
+    ? { toc: 'Contents', date: 'Published on', reading: 'Reading', length: 'Length', lang: 'Language', tags: 'Tags', name: 'English' }
+    : { toc: 'Sommaire', date: 'Publié le', reading: 'Lecture', length: 'Longueur', lang: 'Langue', tags: 'Tags', name: 'Français' };
+
+// h4 et au-delà sont ignorés : quatre occurrences sur tout le site, et une
+// arborescence à trois niveaux dans une colonne de 15rem devient illisible.
+const entries = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+
+// Un sommaire d'une seule entrée ne sommarise rien. Les talks et la plupart des
+// veilles n'ont aucun titre : la colonne s'y réduit au bloc de méta.
+const hasToc = entries.length > 1;
+
+const words = wordCount(body);
+const wordsLabel = lang === 'en' ? 'words' : words > 1 ? 'mots' : 'mot';
+const formattedWords = new Intl.NumberFormat(lang === 'en' ? 'en-GB' : 'fr-FR').format(words);
+---
+
+<aside class="article-rail">
+  {
+    hasToc && (
+      <details class="article-toc" open>
+        <summary>{t.toc}</summary>
+        <nav aria-label={t.toc}>
+          <ol>
+            {entries.map((heading) => (
+              <li data-depth={heading.depth}>
+                <a href={`#${heading.slug}`}>{heading.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </details>
+    )
+  }
+
+  <slot />
+
+  <dl class="article-facts">
+    <div>
+      <dt>{t.date}</dt>
+      <dd><time datetime={date.toISOString()}>{formatDate(date, lang)}</time></dd>
+    </div>
+    <div>
+      <dt>{t.reading}</dt>
+      <dd>{minutes} min</dd>
+    </div>
+    <div>
+      <dt>{t.length}</dt>
+      <dd>{formattedWords} {wordsLabel}</dd>
+    </div>
+    <div>
+      <dt>{t.lang}</dt>
+      <dd><span class="flag">{langFlag(lang)}</span>{t.name}</dd>
+    </div>
+    {
+      tags.length > 0 && (
+        <div>
+          <dt>{t.tags}</dt>
+          <dd class="article-facts-tags">
+            {tags.map((tag) => (
+              <a class="pill" href={`/tags/${slugifyTag(tag)}/`}>
+                #{tag}
+              </a>
+            ))}
+          </dd>
+        </div>
+      )
+    }
+  </dl>
+</aside>
+
+<script is:inline>
+  (() => {
+    const toc = document.querySelector('.article-toc');
+    if (!toc) return;
+
+    // Le sommaire est ouvert dans le HTML : sans JavaScript, il reste utilisable
+    // partout. En colonne unique il s'intercale entre le titre et le premier
+    // paragraphe, où il repousserait le texte hors de l'écran sur un téléphone :
+    // on le replie, le résumé restant visible pour le rouvrir. 75rem est le
+    // seuil de bascule en deux colonnes de global.css.
+    const wide = window.matchMedia('(min-width: 75rem)');
+    if (!wide.matches) toc.open = false;
+
+    // Le reste marque la section en cours de lecture. Ce script est en ligne
+    // juste après la colonne, donc avant le corps de l'article : les titres à
+    // observer ne sont pas encore analysés au premier passage. On attend le
+    // document complet, comme le switcher de langue de Header.astro.
+    const start = () => {
+      const links = new Map();
+      for (const link of toc.querySelectorAll('a[href^="#"]')) {
+        links.set(link.getAttribute('href').slice(1), link);
+      }
+
+      const targets = [...document.querySelectorAll('.article-body :is(h2, h3)[id]')].filter((heading) =>
+        links.has(heading.id),
+      );
+      if (targets.length === 0) return;
+
+      // Section courante : le dernier titre passé sous la barre des 120px. Un
+      // IntersectionObserver serait plus économe mais saute une section dès que
+      // deux titres se suivent de près, ce qui arrive dans les articles en
+      // « Étape 1, Étape 2 ». Le calcul est plafonné par requestAnimationFrame.
+      let current = null;
+      let pending = false;
+
+      const sync = () => {
+        pending = false;
+        let active = targets[0];
+        for (const heading of targets) {
+          if (heading.getBoundingClientRect().top > 120) break;
+          active = heading;
+        }
+        if (active === current) return;
+        if (current) links.get(current.id).removeAttribute('aria-current');
+        links.get(active.id).setAttribute('aria-current', 'location');
+        current = active;
+      };
+
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (pending) return;
+          pending = true;
+          requestAnimationFrame(sync);
+        },
+        { passive: true },
+      );
+
+      sync();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', start, { once: true });
+    } else {
+      start();
+    }
+  })();
+</script>

@@ -79,9 +79,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Carte principale, structure .frame de maudet.cloud */
+/* Carte principale, structure .frame de maudet.cloud. Les deux largeurs sont
+   des variables pour que les pages d'article puissent les pousser sans dupliquer
+   la règle : voir .frame--wide plus bas. */
 .frame {
-  max-width: 64rem;
+  max-width: var(--frame-max, 64rem);
   margin: 2.5rem auto;
   background: var(--paper);
   border: 1px solid var(--hairline);
@@ -91,7 +93,7 @@ body {
 }
 
 main {
-  max-width: 52rem;
+  max-width: var(--main-max, 52rem);
   margin: 0 auto;
 }
 
@@ -376,6 +378,197 @@ html[data-ui-lang='en'] .hairline-list > li[data-lang='fr'] {
   height: 100%;
   border: 0;
   border-radius: 8px;
+}
+
+/* Colonne latérale des articles : sommaire cliquable, puis carte d'identité de
+   l'article. Elle est posée dans le flux entre l'en-tête et le corps, parce que
+   c'est l'ordre qu'on veut lire et parcourir au clavier quand il n'y a qu'une
+   colonne (titre, sommaire, texte) ; la grille du bas de section la renvoie à
+   droite dès que l'écran est assez large. */
+
+.article-body :is(h2, h3) {
+  /* Une ancre du sommaire ne colle pas le titre au bord haut de la fenêtre. */
+  scroll-margin-top: 1.5rem;
+}
+
+.article-rail {
+  /* La colonne vit dans .prose, dont elle hériterait le Newsreader en 1.25rem :
+     on repasse au chrome sans, comme le fait déjà SeriesNav. */
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 2.25rem;
+}
+
+.article-rail a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.article-rail a:hover {
+  color: var(--accent);
+}
+
+.article-toc {
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  background: var(--paper-soft);
+  padding: 0.7rem 1.1rem 0.85rem;
+}
+
+/* Replié, le sommaire n'est plus qu'un bouton : une bande pleine largeur posée
+   entre le titre et le texte en ferait un objet bien plus lourd qu'il n'est. */
+.article-toc:not([open]) {
+  width: fit-content;
+}
+
+.article-toc summary {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  /* Marqueur natif retiré au profit du chevron ci-dessous : il se colle au
+     texte et ignore la taille des petites capitales. */
+  list-style: none;
+}
+
+.article-toc summary::-webkit-details-marker {
+  display: none;
+}
+
+.article-toc summary::before {
+  content: '▸';
+  margin-right: 0.4rem;
+}
+
+.article-toc[open] summary::before {
+  content: '▾';
+}
+
+.article-toc summary:hover {
+  color: var(--accent);
+}
+
+.article-toc ol {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding: 0;
+}
+
+.article-toc li {
+  margin: 0.35rem 0;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.article-toc li[data-depth='3'] {
+  padding-left: 0.9rem;
+  font-size: 0.84rem;
+}
+
+/* Section en cours de lecture, posée au défilement par le script d'ArticleRail. */
+.article-toc a[aria-current='location'] {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.article-facts {
+  margin: 0;
+  /* Masqué tant qu'il n'y a pas de colonne latérale : en pleine largeur il ne
+     ferait que répéter, juste au-dessus d'eux, l'en-tête de l'article (date,
+     durée) et son pied (tags). */
+  display: none;
+}
+
+/* Le filet ne sépare que s'il y a quelque chose au-dessus : sur un talk ou une
+   veille sans titres, la carte d'identité est seule dans la colonne. */
+.article-facts:not(:first-child) {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.article-facts div + div {
+  margin-top: 0.7rem;
+}
+
+.article-facts dt {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.article-facts dd {
+  margin: 0.15rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.article-facts-tags {
+  line-height: 1.9;
+}
+
+/* Le drapeau n'a aucun blanc latéral propre et colle au mot qui suit. */
+.article-facts .flag {
+  margin-right: 0.25rem;
+}
+
+/* Au-delà de 75rem, la carte d'un article s'élargit de ce que coûte la colonne
+   latérale : 48rem de texte + 3rem + 15rem font 66rem, auxquels s'ajoutent les
+   2 x 4rem de marge intérieure du cadre et son filet, arrondis à 75rem. Le seuil
+   vaut cette largeur maximale, si bien que la bascule a lieu pile quand la carte
+   cesse de grandir : la colonne de texte garde ses 48rem, l'arrivée du sommaire
+   ne la rétrécit jamais. En dessous, la carte reste à 64rem comme partout
+   ailleurs sur le site. */
+@media (min-width: 75rem) {
+  .frame--wide {
+    --frame-max: 75rem;
+    --main-max: 66rem;
+  }
+
+  .article-layout {
+    max-width: 66rem;
+    display: grid;
+    grid-template-columns: minmax(0, 48rem) 15rem;
+    grid-template-areas:
+      'head rail'
+      'body rail';
+    column-gap: 3rem;
+  }
+
+  .article-layout > header {
+    grid-area: head;
+  }
+
+  .article-body {
+    grid-area: body;
+  }
+
+  .article-rail {
+    grid-area: rail;
+    /* `start` est indispensable : étirée sur toute la hauteur de sa zone, la
+       colonne n'aurait plus de marge de manœuvre pour coller. */
+    align-self: start;
+    position: sticky;
+    top: 2rem;
+    margin: 0;
+    /* Un sommaire plus haut que la fenêtre défile chez lui plutôt que de se
+       faire couper. */
+    max-height: calc(100dvh - 4rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  .article-facts {
+    display: block;
+  }
 }
 
 .sr-only {

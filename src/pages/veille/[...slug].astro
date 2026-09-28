@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 const description = veilleDescription(entry.body, entry.data.date);
 ---
 
@@ -20,6 +20,7 @@ const description = veilleDescription(entry.body, entry.data.date);
   date={entry.data.date}
   tags={entry.data.tags}
   body={entry.body}
+  headings={headings}
   ogImage={`/og/veille/${entry.id}.png`}
 >
   <Content />

@@ -13,9 +13,14 @@ interface Props {
   lang?: 'fr' | 'en';
   ogImage?: string;
   article?: { publishedTime: Date; modifiedTime?: Date; tags?: string[] };
+  wide?: boolean;
 }
 
-const { lang = 'fr', ...head } = Astro.props;
+// `wide` élargit la carte pour les pages qui posent une colonne latérale à côté
+// du texte, c'est-à-dire les articles. Les autres gardent la largeur d'origine :
+// une carte plus large autour d'une colonne unique n'ajouterait que du vide.
+// Le drapeau est sorti du reste des props, que BaseHead reçoit en bloc.
+const { lang = 'fr', wide = false, ...head } = Astro.props;
 ---
 
 <!doctype html>
@@ -40,7 +45,7 @@ const { lang = 'fr', ...head } = Astro.props;
     </script>
   </head>
   <body>
-    <div class="frame">
+    <div class:list={['frame', { 'frame--wide': wide }]}>
       <Header />
       <main>
         <slot />
