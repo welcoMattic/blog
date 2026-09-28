@@ -30,7 +30,7 @@ const description = entry.data.description ?? excerpt(entry.body);
 >
   {
     entry.data.series && (
-      <SeriesNav name={entry.data.series.name} lang={entry.data.lang} currentId={entry.id} />
+      <SeriesNav slot="rail" name={entry.data.series.name} lang={entry.data.lang} currentId={entry.id} />
     )
   }
   <Content />

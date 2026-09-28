@@ -37,6 +37,12 @@ const formattedWords = new Intl.NumberFormat(lang === 'en' ? 'en-GB' : 'fr-FR').
 ---
 
 <aside class="article-rail">
+  <!-- Le sommaire de série passe avant celui de l'article : il est court et de
+       taille fixe, là où le second peut dépasser la hauteur de l'écran et se
+       mettre à défiler. Dans l'autre ordre, un article à dix-huit titres
+       enterrait la série hors de vue. -->
+  <slot />
+
   {
     hasToc && (
       <details class="article-toc" open>
@@ -53,8 +59,6 @@ const formattedWords = new Intl.NumberFormat(lang === 'en' ? 'en-GB' : 'fr-FR').
       </details>
     )
   }
-
-  <slot />
 
   <dl class="article-facts">
     <div>

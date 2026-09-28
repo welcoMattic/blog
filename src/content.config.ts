@@ -39,7 +39,7 @@ const blog = defineCollection({
     // en `noindex`. Sans effet une fois la date passée. Voir src/lib/publish.ts.
     unlisted: z.boolean().default(false),
     origin: z.object({ url: z.string().url(), site: z.string() }).optional(),
-    // Sommaire de série, rendu avant le corps de l'article par SeriesNav.astro.
+    // Sommaire de série, rendu dans la colonne latérale par SeriesNav.astro.
     // `name` regroupe les articles (une valeur par langue), `order` les classe,
     // `label` est le titre court affiché dans le sommaire, sans le préfixe de
     // série que le titre complet répète déjà.

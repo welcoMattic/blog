@@ -42,34 +42,34 @@ const heading = lang === 'en' ? 'In this series' : 'Dans cette série';
 }
 
 <style>
+  /* Le sommaire vit en tête de la colonne latérale de l'article. Il y prend la
+     mise en forme de la colonne (sans, corps réduit, pas de cadre) plutôt que la
+     carte encadrée qu'il était en tête du contenu : posée contre le sommaire de
+     l'article, une deuxième carte accentuée ferait lourd. */
   .series {
-    margin: 0 0 2.25rem;
-    padding: 0.9rem 1.1rem 1rem;
-    border: 1px solid var(--hairline);
-    border-left: 3px solid var(--accent);
-    border-radius: 6px;
-    background: var(--paper-soft);
+    margin: 0;
     font-family: var(--font-sans);
-    font-size: 0.95rem;
-    line-height: 1.55;
+    font-size: 0.9rem;
+    line-height: 1.4;
   }
 
   .series-heading {
     margin: 0 0 0.45rem;
-    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--faint);
   }
 
   .series ol {
     margin: 0;
-    padding-left: 1.4em;
+    padding-left: 1.3em;
   }
 
   .series li {
-    margin: 0.15rem 0;
+    margin: 0.3rem 0;
     color: var(--muted);
   }
 

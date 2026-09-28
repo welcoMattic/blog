@@ -410,11 +410,17 @@ html[data-ui-lang='en'] .hairline-list > li[data-lang='fr'] {
 }
 
 .article-toc {
+  /* Le sommaire de série, quand il y en a un, précède dans la colonne. */
+  margin-top: 1.25rem;
   border: 1px solid var(--hairline);
   border-left: 3px solid var(--accent);
   border-radius: 6px;
   background: var(--paper-soft);
   padding: 0.7rem 1.1rem 0.85rem;
+}
+
+.article-toc:first-child {
+  margin-top: 0;
 }
 
 /* Replié, le sommaire n'est plus qu'un bouton : une bande pleine largeur posée
