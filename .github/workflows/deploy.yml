@@ -3,27 +3,42 @@ name: Deploy to Cellar
 on:
   push:
     branches: [master]
-  # Publication programmée : rebuild pour mettre en ligne les articles dont la
-  # date est arrivée (voir src/lib/publish.ts). Crons en UTC, sans heure d'été.
+
+  # Publication programmée : le build masque les articles dont la date n'est pas
+  # arrivée (src/lib/publish.ts), il faut donc un passage quotidien pour les
+  # mettre en ligne. Deux faits gouvernent les horaires ci-dessous.
   #
-  # GitHub range les crons dans une file partagée et les sert après tout le
-  # reste : le passage unique de 6h30 UTC arrivait avec 6 à 12h de retard
-  # (12h04, 12h46, 14h13, 18h53 les jours précédents), et l'article du matin
-  # sortait l'après-midi. Deux parades. D'abord des minutes décalées, loin des
-  # heures rondes et des quarts d'heure où toute la planète a programmé son
-  # cron. Ensuite plusieurs passages par jour, pour qu'un retard sur le premier
-  # ne repousse pas la mise en ligne à la nuit suivante. Rejouer le build ne
-  # coûte rien : il est idempotent et se contente de resynchroniser Cellar.
+  # 1. `isPublished()` compare des JOURS calendaires en Europe/Paris, pas des
+  #    horodatages. Tout build lancé entre 00h00 et 23h59 à Paris publie ce qui
+  #    est daté de ce jour-là, quelle que soit l'heure écrite dans le front
+  #    matter. Se déclencher tôt ne publie donc jamais rien de faux : ça ne fait
+  #    qu'avancer l'heure de mise en ligne.
+  # 2. GitHub sert `schedule` depuis une file partagée, et le retard mesuré sur
+  #    ce dépôt est important et stable : du 16 au 24/09/2026, le passage de
+  #    4h23 UTC a démarré entre 8h50 et 10h01 UTC, soit un retard médian de
+  #    4h58 (minimum 4h28, maximum 5h38), et l'article du matin sortait vers
+  #    11h Paris. Décaler les minutes n'y change rien, c'est la file.
+  #
+  # D'où le choix : le passage principal est programmé à 23h30 UTC, qui est déjà
+  # le lendemain à Paris (00h30 en hiver, 01h30 en été, donc le bon jour
+  # calendaire dans les deux cas), et le retard de file le fait atterrir vers
+  # 6h-7h du matin. L'objectif tenu est « en ligne avant 8h », pas « lancé à
+  # 8h » : programmer 6h UTC ferait sortir l'article l'après-midi.
+  #
+  # Le second passage est un filet. GitHub abandonne parfois un run programmé
+  # sans le signaler, et rejouer le build ne coûte rien : il est idempotent et
+  # se contente de resynchroniser Cellar.
   schedule:
-    - cron: '23 4 * * *'  # 6h23 Paris l'été, 5h23 l'hiver
-    - cron: '7 7 * * *'   # 9h07 Paris l'été, 8h07 l'hiver
-    - cron: '41 10 * * *' # 12h41 Paris l'été, 11h41 l'hiver
-    - cron: '13 16 * * *' # 18h13 Paris l'été, 17h13 l'hiver
+    - cron: '30 23 * * *' # passage principal, atterrit vers 6h-7h Paris
+    - cron: '30 9 * * *'  # filet, si le passage principal a été abandonné
+
   workflow_dispatch:
 
 concurrency:
   group: deploy-cellar
-  cancel-in-progress: true
+  # Surtout pas `cancel-in-progress: true` : couper un `aws s3 sync` en cours
+  # laisse le bucket à moitié synchronisé. Les déploiements font la queue.
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -51,3 +66,10 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.CELLAR_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CELLAR_KEY_SECRET }}
+
+      # Sans ce contrôle, un déploiement incomplet ou un article resté masqué ne
+      # se voit nulle part : le job est vert et le site est faux. Le 29/09/2026,
+      # l'article du jour est resté hors ligne jusqu'à un déclenchement manuel,
+      # et rien n'avait alerté.
+      - name: Vérifier la mise en ligne
+        run: bash scripts/verify-deploy.sh
