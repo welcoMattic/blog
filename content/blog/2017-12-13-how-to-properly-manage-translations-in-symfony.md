@@ -11,7 +11,6 @@ tags:
   - translation
   - i18n
   - workflow
-sponsor: true
 lang: en
 noindex: true
 origin:

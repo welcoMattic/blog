@@ -6,7 +6,6 @@ tags:
   - php
   - sdk
   - clevercloud
-sponsor: true
 lang: en
 ---
 ## Genesis
