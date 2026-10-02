@@ -1,0 +1,73 @@
+---
+import { SPONSORS_PAGE, SPONSORS_URL, type Lang } from '../data/sponsors';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+// Le texte suit la langue de l'article, comme le reste de ce qui le décrit (voir
+// Article.astro), et le lien mène à la page de sponsoring de la même langue.
+// Rendu par le layout, hors du corps Markdown : il n'entre ni dans le flux RSS
+// ni dans llms-full.txt, qui lisent le contenu de l'article.
+const t =
+  lang === 'en'
+    ? {
+        title: 'This work is open source',
+        text: 'What this article describes is open source work I maintain. If your team builds on it, sponsoring is what funds the next step.',
+        page: 'See the tiers',
+        github: 'Sponsor on GitHub',
+      }
+    : {
+        title: 'Ce travail est open source',
+        text: 'Ce que décrit cet article, c’est du travail open source que je maintiens. Si votre équipe s’appuie dessus, c’est le sponsoring qui finance la suite.',
+        page: 'Voir les paliers',
+        github: 'Sponsoriser sur GitHub',
+      };
+---
+
+<aside class="sponsor-cta">
+  <p class="sponsor-cta-title">{t.title}</p>
+  <p>{t.text}</p>
+  <p class="sponsor-cta-links">
+    <a href={SPONSORS_PAGE[lang]}>{t.page}</a>
+    <a href={SPONSORS_URL}>{t.github}</a>
+  </p>
+</aside>
+
+<style>
+  .sponsor-cta {
+    margin: 2.5rem 0 0;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper-soft);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .sponsor-cta p {
+    margin: 0;
+  }
+
+  .sponsor-cta .sponsor-cta-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .sponsor-cta .sponsor-cta-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 0.75rem;
+    font-weight: 600;
+  }
+</style>

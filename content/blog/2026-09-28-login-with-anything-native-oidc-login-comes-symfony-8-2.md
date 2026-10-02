@@ -8,6 +8,7 @@ tags:
   - symfony
   - security
   - oidc
+sponsor: true
 lang: en
 noindex: true
 origin:

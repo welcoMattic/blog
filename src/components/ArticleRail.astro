@@ -1,6 +1,7 @@
 ---
 import type { MarkdownHeading } from 'astro';
 import { formatDate, frenchPunctuation, langFlag, slugifyTag, wordCount } from '../lib/utils';
+import { SPONSORS_PAGE, logoSponsors } from '../data/sponsors';
 
 interface Props {
   headings: MarkdownHeading[];
@@ -9,9 +10,14 @@ interface Props {
   lang: 'fr' | 'en';
   minutes: number;
   body?: string;
+  sponsors?: boolean;
 }
 
-const { headings, date, tags, lang, minutes, body } = Astro.props;
+const { headings, date, tags, lang, minutes, body, sponsors = false } = Astro.props;
+
+// Contrepartie du palier Company : logo et lien dans la colonne des articles de
+// blog. Rien du tout tant qu'aucun sponsor n'a ce palier.
+const showSponsors = sponsors && logoSponsors.length > 0;
 
 // Tout ce qui est écrit ici décrit l'article : ses titres, sa longueur, sa date.
 // Les libellés suivent donc sa langue, comme le temps de lecture de l'en-tête et
@@ -93,6 +99,25 @@ const formattedWords = new Intl.NumberFormat(lang === 'en' ? 'en-GB' : 'fr-FR').
       )
     }
   </dl>
+
+  {
+    showSponsors && (
+      <section class="article-sponsors" aria-labelledby="article-sponsors-title">
+        <p class="article-sponsors-title" id="article-sponsors-title">
+          <a href={SPONSORS_PAGE[lang]}>Sponsors</a>
+        </p>
+        <ul>
+          {logoSponsors.map((sponsor) => (
+            <li>
+              <a href={sponsor.url} rel="sponsored">
+                <img src={`/img/sponsors/${sponsor.logo}`} alt={sponsor.name} loading="lazy" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 </aside>
 
 <script is:inline>

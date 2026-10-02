@@ -38,6 +38,9 @@ const blog = defineCollection({
     // reste accessible par son URL, mais hors de toute liste, flux ou sitemap, et
     // en `noindex`. Sans effet une fois la date passée. Voir src/lib/publish.ts.
     unlisted: z.boolean().default(false),
+    // Encart de fin d'article invitant à sponsoriser, pour les articles qui
+    // parlent du travail open source qu'il finance. Voir SponsorCta.astro.
+    sponsor: z.boolean().default(false),
     origin: z.object({ url: z.string().url(), site: z.string() }).optional(),
     // Sommaire de série, rendu dans la colonne latérale par SeriesNav.astro.
     // `name` regroupe les articles (une valeur par langue), `order` les classe,

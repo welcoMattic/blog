@@ -3,6 +3,7 @@ import type { MarkdownHeading } from 'astro';
 import Base from './Base.astro';
 import ArticleRail from '../components/ArticleRail.astro';
 import SlideViewer from '../components/SlideViewer.astro';
+import SponsorCta from '../components/SponsorCta.astro';
 import { formatDate, readingMinutes, slugifyTag, langFlag, sectionLabel, frenchPunctuation } from '../lib/utils';
 
 interface Props {
@@ -18,6 +19,7 @@ interface Props {
   ogImage: string;
   pdf?: string;
   headings?: MarkdownHeading[];
+  sponsor?: boolean;
 }
 
 const {
@@ -33,6 +35,7 @@ const {
   ogImage,
   pdf,
   headings = [],
+  sponsor = false,
 } = Astro.props;
 
 // La durée de lecture et la mention d'origine décrivent l'article lui-même :
@@ -79,7 +82,15 @@ const originLabel = lang === 'en' ? 'Originally published on' : 'Publié à l’
       }
     </header>
 
-    <ArticleRail headings={headings} date={date} tags={tags} lang={lang} minutes={minutes} body={body}>
+    <ArticleRail
+      headings={headings}
+      date={date}
+      tags={tags}
+      lang={lang}
+      minutes={minutes}
+      body={body}
+      sponsors={section === 'blog'}
+    >
       <slot name="rail" />
     </ArticleRail>
 
@@ -87,6 +98,8 @@ const originLabel = lang === 'en' ? 'Originally published on' : 'Publié à l’
       {pdf && <SlideViewer src={pdf} title={title} />}
 
       <slot />
+
+      {sponsor && <SponsorCta lang={lang} />}
 
       {
         tags.length > 0 && (

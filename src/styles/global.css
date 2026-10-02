@@ -541,6 +541,60 @@ li::marker {
   margin-right: 0.25rem;
 }
 
+/* Sponsors du palier Company, en bas de la colonne. En colonne unique, la
+   colonne s'intercale entre le titre et le texte : le bloc y tient sur une
+   seule ligne de petits logos, sous le sommaire replié, visible sans repousser
+   le texte. Les logos sont sur une tuile claire dans les deux thèmes, de
+   taille fixe pour ne rien décaler au chargement. */
+.article-sponsors {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.article-sponsors-title {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.article-rail .article-sponsors-title a {
+  color: var(--faint);
+}
+
+.article-sponsors ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.article-sponsors li a {
+  display: block;
+  width: 6.5rem;
+  height: 2.25rem;
+  padding: 0.3rem 0.5rem;
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+}
+
+.article-sponsors img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: 0;
+  border-radius: 0;
+}
+
 /* Au-delà de 75rem, la carte d'un article s'élargit de ce que coûte la colonne
    latérale : 48rem de texte + 3rem + 15rem font 66rem, auxquels s'ajoutent les
    2 x 4rem de marge intérieure du cadre et son filet, arrondis à 75rem. Le seuil
@@ -593,6 +647,24 @@ li::marker {
 
   .article-facts {
     display: block;
+  }
+
+  .article-sponsors {
+    display: block;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .article-sponsors ul {
+    flex-direction: column;
+    margin-top: 0.5rem;
+  }
+
+  .article-sponsors li a {
+    width: 100%;
+    height: 3.5rem;
+    padding: 0.5rem 0.75rem;
   }
 }
 
