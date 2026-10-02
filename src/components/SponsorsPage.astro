@@ -1,5 +1,5 @@
 ---
-import { Code } from 'astro:components';
+import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { frenchPunctuation } from '../lib/utils';
 import {
@@ -11,6 +11,7 @@ import {
   tierUrl,
   logoSponsors,
   otherSponsors,
+  pastSponsors,
   type Lang,
   type Tier,
 } from '../data/sponsors';
@@ -26,94 +27,30 @@ const other: Lang = lang === 'en' ? 'fr' : 'en';
 // bouton ne réécrit que les libellés de l'interface, côté client, et vaut
 // français par défaut. Le CTA d'un article anglais doit mener à une page
 // anglaise, et chaque langue doit être indexée.
-const t = {
-  en: {
-    title: 'Sponsor my open source work',
-    description:
-      'Sponsor the open source work of Mathieu Santostefano on Symfony: the native oidc_login authenticator in Symfony 8.2, the Translation component, the Mailer and Notifier bridges. Tiers from $1 to $500 a month.',
-    twin: 'Version française',
-    lede: 'I’m Mathieu Santostefano, member of the Symfony Core Team and codeowner of the Translation component. Sponsoring me buys framework-level work that your team would otherwise build and maintain in-house.',
-    button: 'Sponsor on GitHub',
-    oidcTitle: 'What your sponsorship paid for, most recently',
-    oidcIntro:
-      '<strong>Symfony 8.2 speaks OpenID Connect out of the box.</strong> I contributed the <code>oidc_login</code> authenticator, which brings the OIDC Authorization Code Flow natively into the Security component: PKCE, the code exchange, ID token signature verification, logout and refresh, all handled for you. “Log in with…” goes from a bundle-and-glue job to a few lines of <code>security.yaml</code>:',
-    oidcCompany:
-      'If your company runs Symfony and authenticates users, that work is now in your framework, maintained by the core team, at no cost to you.',
-    oidcVendor:
-      'If you ship a product that other people install, a CMS, an e-commerce platform, a PIM, a CRM or a helpdesk, it goes further: your own customers get “Log in with our company identity provider” without you writing, testing or maintaining a single line of OIDC. Enterprise SSO stops being a roadmap item and becomes a line of configuration.',
-    oidcLinks:
-      'Read <a href="https://github.com/symfony/symfony/pull/64954">the pull request</a>, <a href="https://symfony.com/doc/8.2/security/oidc_login.html">the documentation</a>, or run <a href="https://github.com/welcoMattic/oidc-login-demo">the demo application</a> against several providers.',
-    fundsTitle: 'What sponsoring funds',
-    fundsGoal: 'The goal is $500 a month: two full working days every month, dedicated to Symfony.',
-    fundsNext:
-      'Next on the list is the OAuth2 and OIDC story of the Security component, so that modern authentication and authorization become a matter of configuration in every Symfony application: several providers behind one firewall, hybrid response types, signed request objects, <code>session_state</code> for provider-initiated logout, dynamic client registration.',
-    fundsUpkeep: 'And the upkeep of what I already maintain:',
-    fundsItems: [
-      'the <strong>Translation</strong> component, as its codeowner, and the <strong>Translation Providers</strong> subsystem I contributed;',
-      'the <strong>Mailer</strong> bridges for <a href="https://github.com/symfony/sweego-mailer">Sweego</a> and <a href="https://github.com/symfony/resend-mailer">Resend</a>, the <strong>Notifier</strong> bridges for <a href="https://github.com/symfony/sweego-notifier">Sweego</a> and <a href="https://github.com/symfony/yunpian-notifier">Yunpian</a>;',
-      'the <strong>OIDC</strong> authenticator and the ten pull requests that followed it, from PKCE and ID token signature verification to RP-Initiated Logout and mix-up attack hardening.',
-    ],
-    tiersTitle: 'Tiers',
-    monthly: 'Monthly',
-    oneTime: 'One time',
-    perMonth: 'a month',
-    once: 'one time',
-    choose: 'Choose this tier',
-    tiersNote: 'Payment goes through GitHub Sponsors. Each link opens its checkout with the tier already selected.',
-    sponsorsTitle: 'Sponsors',
-    noSponsor:
-      'No public sponsor yet. From the Company tier up, your logo and a link appear here and in the sidebar of the articles.',
-    alsoBy: 'Also supported by',
-    sponsoredNote:
-      'Links to sponsors carry <code>rel="sponsored"</code>: they are paid links, and the attribute tells search engines so, as Google requires.',
-  },
-  fr: {
-    title: 'Sponsoriser mon travail open source',
-    description:
-      'Sponsoriser le travail open source de Mathieu Santostefano sur Symfony : l’authentificateur oidc_login natif de Symfony 8.2, le composant Translation, les bridges Mailer et Notifier. Paliers de 1 à 500 $ par mois.',
-    twin: 'English version',
-    lede: 'Je suis Mathieu Santostefano, membre de la Symfony Core Team et codeowner du composant Translation. Me sponsoriser, c’est financer du travail au niveau du framework, que votre équipe devrait sinon construire et maintenir elle-même.',
-    button: 'Sponsoriser sur GitHub',
-    oidcTitle: 'Ce que le sponsoring a financé récemment',
-    oidcIntro:
-      '<strong>Symfony 8.2 parle OpenID Connect nativement.</strong> J’ai contribué l’authentificateur <code>oidc_login</code>, qui intègre l’Authorization Code Flow d’OIDC directement dans le composant Security : PKCE, l’échange du code, la vérification de la signature de l’ID token, la déconnexion et le rafraîchissement, tout est pris en charge. « Se connecter avec… » passe d’un assemblage de bundles et de code maison à quelques lignes de <code>security.yaml</code> :',
-    oidcCompany:
-      'Si votre entreprise fait tourner Symfony et authentifie des utilisateurs, ce travail est désormais dans votre framework, maintenu par la core team, sans rien vous coûter.',
-    oidcVendor:
-      'Si vous éditez un produit que d’autres installent, un CMS, une plateforme e-commerce, un PIM, un CRM ou un helpdesk, cela va plus loin : vos propres clients obtiennent « Se connecter avec le fournisseur d’identité de notre entreprise » sans que vous ayez à écrire, tester ou maintenir une seule ligne d’OIDC. Le SSO d’entreprise cesse d’être une ligne de roadmap et devient une ligne de configuration.',
-    oidcLinks:
-      'Pour aller plus loin : <a href="https://github.com/symfony/symfony/pull/64954">la pull request</a>, <a href="https://symfony.com/doc/8.2/security/oidc_login.html">la documentation</a>, et <a href="https://github.com/welcoMattic/oidc-login-demo">l’application de démo</a> à brancher sur plusieurs providers.',
-    fundsTitle: 'Ce que le sponsoring finance',
-    fundsGoal: 'L’objectif est de 500 $ par mois : deux journées de travail complètes chaque mois, consacrées à Symfony.',
-    fundsNext:
-      'Prochain chantier, OAuth2 et OIDC dans le composant Security, pour que l’authentification et l’autorisation modernes deviennent une affaire de configuration dans toute application Symfony. Au programme : plusieurs providers derrière un même firewall, les types de réponses hybrides, les signed request objects, <code>session_state</code> pour la déconnexion initiée par le provider, et le dynamic client registration.',
-    fundsUpkeep: 'Et l’entretien de ce que je maintiens déjà :',
-    fundsItems: [
-      'le composant <strong>Translation</strong>, dont je suis codeowner, et le sous-système <strong>Translation Providers</strong> que j’ai contribué ;',
-      'les bridges <strong>Mailer</strong> <a href="https://github.com/symfony/sweego-mailer">Sweego</a> et <a href="https://github.com/symfony/resend-mailer">Resend</a>, les bridges <strong>Notifier</strong> <a href="https://github.com/symfony/sweego-notifier">Sweego</a> et <a href="https://github.com/symfony/yunpian-notifier">Yunpian</a> ;',
-      'l’authentificateur <strong>OIDC</strong> et les dix pull requests qui l’ont suivi, de PKCE et la vérification de signature de l’ID token jusqu’au RP-Initiated Logout et à la protection contre les attaques mix-up.',
-    ],
-    tiersTitle: 'Paliers',
-    monthly: 'Mensuels',
-    oneTime: 'Ponctuels',
-    perMonth: 'par mois',
-    once: 'une fois',
-    choose: 'Choisir ce palier',
-    tiersNote: 'Le paiement passe par GitHub Sponsors. Chaque lien ouvre son checkout avec le palier déjà sélectionné.',
-    sponsorsTitle: 'Sponsors',
-    noSponsor:
-      'Pas encore de sponsor public. À partir du palier Company, votre logo et un lien apparaissent ici et dans la colonne latérale des articles.',
-    alsoBy: 'Avec le soutien de',
-    sponsoredNote:
-      'Les liens vers les sponsors portent <code>rel="sponsored"</code> : ce sont des liens rémunérés, et l’attribut le signale aux moteurs de recherche, comme Google l’exige.',
-  },
-}[lang];
+//
+// Tout le texte vit dans content/sponsors/<lang>.md : la prose dans le corps
+// Markdown, le reste (titre, chapeau, libellés, texte de chaque palier) dans le
+// front matter. Ce composant n'est que le gabarit.
+const page = await getEntry('sponsors', lang);
+if (!page) throw new Error(`content/sponsors/${lang}.md est introuvable.`);
+const t = page.data;
+
+// La ligne `<!-- paliers -->` du Markdown marque l'endroit où la grille des
+// paliers s'insère dans le texte. Sans marqueur, elle suit tout le texte.
+const [beforeTiers, afterTiers = ''] = (page.rendered?.html ?? '').split('<!-- paliers -->');
+
+const perk = (tier: Tier) => {
+  const key = `${tier.amount}/${tier.frequency}`;
+  const text = t.tiers.perks[key];
+  if (!text) throw new Error(`content/sponsors/${lang}.md : pas de texte pour le palier « ${key} » (tiers.perks).`);
+  return text;
+};
 
 const heading = (text: string) => frenchPunctuation(text, lang);
 
 // « $100 » en anglais, « 100 $ » en français, l'espace insécable évitant que le
 // symbole parte seul à la ligne.
-const price = (amount: number) => (lang === 'en' ? `$${amount}` : `${amount} $`);
+const price = (amount: number) => (lang === 'en' ? `$${amount}` : `${amount}\u00a0$`);
 
 // Grille de 12 colonnes : dans un groupe, les paliers mis en avant et les
 // autres forment chacun leur ligne et s'en partagent la largeur. Avec la grille
@@ -127,27 +64,14 @@ const spans = (items: Tier[]) => {
 };
 
 const groups = [
-  { title: t.monthly, frequency: 'monthly', suffix: t.perMonth },
-  { title: t.oneTime, frequency: 'one-time', suffix: t.once },
+  { title: t.tiers.monthly, frequency: 'monthly', suffix: t.tiers.perMonth },
+  { title: t.tiers.oneTime, frequency: 'one-time', suffix: t.tiers.once },
 ].map(({ title, frequency, suffix }) => {
-  const items = tiers.filter((tier) => tier.frequency === frequency);
+  // Les paliers mis en avant (entreprise, bridge) passent en tête de leur groupe.
+  const all = tiers.filter((tier) => tier.frequency === frequency);
+  const items = [...all.filter((tier) => tier.featured), ...all.filter((tier) => !tier.featured)];
   return { title, suffix, items, span: spans(items) };
 });
-
-const config = `# config/packages/security.yaml
-security:
-    providers:
-        oidc_users:
-            oidc: ~
-
-    firewalls:
-        main:
-            provider: oidc_users
-            oidc_login:
-                provider_uri: '%env(OIDC_PROVIDER_URI)%'
-                client_id: '%env(OIDC_CLIENT_ID)%'
-                client_authentication:
-                    client_secret_basic: '%env(OIDC_CLIENT_SECRET)%'`;
 
 const alternates = [
   { hreflang: 'en', href: SPONSORS_PAGE.en },
@@ -167,27 +91,10 @@ const alternates = [
       <p><a class="button" href={SPONSORS_URL}>{t.button}</a></p>
     </header>
 
-    <section class="prose">
-      <h2>{heading(t.oidcTitle)}</h2>
-      <p set:html={t.oidcIntro} />
-      <Code code={config} lang="yaml" themes={{ light: 'github-light', dark: 'github-dark' }} />
-      <p>{t.oidcCompany}</p>
-      <p>{t.oidcVendor}</p>
-      <p set:html={t.oidcLinks} />
-    </section>
-
-    <section class="prose">
-      <h2>{heading(t.fundsTitle)}</h2>
-      <p>{t.fundsGoal}</p>
-      <p set:html={t.fundsNext} />
-      <p>{t.fundsUpkeep}</p>
-      <ul>
-        {t.fundsItems.map((item) => <li set:html={item} />)}
-      </ul>
-    </section>
+    <div class="prose" set:html={beforeTiers} />
 
     <section>
-      <h2>{heading(t.tiersTitle)}</h2>
+      <h2>{heading(t.tiers.title)}</h2>
       {
         groups.map(({ title, items, suffix, span }) => (
           <>
@@ -199,14 +106,14 @@ const alternates = [
                     <strong>{price(tier.amount)}</strong> <span>{suffix}</span>
                   </p>
                   {tier.name && <p class="tier-name">{tier.name}</p>}
-                  <p class="tier-perk">{tier.perk[lang]}</p>
+                  <p class="tier-perk">{perk(tier)}</p>
                   {tier.contact && (
                     <p class="tier-contact">
                       <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> · <a href={CONTACT_LINKEDIN}>LinkedIn</a>
                     </p>
                   )}
                   <a class="tier-link" href={tierUrl(tier)}>
-                    {t.choose}
+                    {t.tiers.choose}
                   </a>
                 </li>
               ))}
@@ -214,11 +121,13 @@ const alternates = [
           </>
         ))
       }
-      <p class="meta">{t.tiersNote}</p>
+      <p class="meta">{t.tiers.note}</p>
     </section>
 
+    {afterTiers && <div class="prose" set:html={afterTiers} />}
+
     <section>
-      <h2>{heading(t.sponsorsTitle)}</h2>
+      <h2>{heading(t.sponsors.title)}</h2>
       {
         logoSponsors.length > 0 && (
           <ul class="sponsor-logos">
@@ -235,7 +144,7 @@ const alternates = [
       {
         otherSponsors.length > 0 && (
           <p class="sponsor-names">
-            {t.alsoBy}{' '}
+            {t.sponsors.alsoBy}{' '}
             {otherSponsors.map((sponsor, index) => (
               <>
                 {index > 0 && ', '}
@@ -247,8 +156,25 @@ const alternates = [
           </p>
         )
       }
-      {logoSponsors.length + otherSponsors.length === 0 && <p>{t.noSponsor}</p>}
-      <p class="meta" set:html={t.sponsoredNote} />
+      {logoSponsors.length + otherSponsors.length === 0 && <p>{t.sponsors.empty}</p>}
+      {
+        pastSponsors.length > 0 && (
+          <>
+            <h3 class="eyebrow">{t.sponsors.past}</h3>
+            <ul class="past-sponsors">
+              {pastSponsors.map((sponsor) => (
+                <li>
+                  <a href={sponsor.url} rel="sponsored">
+                    {sponsor.name}
+                  </a>
+                  {t.sponsors.pastNotes[sponsor.name] && <>, {t.sponsors.pastNotes[sponsor.name]}</>}
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+      <p class="meta">{t.sponsors.note}</p>
     </section>
   </div>
 </Base>
@@ -299,7 +225,8 @@ const alternates = [
     margin: 0;
   }
 
-  h2 {
+  h2,
+  .prose :global(h2) {
     margin-top: 2.75rem;
   }
 
@@ -420,6 +347,12 @@ const alternates = [
   }
 
   .sponsor-names {
+    color: var(--muted);
+  }
+
+  .past-sponsors {
+    margin: 0 0 1.25rem;
+    padding-left: 1.2em;
     color: var(--muted);
   }
 </style>

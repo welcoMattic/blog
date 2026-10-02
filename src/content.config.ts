@@ -38,9 +38,9 @@ const blog = defineCollection({
     // reste accessible par son URL, mais hors de toute liste, flux ou sitemap, et
     // en `noindex`. Sans effet une fois la date passée. Voir src/lib/publish.ts.
     unlisted: z.boolean().default(false),
-    // Encart de fin d'article invitant à sponsoriser, pour les articles qui
-    // parlent du travail open source qu'il finance. Voir SponsorCta.astro.
-    sponsor: z.boolean().default(false),
+    // Encart de fin d'article invitant à sponsoriser, présent sur tous les
+    // articles. `sponsor: false` le retire d'un article. Voir SponsorCta.astro.
+    sponsor: z.boolean().default(true),
     origin: z.object({ url: z.string().url(), site: z.string() }).optional(),
     // Sommaire de série, rendu dans la colonne latérale par SeriesNav.astro.
     // `name` regroupe les articles (une valeur par langue), `order` les classe,
@@ -77,4 +77,38 @@ const talks = defineCollection({
   })
 });
 
-export const collections = { blog, veille, talks };
+// Texte de la page /sponsors/, un fichier par langue (fr.md, en.md) rendu par
+// src/components/SponsorsPage.astro. Les montants et liens des paliers sont dans
+// src/data/sponsors.ts, le texte de chacun dans `tiers.perks`.
+const sponsors = defineCollection({
+  loader: glob({ pattern: '*.md', base: './content/sponsors' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    twin: z.string(),
+    lede: z.string(),
+    button: z.string(),
+    tiers: z.object({
+      title: z.string(),
+      monthly: z.string(),
+      oneTime: z.string(),
+      perMonth: z.string(),
+      once: z.string(),
+      choose: z.string(),
+      note: z.string(),
+      perks: z.record(z.string(), z.string()),
+    }),
+    sponsors: z.object({
+      title: z.string(),
+      empty: z.string(),
+      alsoBy: z.string(),
+      past: z.string(),
+      // Raison affichée après le nom d'un sponsor passé, clé = son nom dans
+      // src/data/sponsors.ts.
+      pastNotes: z.record(z.string(), z.string()).default({}),
+      note: z.string(),
+    }),
+  }),
+});
+
+export const collections = { blog, veille, talks, sponsors };
