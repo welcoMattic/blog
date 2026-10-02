@@ -1,6 +1,7 @@
 import { getCollection } from 'astro:content';
 import { isPublished } from '../lib/publish';
 import { tagsIndex, categoriesIndex } from '../lib/taxonomies';
+import { SPONSORS_PAGE } from '../data/sponsors';
 
 // Custom sitemap kept at Hugo's historical path /sitemap.xml (parity requirement).
 // Excludes noindex entries, carries real lastmod dates from front matter.
@@ -32,6 +33,8 @@ export async function GET() {
     { loc: '/veille/', lastmod: maxDate(veille.map((e) => e.data.date)) },
     { loc: '/talks/', lastmod: maxDate(talks.map((e) => e.data.date)) },
     { loc: '/oss/' },
+    { loc: SPONSORS_PAGE.en },
+    { loc: SPONSORS_PAGE.fr },
     { loc: '/tags/' },
     { loc: '/categories/' },
     ...indexableBlog.map((e) => ({ loc: `/blog/${e.id}/`, lastmod: e.data.date })),

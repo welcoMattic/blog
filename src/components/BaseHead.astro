@@ -1,4 +1,6 @@
 ---
+import { SPONSORS_URL } from '../data/sponsors';
+
 interface Props {
   title?: string;
   description: string;
@@ -7,6 +9,7 @@ interface Props {
   lang?: 'fr' | 'en';
   ogImage?: string;
   article?: { publishedTime: Date; modifiedTime?: Date; tags?: string[] };
+  alternates?: { hreflang: string; href: string }[];
 }
 
 const {
@@ -17,6 +20,7 @@ const {
   lang = 'fr',
   ogImage,
   article,
+  alternates = [],
 } = Astro.props;
 
 const SITE_NAME = 'welcomattic';
@@ -39,6 +43,7 @@ const person = {
     'https://phpc.social/@welcomattic',
     'https://bsky.app/profile/welcomattic.com',
     'https://symfony.com/contributors/welcomattic',
+    SPONSORS_URL,
   ],
 };
 
@@ -69,6 +74,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
 <meta name="author" content="Mathieu Santostefano" />
 <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
 <link rel="canonical" href={canonical} />
+{alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={new URL(alternate.href, Astro.site).href} />)}
 
 <meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />

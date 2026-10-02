@@ -13,6 +13,7 @@ interface Props {
   lang?: 'fr' | 'en';
   ogImage?: string;
   article?: { publishedTime: Date; modifiedTime?: Date; tags?: string[] };
+  alternates?: { hreflang: string; href: string }[];
   wide?: boolean;
 }
 

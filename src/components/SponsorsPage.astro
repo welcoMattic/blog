@@ -1,0 +1,425 @@
+---
+import { Code } from 'astro:components';
+import Base from '../layouts/Base.astro';
+import { frenchPunctuation } from '../lib/utils';
+import {
+  CONTACT_EMAIL,
+  CONTACT_LINKEDIN,
+  SPONSORS_URL,
+  SPONSORS_PAGE,
+  tiers,
+  tierUrl,
+  logoSponsors,
+  otherSponsors,
+  type Lang,
+  type Tier,
+} from '../data/sponsors';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const other: Lang = lang === 'en' ? 'fr' : 'en';
+
+// Une page par langue plutôt qu'une page traduite par le bouton FR/EN : le
+// bouton ne réécrit que les libellés de l'interface, côté client, et vaut
+// français par défaut. Le CTA d'un article anglais doit mener à une page
+// anglaise, et chaque langue doit être indexée.
+const t = {
+  en: {
+    title: 'Sponsor my open source work',
+    description:
+      'Sponsor the open source work of Mathieu Santostefano on Symfony: the native oidc_login authenticator in Symfony 8.2, the Translation component, the Mailer and Notifier bridges. Tiers from $1 to $500 a month.',
+    twin: 'Version française',
+    lede: 'I’m Mathieu Santostefano, member of the Symfony Core Team and codeowner of the Translation component. Sponsoring me buys framework-level work that your team would otherwise build and maintain in-house.',
+    button: 'Sponsor on GitHub',
+    oidcTitle: 'What your sponsorship paid for, most recently',
+    oidcIntro:
+      '<strong>Symfony 8.2 speaks OpenID Connect out of the box.</strong> I contributed the <code>oidc_login</code> authenticator, which brings the OIDC Authorization Code Flow natively into the Security component: PKCE, the code exchange, ID token signature verification, logout and refresh, all handled for you. “Log in with…” goes from a bundle-and-glue job to a few lines of <code>security.yaml</code>:',
+    oidcCompany:
+      'If your company runs Symfony and authenticates users, that work is now in your framework, maintained by the core team, at no cost to you.',
+    oidcVendor:
+      'If you ship a product that other people install, a CMS, an e-commerce platform, a PIM, a CRM or a helpdesk, it goes further: your own customers get “Log in with our company identity provider” without you writing, testing or maintaining a single line of OIDC. Enterprise SSO stops being a roadmap item and becomes a line of configuration.',
+    oidcLinks:
+      'Read <a href="https://github.com/symfony/symfony/pull/64954">the pull request</a>, <a href="https://symfony.com/doc/8.2/security/oidc_login.html">the documentation</a>, or run <a href="https://github.com/welcoMattic/oidc-login-demo">the demo application</a> against several providers.',
+    fundsTitle: 'What sponsoring funds',
+    fundsGoal: 'The goal is $500 a month: two full working days every month, dedicated to Symfony.',
+    fundsNext:
+      'Next on the list is the OAuth2 and OIDC story of the Security component, so that modern authentication and authorization become a matter of configuration in every Symfony application: several providers behind one firewall, hybrid response types, signed request objects, <code>session_state</code> for provider-initiated logout, dynamic client registration.',
+    fundsUpkeep: 'And the upkeep of what I already maintain:',
+    fundsItems: [
+      'the <strong>Translation</strong> component, as its codeowner, and the <strong>Translation Providers</strong> subsystem I contributed;',
+      'the <strong>Mailer</strong> bridges for <a href="https://github.com/symfony/sweego-mailer">Sweego</a> and <a href="https://github.com/symfony/resend-mailer">Resend</a>, the <strong>Notifier</strong> bridges for <a href="https://github.com/symfony/sweego-notifier">Sweego</a> and <a href="https://github.com/symfony/yunpian-notifier">Yunpian</a>;',
+      'the <strong>OIDC</strong> authenticator and the ten pull requests that followed it, from PKCE and ID token signature verification to RP-Initiated Logout and mix-up attack hardening.',
+    ],
+    tiersTitle: 'Tiers',
+    monthly: 'Monthly',
+    oneTime: 'One time',
+    perMonth: 'a month',
+    once: 'one time',
+    choose: 'Choose this tier',
+    tiersNote: 'Payment goes through GitHub Sponsors. Each link opens its checkout with the tier already selected.',
+    sponsorsTitle: 'Sponsors',
+    noSponsor:
+      'No public sponsor yet. From the Company tier up, your logo and a link appear here and in the sidebar of the articles.',
+    alsoBy: 'Also supported by',
+    sponsoredNote:
+      'Links to sponsors carry <code>rel="sponsored"</code>: they are paid links, and the attribute tells search engines so, as Google requires.',
+  },
+  fr: {
+    title: 'Sponsoriser mon travail open source',
+    description:
+      'Sponsoriser le travail open source de Mathieu Santostefano sur Symfony : l’authentificateur oidc_login natif de Symfony 8.2, le composant Translation, les bridges Mailer et Notifier. Paliers de 1 à 500 $ par mois.',
+    twin: 'English version',
+    lede: 'Je suis Mathieu Santostefano, membre de la Symfony Core Team et codeowner du composant Translation. Me sponsoriser, c’est financer du travail au niveau du framework, que votre équipe devrait sinon construire et maintenir elle-même.',
+    button: 'Sponsoriser sur GitHub',
+    oidcTitle: 'Ce que le sponsoring a financé récemment',
+    oidcIntro:
+      '<strong>Symfony 8.2 parle OpenID Connect nativement.</strong> J’ai contribué l’authentificateur <code>oidc_login</code>, qui intègre l’Authorization Code Flow d’OIDC directement dans le composant Security : PKCE, l’échange du code, la vérification de la signature de l’ID token, la déconnexion et le rafraîchissement, tout est pris en charge. « Se connecter avec… » passe d’un assemblage de bundles et de code maison à quelques lignes de <code>security.yaml</code> :',
+    oidcCompany:
+      'Si votre entreprise fait tourner Symfony et authentifie des utilisateurs, ce travail est désormais dans votre framework, maintenu par la core team, sans rien vous coûter.',
+    oidcVendor:
+      'Si vous éditez un produit que d’autres installent, un CMS, une plateforme e-commerce, un PIM, un CRM ou un helpdesk, cela va plus loin : vos propres clients obtiennent « Se connecter avec le fournisseur d’identité de notre entreprise » sans que vous ayez à écrire, tester ou maintenir une seule ligne d’OIDC. Le SSO d’entreprise cesse d’être une ligne de roadmap et devient une ligne de configuration.',
+    oidcLinks:
+      'Pour aller plus loin : <a href="https://github.com/symfony/symfony/pull/64954">la pull request</a>, <a href="https://symfony.com/doc/8.2/security/oidc_login.html">la documentation</a>, et <a href="https://github.com/welcoMattic/oidc-login-demo">l’application de démo</a> à brancher sur plusieurs providers.',
+    fundsTitle: 'Ce que le sponsoring finance',
+    fundsGoal: 'L’objectif est de 500 $ par mois : deux journées de travail complètes chaque mois, consacrées à Symfony.',
+    fundsNext:
+      'Prochain chantier, OAuth2 et OIDC dans le composant Security, pour que l’authentification et l’autorisation modernes deviennent une affaire de configuration dans toute application Symfony. Au programme : plusieurs providers derrière un même firewall, les types de réponses hybrides, les signed request objects, <code>session_state</code> pour la déconnexion initiée par le provider, et le dynamic client registration.',
+    fundsUpkeep: 'Et l’entretien de ce que je maintiens déjà :',
+    fundsItems: [
+      'le composant <strong>Translation</strong>, dont je suis codeowner, et le sous-système <strong>Translation Providers</strong> que j’ai contribué ;',
+      'les bridges <strong>Mailer</strong> <a href="https://github.com/symfony/sweego-mailer">Sweego</a> et <a href="https://github.com/symfony/resend-mailer">Resend</a>, les bridges <strong>Notifier</strong> <a href="https://github.com/symfony/sweego-notifier">Sweego</a> et <a href="https://github.com/symfony/yunpian-notifier">Yunpian</a> ;',
+      'l’authentificateur <strong>OIDC</strong> et les dix pull requests qui l’ont suivi, de PKCE et la vérification de signature de l’ID token jusqu’au RP-Initiated Logout et à la protection contre les attaques mix-up.',
+    ],
+    tiersTitle: 'Paliers',
+    monthly: 'Mensuels',
+    oneTime: 'Ponctuels',
+    perMonth: 'par mois',
+    once: 'une fois',
+    choose: 'Choisir ce palier',
+    tiersNote: 'Le paiement passe par GitHub Sponsors. Chaque lien ouvre son checkout avec le palier déjà sélectionné.',
+    sponsorsTitle: 'Sponsors',
+    noSponsor:
+      'Pas encore de sponsor public. À partir du palier Company, votre logo et un lien apparaissent ici et dans la colonne latérale des articles.',
+    alsoBy: 'Avec le soutien de',
+    sponsoredNote:
+      'Les liens vers les sponsors portent <code>rel="sponsored"</code> : ce sont des liens rémunérés, et l’attribut le signale aux moteurs de recherche, comme Google l’exige.',
+  },
+}[lang];
+
+const heading = (text: string) => frenchPunctuation(text, lang);
+
+// « $100 » en anglais, « 100 $ » en français, l'espace insécable évitant que le
+// symbole parte seul à la ligne.
+const price = (amount: number) => (lang === 'en' ? `$${amount}` : `${amount} $`);
+
+// Grille de 12 colonnes : dans un groupe, les paliers mis en avant et les
+// autres forment chacun leur ligne et s'en partagent la largeur. Avec la grille
+// actuelle, cela donne 4 petits paliers mensuels puis les 3 paliers entreprise,
+// et les 3 ponctuels puis le bridge à 750 $ en pleine largeur. Une ligne qui
+// déborde passe à la suivante sans rien casser, simplement moins proprement.
+const spans = (items: Tier[]) => {
+  const featured = items.filter((tier) => tier.featured).length;
+  const regular = items.length - featured;
+  return (tier: Tier) => Math.max(3, Math.floor(12 / (tier.featured ? featured : regular)));
+};
+
+const groups = [
+  { title: t.monthly, frequency: 'monthly', suffix: t.perMonth },
+  { title: t.oneTime, frequency: 'one-time', suffix: t.once },
+].map(({ title, frequency, suffix }) => {
+  const items = tiers.filter((tier) => tier.frequency === frequency);
+  return { title, suffix, items, span: spans(items) };
+});
+
+const config = `# config/packages/security.yaml
+security:
+    providers:
+        oidc_users:
+            oidc: ~
+
+    firewalls:
+        main:
+            provider: oidc_users
+            oidc_login:
+                provider_uri: '%env(OIDC_PROVIDER_URI)%'
+                client_id: '%env(OIDC_CLIENT_ID)%'
+                client_authentication:
+                    client_secret_basic: '%env(OIDC_CLIENT_SECRET)%'`;
+
+const alternates = [
+  { hreflang: 'en', href: SPONSORS_PAGE.en },
+  { hreflang: 'fr', href: SPONSORS_PAGE.fr },
+  { hreflang: 'x-default', href: SPONSORS_PAGE.en },
+];
+---
+
+<Base title={t.title} description={t.description} lang={lang} alternates={alternates}>
+  <div class="sponsors">
+    <header>
+      <p class="twin meta">
+        <a href={SPONSORS_PAGE[other]} hreflang={other} lang={other}>{t.twin}</a>
+      </p>
+      <h1>{heading(t.title)}</h1>
+      <p class="lede">{t.lede}</p>
+      <p><a class="button" href={SPONSORS_URL}>{t.button}</a></p>
+    </header>
+
+    <section class="prose">
+      <h2>{heading(t.oidcTitle)}</h2>
+      <p set:html={t.oidcIntro} />
+      <Code code={config} lang="yaml" themes={{ light: 'github-light', dark: 'github-dark' }} />
+      <p>{t.oidcCompany}</p>
+      <p>{t.oidcVendor}</p>
+      <p set:html={t.oidcLinks} />
+    </section>
+
+    <section class="prose">
+      <h2>{heading(t.fundsTitle)}</h2>
+      <p>{t.fundsGoal}</p>
+      <p set:html={t.fundsNext} />
+      <p>{t.fundsUpkeep}</p>
+      <ul>
+        {t.fundsItems.map((item) => <li set:html={item} />)}
+      </ul>
+    </section>
+
+    <section>
+      <h2>{heading(t.tiersTitle)}</h2>
+      {
+        groups.map(({ title, items, suffix, span }) => (
+          <>
+            <h3 class="eyebrow">{title}</h3>
+            <ul class="tiers">
+              {items.map((tier) => (
+                <li class:list={['tier', { 'tier--featured': tier.featured }]} style={`--span: ${span(tier)}`}>
+                  <p class="tier-price">
+                    <strong>{price(tier.amount)}</strong> <span>{suffix}</span>
+                  </p>
+                  {tier.name && <p class="tier-name">{tier.name}</p>}
+                  <p class="tier-perk">{tier.perk[lang]}</p>
+                  {tier.contact && (
+                    <p class="tier-contact">
+                      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> · <a href={CONTACT_LINKEDIN}>LinkedIn</a>
+                    </p>
+                  )}
+                  <a class="tier-link" href={tierUrl(tier)}>
+                    {t.choose}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        ))
+      }
+      <p class="meta">{t.tiersNote}</p>
+    </section>
+
+    <section>
+      <h2>{heading(t.sponsorsTitle)}</h2>
+      {
+        logoSponsors.length > 0 && (
+          <ul class="sponsor-logos">
+            {logoSponsors.map((sponsor) => (
+              <li>
+                <a href={sponsor.url} rel="sponsored">
+                  <img src={`/img/sponsors/${sponsor.logo}`} alt={sponsor.name} loading="lazy" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      {
+        otherSponsors.length > 0 && (
+          <p class="sponsor-names">
+            {t.alsoBy}{' '}
+            {otherSponsors.map((sponsor, index) => (
+              <>
+                {index > 0 && ', '}
+                <a href={sponsor.url} rel="sponsored">
+                  {sponsor.name}
+                </a>
+              </>
+            ))}
+          </p>
+        )
+      }
+      {logoSponsors.length + otherSponsors.length === 0 && <p>{t.noSponsor}</p>}
+      <p class="meta" set:html={t.sponsoredNote} />
+    </section>
+  </div>
+</Base>
+
+<style>
+  .twin {
+    margin: 0 0 0.5rem;
+  }
+
+  .twin a {
+    color: var(--muted);
+  }
+
+  .twin a:hover {
+    color: var(--accent);
+  }
+
+  h1 {
+    margin-top: 0;
+  }
+
+  .lede {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 44rem;
+  }
+
+  .button {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--paper);
+    background: var(--accent);
+    border-radius: 6px;
+    padding: 0.55rem 1.1rem;
+  }
+
+  .button:hover {
+    color: var(--paper);
+    background: var(--accent-dark);
+    text-decoration: none;
+  }
+
+  /* `.prose` est centrée et bornée à 48rem pour les articles : ici, les blocs de
+     texte s'alignent à gauche sur l'en-tête et la grille des paliers. */
+  .prose {
+    margin: 0;
+  }
+
+  h2 {
+    margin-top: 2.75rem;
+  }
+
+  h3.eyebrow {
+    font-size: 0.72rem;
+    margin: 1.75rem 0 0.75rem;
+  }
+
+  .tiers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .tier {
+    grid-column: span var(--span);
+  }
+
+  /* Trop étroit pour quatre cartes de front : deux par ligne, et une seule sur
+     un téléphone. */
+  @media (max-width: 52rem) {
+    .tier {
+      grid-column: span 6;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .tier {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .tier {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+    padding: 1rem 1.1rem;
+    background: var(--paper-soft);
+  }
+
+  .tier--featured {
+    border-top: 3px solid var(--accent);
+  }
+
+  .tier p {
+    margin: 0;
+  }
+
+  .tier-price strong {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  .tier-price span,
+  .tier-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .tier-name {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .tier .tier-perk {
+    margin: 0.6rem 0 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+
+  .tier .tier-contact {
+    margin: -0.4rem 0 1rem;
+    font-size: 0.9rem;
+  }
+
+  .tier-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  /* Les logos des sponsors sont posés sur une tuile claire dans les deux
+     thèmes : un logo sombre sur fond transparent disparaîtrait en mode sombre.
+     Tuile de taille fixe, image contenue dedans : pas de décalage de mise en
+     page au chargement, quelles que soient les proportions du logo. */
+  .sponsor-logos {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .sponsor-logos a {
+    display: block;
+    width: 12rem;
+    height: 5rem;
+    padding: 0.75rem 1rem;
+    background: #fff;
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+  }
+
+  .sponsor-logos img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .sponsor-names {
+    color: var(--muted);
+  }
+</style>

@@ -6,6 +6,7 @@ import Base from '../layouts/Base.astro';
 import EntryList from '../components/EntryList.astro';
 import { excerpt, veilleDescription } from '../lib/utils';
 import profile from '../assets/profile_image.jpg';
+import { SPONSORS_PAGE } from '../data/sponsors';
 
 const [blog, veille, talks] = await Promise.all([
   getCollection('blog', isPublished),
@@ -54,7 +55,7 @@ const description =
         Tech Expert at <a href="https://sensiolabs.com">SensioLabs</a>
         {' | '}
         <a href="https://www.clever.cloud">Clever Cloud</a> Ambassador
-        {' | '}Open Source Contributor{' | '}Speaker
+        {' | '}Open Source Contributor (<a href={SPONSORS_PAGE.en}>sponsor me</a>){' | '}Speaker
       </p>
     </div>
   </section>
