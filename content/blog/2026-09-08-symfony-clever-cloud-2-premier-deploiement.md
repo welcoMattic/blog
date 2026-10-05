@@ -451,4 +451,4 @@ Vous avez une application Symfony en production, une base managée, des migratio
 
 Dans le prochain article, on refait exactement le même déploiement sur FrankenPHP, et on compare : ce que ça change dans la configuration, ce que ça apporte en performance, et surtout dans quels cas rester sur Apache reste le bon choix.
 
-> **Code source.** La branche [`02-first-deployment`](https://github.com/welcoMattic/symfony-clever-cloud-series/tree/02-first-deployment) du dépôt [welcoMattic/symfony-clever-cloud-series](https://github.com/welcoMattic/symfony-clever-cloud-series) contient tout ce que cet article ajoute à l'application : le listener de healthcheck, le script de `clevercloud/`, la configuration Doctrine et celle des proxys de confiance.
+> **Code source.** Tout ce que cet article ajoute est sur la branche [`02-first-deployment`](https://github.com/welcoMattic/symfony-clever-cloud-series/tree/02-first-deployment) du [dépôt de la série](https://github.com/welcoMattic/symfony-clever-cloud-series). Pour le voir d'un coup : `git diff 01-fresh-symfony-app 02-first-deployment`.

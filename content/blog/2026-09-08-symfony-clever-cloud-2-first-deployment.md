@@ -451,4 +451,4 @@ You have a Symfony application in production, a managed database, automatic migr
 
 In the next article, we redo the exact same deployment on FrankenPHP, and compare: what it changes in the configuration, what it brings in performance, and above all in which cases staying on Apache remains the right call.
 
-> **Source code.** The [`02-first-deployment`](https://github.com/welcoMattic/symfony-clever-cloud-series/tree/02-first-deployment) branch of the [welcoMattic/symfony-clever-cloud-series](https://github.com/welcoMattic/symfony-clever-cloud-series) repository holds everything this article adds to the application: the health check listener, the `clevercloud/` script, the Doctrine configuration, and the trusted proxies one.
+> **Source code.** Everything this article adds is on the [`02-first-deployment`](https://github.com/welcoMattic/symfony-clever-cloud-series/tree/02-first-deployment) branch of the [series repository](https://github.com/welcoMattic/symfony-clever-cloud-series). To see it all at once: `git diff 01-fresh-symfony-app 02-first-deployment`.
