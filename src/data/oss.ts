@@ -120,6 +120,12 @@ export const projects: OssProject[] = [
     stars: 4,
     language: 'PHP',
   },
+  {
+    name: 'messenger-central',
+    url: 'https://github.com/welcoMattic/messenger-central',
+    description: 'Interface en terminal pour piloter les workers Symfony Messenger en développement.',
+    language: 'PHP',
+  },
 ];
 
 export const archived: OssProject[] = [
