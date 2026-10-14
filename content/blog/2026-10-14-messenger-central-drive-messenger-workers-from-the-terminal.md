@@ -18,7 +18,8 @@ In [article #5 of the Symfony on Clever Cloud series](/blog/2026-09-29-symfony-c
 I wanted a single window for all of it. The [TUI component](https://symfony.com/doc/current/tui.html), experimental since Symfony 8.1, gave me the opportunity: [Messenger Central](https://github.com/welcoMattic/messenger-central) is a development bundle that drives your workers from the terminal.
 
 <video controls muted playsinline preload="metadata" width="1350" height="916" poster="/img/messenger-central/demo-poster.webp">
-  <source src="/video/messenger-central/demo.mp4" type="video/mp4">
+  <source src="/video/messenger-central/demo.mp4" type='video/mp4; codecs="avc1.640028"'>
+  <source src="/video/messenger-central/demo.webm" type='video/webm; codecs="vp9"'>
 </video>
 
 ## What the bundle does

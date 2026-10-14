@@ -18,7 +18,8 @@ Dans [l'article #5 de la série Symfony sur Clever Cloud](/blog/2026-09-29-symfo
 Je voulais une seule fenêtre pour tout ça. Le [composant TUI](https://symfony.com/doc/current/tui.html), arrivé en expérimental dans Symfony 8.1, m'en a donné l'occasion : [Messenger Central](https://github.com/welcoMattic/messenger-central) est un bundle de développement qui pilote vos workers depuis le terminal.
 
 <video controls muted playsinline preload="metadata" width="1350" height="916" poster="/img/messenger-central/demo-poster.webp">
-  <source src="/video/messenger-central/demo.mp4" type="video/mp4">
+  <source src="/video/messenger-central/demo.mp4" type='video/mp4; codecs="avc1.640028"'>
+  <source src="/video/messenger-central/demo.webm" type='video/webm; codecs="vp9"'>
 </video>
 
 ## Ce que fait le bundle
