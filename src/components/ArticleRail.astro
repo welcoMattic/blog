@@ -128,9 +128,9 @@ const formattedWords = new Intl.NumberFormat(lang === 'en' ? 'en-GB' : 'fr-FR').
     // Le sommaire est ouvert dans le HTML : sans JavaScript, il reste utilisable
     // partout. En colonne unique il s'intercale entre le titre et le premier
     // paragraphe, où il repousserait le texte hors de l'écran sur un téléphone :
-    // on le replie, le résumé restant visible pour le rouvrir. 75rem est le
+    // on le replie, le résumé restant visible pour le rouvrir. 83rem est le
     // seuil de bascule en deux colonnes de global.css.
-    const wide = window.matchMedia('(min-width: 75rem)');
+    const wide = window.matchMedia('(min-width: 83rem)');
     if (!wide.matches) toc.open = false;
 
     // Le reste marque la section en cours de lecture. Ce script est en ligne

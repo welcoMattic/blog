@@ -83,7 +83,7 @@ body {
    des variables pour que les pages d'article puissent les pousser sans dupliquer
    la règle : voir .frame--wide plus bas. */
 .frame {
-  max-width: var(--frame-max, 64rem);
+  max-width: var(--frame-max, 72rem);
   margin: 2.5rem auto;
   background: var(--paper);
   border: 1px solid var(--hairline);
@@ -93,7 +93,7 @@ body {
 }
 
 main {
-  max-width: var(--main-max, 52rem);
+  max-width: var(--main-max, 60rem);
   margin: 0 auto;
 }
 
@@ -145,13 +145,27 @@ code {
   border-radius: 4px;
 }
 
+/* Une ligne trop longue passe à la ligne au lieu de faire défiler le bloc.
+   `anywhere` coupe aussi une URL ou un jeton sans espace, et le défilement ne
+   reste qu'en filet de sécurité. */
 pre {
   padding: 1rem;
   border: 1px solid var(--hairline);
   border-radius: 6px;
   overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   font-size: 0.88rem;
   line-height: 1.55;
+}
+
+/* Shiki rend chaque ligne dans un span.line : la suite d'une ligne coupée est
+   décalée de 2 caractères, pour qu'on ne la prenne pas pour une nouvelle ligne. */
+pre .line {
+  display: inline-block;
+  width: 100%;
+  padding-left: 2ch;
+  text-indent: -2ch;
 }
 
 pre code {
@@ -294,7 +308,7 @@ html[data-ui-lang='en'] .hairline-list > li[data-lang='fr'] {
   color: var(--text-prose);
   overflow-wrap: break-word;
   /* Colonne de lecture : assez large pour du code, mais bornee pour le confort */
-  max-width: 48rem;
+  max-width: 56rem;
   margin: 0 auto;
 }
 
@@ -595,26 +609,26 @@ li::marker {
   border-radius: 0;
 }
 
-/* Au-delà de 75rem, la carte d'un article s'élargit de ce que coûte la colonne
-   latérale : 48rem de texte + 3rem + 15rem font 66rem, auxquels s'ajoutent les
-   2 x 4rem de marge intérieure du cadre et son filet, arrondis à 75rem. Le seuil
+/* Au-delà de 83rem, la carte d'un article s'élargit de ce que coûte la colonne
+   latérale : 56rem de texte + 3rem + 15rem font 74rem, auxquels s'ajoutent les
+   2 x 4rem de marge intérieure du cadre et son filet, arrondis à 83rem. Le seuil
    vaut cette largeur maximale, si bien que la bascule a lieu pile quand la carte
-   cesse de grandir : la colonne de texte garde ses 48rem, l'arrivée du sommaire
-   ne la rétrécit jamais. En dessous, la carte reste à 64rem comme partout
+   cesse de grandir : la colonne de texte garde ses 56rem, l'arrivée du sommaire
+   ne la rétrécit jamais. En dessous, la carte reste à 72rem comme partout
    ailleurs sur le site. */
-@media (min-width: 75rem) {
+@media (min-width: 83rem) {
   .frame--wide {
-    --frame-max: 75rem;
-    --main-max: 66rem;
+    --frame-max: 83rem;
+    --main-max: 74rem;
   }
 
   .article-layout {
-    max-width: 66rem;
+    max-width: 74rem;
     display: grid;
     /* La colonne est à gauche, le texte à droite. L'ordre du DOM reste en-tête,
        colonne, corps : c'est celui qu'on veut en colonne unique et au clavier,
        et la grille le remet dans l'ordre visuel voulu. */
-    grid-template-columns: 15rem minmax(0, 48rem);
+    grid-template-columns: 15rem minmax(0, 56rem);
     grid-template-areas:
       'rail head'
       'rail body';
