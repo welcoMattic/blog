@@ -15,28 +15,13 @@ lang: en
 _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouver la version corrigée de PHP selon votre installation](/blog/2026-10-22-php2shell-ou-trouver-la-version-corrigee-de-php/)._
 
 > - **EDIT, October 22, 2026, 14:10**:
->     - static-php-cli `gnu-bulk` binaries fixed, PHP 8.5 on aarch64.
-> - **EDIT, October 22, 2026, 13:46**:
->     - PHP 8.2 fixed on Alpine 3.21.
->     - static-php-cli `gnu-bulk` binaries fixed, PHP 8.4 on aarch64.
->     - static-php-cli `bulk` binaries fixed, PHP 8.5 on aarch64.
->     - static-php-cli Windows `spc-max` binaries fixed, PHP 8.4 and 8.5.
-> - **EDIT, October 22, 2026, 13:17**:
->     - PHP 8.3 fixed on Alpine 3.21.
->     - static-php-cli `gnu-bulk` binaries fixed, PHP 8.4 and 8.5 on x86_64.
->     - static-php-cli `bulk` binaries fixed, PHP 8.4 on aarch64.
-> - **EDIT, October 22, 2026, 12:48**:
->     - PHP 8.4 fixed on Alpine 3.23.
->     - Aikido images fixed, PHP 8.2, 8.4 and 8.5.
->     - Aikido `8.3.36-apache` tag fixed.
-> - **EDIT, October 22, 2026, 11:44**:
->     - PHP 8.5 fixed on Alpine 3.23.
-> - **EDIT, October 22, 2026, 11:29**:
->     - PHP 8.3 fixed on Alpine 3.23.
->     - `dhi.io/php:8.5` tag fixed (Docker Hardened Images).
->     - static-php-cli `bulk` binaries fixed, PHP 8.2 to 8.5.
->     - static-php-cli `gnu-bulk` binaries fixed, PHP 8.2 and 8.3.
->     - static-php-cli Windows `spc-min` binaries fixed, PHP 8.2 to 8.5.
+>     - Alpine 3.23: PHP 8.3, 8.4 and 8.5 fixed.
+>     - Alpine 3.21: PHP 8.2 and 8.3 fixed.
+>     - Docker Hardened Images: `dhi.io/php:8.5` tag fixed.
+>     - Aikido: PHP 8.2, 8.4 and 8.5 fixed, and the `8.3.36-apache` tag.
+>     - static-php-cli: `bulk` and `gnu-bulk` binaries fixed, PHP 8.2 to 8.5.
+>     - static-php-cli: Windows `spc-min` binaries fixed, PHP 8.2 to 8.5.
+>     - static-php-cli: Windows `spc-max` binaries fixed, PHP 8.4 and 8.5.
 
 > **TL;DR: the essentials** (status on October 22, 2026, 14:10, Paris time)
 >

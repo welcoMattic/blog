@@ -15,28 +15,13 @@ lang: fr
 _This blog post is also available in 🇬🇧 English: [PHP2Shell: where to get the patched PHP for your setup](/blog/2026-10-22-php2shell-where-to-get-the-patched-php/)._
 
 > - **EDIT du 22 octobre 2026, 14 h 10** :
->     - binaires `gnu-bulk` de static-php-cli corrigés, PHP 8.5 en aarch64.
-> - **EDIT du 22 octobre 2026, 13 h 46** :
->     - PHP 8.2 corrigé sur Alpine 3.21.
->     - binaires `gnu-bulk` de static-php-cli corrigés, PHP 8.4 en aarch64.
->     - binaires `bulk` de static-php-cli corrigés, PHP 8.5 en aarch64.
->     - binaires Windows `spc-max` de static-php-cli corrigés, PHP 8.4 et 8.5.
-> - **EDIT du 22 octobre 2026, 13 h 17** :
->     - PHP 8.3 corrigé sur Alpine 3.21.
->     - binaires `gnu-bulk` de static-php-cli corrigés, PHP 8.4 et 8.5 en x86_64.
->     - binaires `bulk` de static-php-cli corrigés, PHP 8.4 en aarch64.
-> - **EDIT du 22 octobre 2026, 12 h 48** :
->     - PHP 8.4 corrigé sur Alpine 3.23.
->     - images Aikido corrigées, PHP 8.2, 8.4 et 8.5.
->     - tag Aikido `8.3.36-apache` corrigé.
-> - **EDIT du 22 octobre 2026, 11 h 44** :
->     - PHP 8.5 corrigé sur Alpine 3.23.
-> - **EDIT du 22 octobre 2026, 11 h 29** :
->     - PHP 8.3 corrigé sur Alpine 3.23.
->     - tag `dhi.io/php:8.5` corrigé (Docker Hardened Images).
->     - binaires `bulk` de static-php-cli corrigés, PHP 8.2 à 8.5.
->     - binaires `gnu-bulk` de static-php-cli corrigés, PHP 8.2 et 8.3.
->     - binaires Windows `spc-min` de static-php-cli corrigés, PHP 8.2 à 8.5.
+>     - Alpine 3.23 : PHP 8.3, 8.4 et 8.5 corrigés.
+>     - Alpine 3.21 : PHP 8.2 et 8.3 corrigés.
+>     - Docker Hardened Images : tag `dhi.io/php:8.5` corrigé.
+>     - Aikido : PHP 8.2, 8.4 et 8.5 corrigés, et le tag `8.3.36-apache`.
+>     - static-php-cli : binaires `bulk` et `gnu-bulk` corrigés, PHP 8.2 à 8.5.
+>     - static-php-cli : binaires Windows `spc-min` corrigés, PHP 8.2 à 8.5.
+>     - static-php-cli : binaires Windows `spc-max` corrigés, PHP 8.4 et 8.5.
 
 > **TL;DR : l'essentiel, sans tout lire** (état au 22 octobre 2026, 14 h 10, heure de Paris)
 >
