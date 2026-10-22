@@ -14,7 +14,11 @@ lang: en
 
 _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouver la version corrigée de PHP selon votre installation](/blog/2026-10-22-php2shell-ou-trouver-la-version-corrigee-de-php/)._
 
-> **EDIT, October 22, 2026, 11:29 (Paris time)**: php83 package patched with 8.3.36-r0 on Alpine 3.23, seen on October 22, 2026, 11:29; Docker Hardened Images `dhi.io/php:8.5` tag up to date with 8.5.12 since October 22, 2026, 10:46; static-php-cli `bulk` binaries available in 8.2.35, 8.3.36, 8.4.27 and 8.5.12 since October 22, 2026, 11:14; static-php-cli `gnu-bulk` binaries available in 8.2.35 and 8.3.36 since October 22, 2026, 8:48; static-php-cli Windows `spc-min` binaries available in 8.2.35, 8.3.36, 8.4.27 and 8.5.12 since October 22, 2026, 7:47.
+> - **EDIT, October 22, 2026, 11:29**: PHP 8.3 fixed on Alpine 3.23.
+> - **EDIT, October 22, 2026, 11:29**: `dhi.io/php:8.5` tag fixed (Docker Hardened Images).
+> - **EDIT, October 22, 2026, 11:29**: static-php-cli `bulk` binaries fixed, PHP 8.2 to 8.5.
+> - **EDIT, October 22, 2026, 11:29**: static-php-cli `gnu-bulk` binaries fixed, PHP 8.2 and 8.3.
+> - **EDIT, October 22, 2026, 11:29**: static-php-cli Windows `spc-min` binaries fixed, PHP 8.2 to 8.5.
 
 > **TL;DR: the essentials** (status on October 22, 2026, 11:29, Paris time)
 >
