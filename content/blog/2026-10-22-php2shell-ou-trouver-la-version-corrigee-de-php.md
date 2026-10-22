@@ -14,6 +14,19 @@ lang: fr
 
 _This blog post is also available in 🇬🇧 English: [PHP2Shell: where to get the patched PHP for your setup](/blog/2026-10-22-php2shell-where-to-get-the-patched-php/)._
 
+> - **EDIT du 22 octobre 2026, 13 h 46** :
+>     - PHP 8.2 corrigé sur Alpine 3.21.
+>     - binaires `gnu-bulk` de static-php-cli corrigés, PHP 8.4 en aarch64.
+>     - binaires `bulk` de static-php-cli corrigés, PHP 8.5 en aarch64.
+>     - binaires Windows `spc-max` de static-php-cli corrigés, PHP 8.4 et 8.5.
+> - **EDIT du 22 octobre 2026, 13 h 17** :
+>     - PHP 8.3 corrigé sur Alpine 3.21.
+>     - binaires `gnu-bulk` de static-php-cli corrigés, PHP 8.4 et 8.5 en x86_64.
+>     - binaires `bulk` de static-php-cli corrigés, PHP 8.4 en aarch64.
+> - **EDIT du 22 octobre 2026, 12 h 48** :
+>     - PHP 8.4 corrigé sur Alpine 3.23.
+>     - images Aikido corrigées, PHP 8.2, 8.4 et 8.5.
+>     - tag Aikido `8.3.36-apache` corrigé.
 > - **EDIT du 22 octobre 2026, 11 h 44** :
 >     - PHP 8.5 corrigé sur Alpine 3.23.
 > - **EDIT du 22 octobre 2026, 11 h 29** :
@@ -23,7 +36,7 @@ _This blog post is also available in 🇬🇧 English: [PHP2Shell: where to get 
 >     - binaires `gnu-bulk` de static-php-cli corrigés, PHP 8.2 et 8.3.
 >     - binaires Windows `spc-min` de static-php-cli corrigés, PHP 8.2 à 8.5.
 
-> **TL;DR : l'essentiel, sans tout lire** (état au 22 octobre 2026, 11 h 44, heure de Paris)
+> **TL;DR : l'essentiel, sans tout lire** (état au 22 octobre 2026, 13 h 46, heure de Paris)
 >
 > **Installez PHP 8.5.12, 8.4.27, 8.3.36 ou 8.2.35.** Ces versions corrigent les 2 failles.
 >
@@ -44,7 +57,7 @@ _This blog post is also available in 🇬🇧 English: [PHP2Shell: where to get 
 > | Dépôt de Remi | PHP 7.4 à 8.5 |  | PHP 5.6 à 7.3 |
 > | Fedora | Fedora 44 : PHP 8.5 | Fedora 43 : PHP 8.4 |  |
 > | Amazon Linux | Amazon Linux 2023 : PHP 8.2 à 8.5<br>Amazon Linux 2, dépôt extra : PHP 8.2 |  | Amazon Linux 2023 : PHP 8.1<br>Amazon Linux 2, dépôt principal : paquet `php` |
-> | Alpine | Alpine 3.24 et edge : PHP 8.3 à 8.5<br>Alpine 3.23 : PHP 8.3 et 8.5 | Alpine 3.23 : PHP 8.4<br>Alpine 3.21 : PHP 8.2 | Alpine 3.22 : PHP 8.2 à 8.4<br>Alpine 3.21 : PHP 8.3 et 8.4 |
+> | Alpine | Alpine 3.23, 3.24 et edge : PHP 8.3 à 8.5<br>Alpine 3.21 : PHP 8.2 et 8.3 |  | Alpine 3.22 : PHP 8.2 à 8.4<br>Alpine 3.21 : PHP 8.4 |
 > | Arch Linux | Paquet `php` : PHP 8.5<br>Paquet `php-legacy` : PHP 8.3 |  |  |
 > | SUSE | SLES 15 SP7 : PHP 8.3<br>openSUSE Tumbleweed : PHP 8.5 | SLES 16 : PHP 8.4 | openSUSE Leap : toutes les versions |
 > | **macOS** |  |  |  |
@@ -61,7 +74,7 @@ _This blog post is also available in 🇬🇧 English: [PHP2Shell: where to get 
 > | Bitnami | PHP 8.5, tag `bitnami/php-fpm:latest` |  | PHP 8.2 à 8.4 : aucune image gratuite |
 > | ubuntu/php | Ubuntu 24.04 : PHP 8.3<br>Ubuntu 26.04 : PHP 8.5 |  |  |
 > | Red Hat UBI | PHP 7.4, 8.0, 8.2, 8.3 et 8.4 |  | PHP 8.1 |
-> | Aikido |  |  | Correctif non confirmé |
+> | Aikido | PHP 8.2, 8.4 et 8.5<br>PHP 8.3 : tag `8.3.36-apache` |  | PHP 8.3 : tags cli et fpm |
 > | **FrankenPHP** |  |  |  |
 > | FrankenPHP 1.13.2 | Binaires statiques : PHP 8.5<br>Images Docker : PHP 8.2 à 8.5<br>Paquets deb, rpm et apk : PHP 8.2 à 8.5 |  |  |
 > | **PaaS et serverless** |  |  |  |
@@ -81,7 +94,7 @@ _This blog post is also available in 🇬🇧 English: [PHP2Shell: where to get 
 > | Laravel Sail | amd64 : **lancez `sail build --no-cache`.** | arm64, par exemple un Mac avec puce Apple |  |
 > | DDEV | amd64 : contournement dans le billet de DDEV | arm64 |  |
 > | WampServer | PHP 8.2 à 8.5 |  |  |
-> | static-php-cli | Binaires `common`, `minimal` et `bulk` : PHP 8.2 à 8.5<br>Binaires `gnu-bulk` : PHP 8.2 et 8.3<br>Binaires Windows `spc-min` : PHP 8.2 à 8.5 | Binaires `gnu-bulk` : PHP 8.4 et 8.5<br>Binaires Windows `spc-max` |  |
+> | static-php-cli | Binaires `common`, `minimal` et `bulk` : PHP 8.2 à 8.5<br>Binaires `gnu-bulk` : PHP 8.2 à 8.4<br>Binaires `gnu-bulk` en x86_64 : PHP 8.5<br>Binaires Windows `spc-min` : PHP 8.2 à 8.5<br>Binaires Windows `spc-max` : PHP 8.4 et 8.5 | Binaires `gnu-bulk` en aarch64 : PHP 8.5<br>Binaires Windows `spc-max` : PHP 8.2 et 8.3 |  |
 > | XAMPP |  |  | Les installeurs utilisent encore PHP 8.2.12. |
 > | Lando |  |  | Les images `devwithlando/php` ne sont pas reconstruites. |
 >
@@ -97,7 +110,7 @@ D'après l'[avis de sécurité publié sur php.net](https://www.php.net/archive/
 
 Chaque distribution, chaque image Docker et chaque plateforme publie le correctif à son rythme. J'ai rassemblé ici, cas par cas, où trouver la version corrigée.
 
-**Dernière vérification : 22 octobre 2026, vers 11 h 44 (heure de Paris).** Dans les tableaux :
+**Dernière vérification : 22 octobre 2026, vers 13 h 46 (heure de Paris).** Dans les tableaux :
 
 - ✅ le correctif est publié ;
 - ⏳ le correctif est en attente ;
@@ -241,11 +254,11 @@ Le suivi complet est sur le [security tracker de Debian](https://security-tracke
 | Amazon Linux 2 | php (extra php8.2) | **8.2.35-1.amzn2.0.1** | ✅ [ALAS2PHP8.2-2026-015](https://alas.aws.amazon.com/AL2/ALAS2PHP8.2-2026-015.html) |
 | Amazon Linux 2 | php (dépôt principal) | | ❌ pas de correctif prévu ([page CVE](https://explore.alas.aws.amazon.com/CVE-2026-109618.html)) |
 | Alpine edge et 3.24 | php83, php84, php85 | **8.3.36-r0, 8.4.27-r0, 8.5.12-r0** | ✅ [paquets 3.24](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.24&repo=community&arch=x86_64), [paquets edge](https://pkgs.alpinelinux.org/packages?name=php8*&branch=edge&repo=community&arch=x86_64) |
-| Alpine 3.23 | php83, php85 | **8.3.36-r0, 8.5.12-r0** | ✅ [paquets 3.23](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.23&repo=community&arch=x86_64) |
-| Alpine 3.23 | php84 | | ⏳ en attente ([paquets 3.23](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.23&repo=community&arch=x86_64)) |
+| Alpine 3.23 | php83, php84, php85 | **8.3.36-r0, 8.4.27-r0, 8.5.12-r0** | ✅ [paquets 3.23](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.23&repo=community&arch=x86_64) |
 | Alpine 3.22 | php82, php83, php84 | | ❌ aucun correctif à ce jour ([paquets 3.22](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.22&repo=community&arch=x86_64)) |
-| Alpine 3.21 | php82 | | ⏳ en attente ([paquets 3.21](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.21&repo=community&arch=x86_64)) |
-| Alpine 3.21 | php83, php84 | | ❌ aucun correctif à ce jour |
+| Alpine 3.21 | php82 | **8.2.35-r0** | ✅ [paquets 3.21](https://pkgs.alpinelinux.org/packages?name=php82&branch=v3.21&repo=community&arch=x86_64) |
+| Alpine 3.21 | php83 | **8.3.36-r0** | ✅ [paquets 3.21](https://pkgs.alpinelinux.org/packages?name=php83&branch=v3.21&repo=community&arch=x86_64) |
+| Alpine 3.21 | php84 | | ❌ aucun correctif à ce jour |
 | Arch Linux | php | **8.5.12-1** | ✅ [ASA-202610-1](https://security.archlinux.org/ASA-202610-1) |
 | Arch Linux | php-legacy | **8.3.36-1** | ✅ [ASA-202610-2](https://security.archlinux.org/ASA-202610-2) |
 | SLES 15 SP7 | php8 | **8.3.36** | ✅ [page CVE SUSE](https://www.suse.com/security/cve/CVE-2026-109618.html) |
@@ -322,7 +335,7 @@ D'autres cas gardent l'ancienne version :
 | [bitnami/php-fpm](https://hub.docker.com/r/bitnami/php-fpm) | ✅ `latest` (8.5.12) uniquement ; ❌ aucun tag gratuit pour 8.4, 8.3 et 8.2 | [Dockerfile](https://github.com/bitnami/containers/tree/main/bitnami/php-fpm) |
 | [ubuntu/php](https://hub.docker.com/r/ubuntu/php) | ✅ `8.3-24.04` (paquet backporté 8.3.6-0ubuntu0.24.04.13) et `8.5-26.04_edge` | [USN-8948-1](https://ubuntu.com/security/notices/USN-8948-1) |
 | Red Hat UBI | ✅ `ubi10/php-84`, `ubi10/php-83`, `ubi9/php-83`, `ubi9/php-82`, `ubi9/php-80`, `ubi8/php-82`, `ubi8/php-74` ; ❌ `ubi9/php-81` | [catalogue Red Hat](https://catalog.redhat.com/software/containers/search?q=php) |
-| Aikido `aikido-dev/php` | ❌ correctif non confirmé : les tags relevés sont encore en 8.4.26, 8.3.35 ou 8.2.34, sauf `fpm-alpine` (8.5.12) | [images.aikido.dev](https://images.aikido.dev/) |
+| Aikido `aikido-dev/php` | ✅ `8.5.12`, `8.4.27` et `8.2.35`, avec leurs variantes cli, fpm, apache et alpine ; `8.3.36-apache` pour 8.3 ; ❌ aucun tag 8.3.36 en cli ni en fpm | [catalogue Aikido](https://images.aikido.dev/images/php) |
 
 **Pour PHP 8.0 et 7.4**, les seules images corrigées que j'ai trouvées sont celles de Red Hat : `ubi9/php-80` et `ubi8/php-74`. Elles contiennent les backports de RHEL.
 
@@ -360,7 +373,7 @@ FrankenPHP v1.13.2 PHP 8.5.12 Caddy v2.11.7 …
 | Lando | images [devwithlando/php](https://hub.docker.com/r/devwithlando/php) non reconstruites, encore en 8.5.7 et 8.4.22 | ❌ |
 | [WampServer](https://wampserver.aviatechno.net/) | addons PHP 8.2.35, 8.3.36, 8.4.27 et 8.5.12 | ✅ |
 | [XAMPP](https://www.apachefriends.org/download.html) | installeurs encore en PHP 8.2.12 | ❌ |
-| [static-php-cli](https://dl.static-php.dev/v3/php-bin/) | binaires `common`, `minimal` et `bulk` en 8.2.35, 8.3.36, 8.4.27 et 8.5.12, pour Linux et macOS (sauf `bulk` pour Linux aarch64 en 8.4 et 8.5) ; binaires `gnu-bulk` en 8.2.35 et 8.3.36, pour Linux ; binaires Windows `spc-min` en 8.2.35, 8.3.36, 8.4.27 et 8.5.12 | ✅ `common`, `minimal`, `bulk`, `gnu-bulk` en 8.2 et 8.3, Windows `spc-min` ; ⏳ `gnu-bulk` en 8.4 et 8.5, Windows `spc-max` |
+| [static-php-cli](https://dl.static-php.dev/v3/php-bin/) | binaires `common`, `minimal` et `bulk` en 8.2.35, 8.3.36, 8.4.27 et 8.5.12, pour Linux et macOS ; binaires `gnu-bulk` en 8.2.35, 8.3.36 et 8.4.27, pour Linux, et en 8.5.12, pour Linux x86_64 ; binaires Windows `spc-min` en 8.2.35, 8.3.36, 8.4.27 et 8.5.12 ; binaires Windows `spc-max` en 8.4.27 et 8.5.12 | ✅ `common`, `minimal`, `bulk`, `gnu-bulk` en 8.2 à 8.4, `gnu-bulk` en 8.5 pour x86_64, Windows `spc-min`, Windows `spc-max` en 8.4 et 8.5 ; ⏳ `gnu-bulk` en 8.5 pour aarch64, Windows `spc-max` en 8.2 et 8.3 |
 
 **RoadRunner, Swoole et OpenSwoole n'embarquent pas PHP.** Ils utilisent le PHP de la machine ou de l'image de base : c'est lui qu'il faut mettre à jour.
 
