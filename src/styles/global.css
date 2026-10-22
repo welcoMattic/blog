@@ -320,6 +320,7 @@ html[data-ui-lang='en'] .hairline-list > li[data-lang='fr'] {
   display: block;
   max-width: 100%;
   overflow-x: auto;
+  margin-bottom: 1.75em;
 }
 
 .prose p {

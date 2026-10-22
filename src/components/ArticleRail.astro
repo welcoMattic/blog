@@ -125,15 +125,10 @@ const formattedWords = new Intl.NumberFormat(lang === 'en' ? 'en-GB' : 'fr-FR').
     const toc = document.querySelector('.article-toc');
     if (!toc) return;
 
-    // Le sommaire est ouvert dans le HTML : sans JavaScript, il reste utilisable
-    // partout. En colonne unique il s'intercale entre le titre et le premier
-    // paragraphe, où il repousserait le texte hors de l'écran sur un téléphone :
-    // on le replie, le résumé restant visible pour le rouvrir. 83rem est le
-    // seuil de bascule en deux colonnes de global.css.
-    const wide = window.matchMedia('(min-width: 83rem)');
-    if (!wide.matches) toc.open = false;
+    // Le sommaire est ouvert dans le HTML et le reste à toutes les largeurs, en
+    // colonne unique compris : on le replie à la main avec son résumé.
 
-    // Le reste marque la section en cours de lecture. Ce script est en ligne
+    // Ce script marque la section en cours de lecture. Il est en ligne
     // juste après la colonne, donc avant le corps de l'article : les titres à
     // observer ne sont pas encore analysés au premier passage. On attend le
     // document complet, comme le switcher de langue de Header.astro.
