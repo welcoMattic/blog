@@ -14,14 +14,73 @@ lang: en
 
 _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouver la version corrigée de PHP selon votre installation](/blog/2026-10-22-php2shell-ou-trouver-la-version-corrigee-de-php/)._
 
-> **TL;DR, no time to read it all** (status on October 22, 2026, 9:45, Paris time)
+> **TL;DR: the essentials** (status on October 22, 2026, 9:45, Paris time)
 >
-> - **Update to PHP 8.5.12, 8.4.27, 8.3.36 or 8.2.35.** For 8.1 and older, there is no new official release: only backports, from some distributions.
-> - ✅ **Up to date**: sources and Windows on php.net, Debian 12 and 13, Ubuntu 22.04 to 26.10, RHEL 8, 9 and 10 (except php:8.4 on RHEL 9), AlmaLinux, Fedora 44, Amazon Linux 2023, Alpine 3.24, Arch, Homebrew, the official `php` Docker image (all variants for 8.2 to 8.5), FrankenPHP 1.13.2, Clever Cloud, Upsun, Laravel Cloud, Google App Engine, Azure App Service.
-> - ⏳ **Not up to date yet**: RHEL 9 php:8.4, Rocky Linux 8 php:8.2, Fedora 43, Alpine 3.21 and 3.23, SLES 16, packages.sury.org on arm64 (so Laravel Sail and DDEV on Apple Silicon Macs), Laravel Herd, `dhi.io/php:8.5`.
-> - ❌ **No fix so far**: the official `php:8.1`, `php:8.0` and `php:7.4` Docker images, openSUSE Leap, Alpine 3.22, XAMPP, Lando.
-> - **With Docker**, rebuild your images with `docker compose build --pull`. **In every case**, then restart PHP-FPM, Apache and the workers.
-> - ⚠ **On Debian, Ubuntu and RHEL, `php -v` prints the old number even once patched**: check the package version ([how](#check-what-is-really-running)).
+> **Install PHP 8.5.12, 8.4.27, 8.3.36 or 8.2.35.** These versions fix the 2 vulnerabilities.
+>
+> PHP 8.1 and older versions do not get a new official release. Some distributions publish a fix for them using source backports from PHP team.
+>
+> | Platform | ✅ Fixed | ⏳ Fix pending | ❌ No fix |
+> |---|---|---|---|
+> | **Official sources** |  |  |  |
+> | php.net, sources | PHP 8.2 to 8.5 |  |  |
+> | php.net, Windows | PHP 8.2 to 8.5 |  |  |
+> | **Linux** |  |  |  |
+> | Debian | Debian 13: PHP 8.4<br>Debian 12: PHP 8.2<br>Debian 9 to 11: PHP 7.0 to 7.4, with Debian ELTS | Debian testing: PHP 8.4 |  |
+> | Ubuntu | Ubuntu 22.04 to 26.10: PHP 8.1 to 8.5<br>Ubuntu 14.04 to 20.04: PHP 5.5 to 7.4, with Ubuntu Pro |  |  |
+> | Ondřej Surý's repositories | Ubuntu PPA: PHP 5.6 to 8.5<br>packages.sury.org on amd64: PHP 5.6 to 8.5 | packages.sury.org on arm64 |  |
+> | RHEL | RHEL 10: PHP 8.3 and 8.4<br>RHEL 9: PHP 8.0, 8.2 and 8.3<br>RHEL 8: PHP 7.4 and 8.2 | RHEL 9: PHP 8.4 | RHEL 9: PHP 8.1<br>RHEL 8: PHP 7.2, 7.3 and 8.0 |
+> | AlmaLinux | All streams: PHP 7.2 to 8.4 |  |  |
+> | Rocky Linux | The same versions as RHEL | Rocky 8: PHP 8.2 |  |
+> | Remi's repository | PHP 7.4 to 8.5 |  | PHP 5.6 to 7.3 |
+> | Fedora | Fedora 44: PHP 8.5 | Fedora 43: PHP 8.4 |  |
+> | Amazon Linux | Amazon Linux 2023: PHP 8.2 to 8.5<br>Amazon Linux 2, extra repository: PHP 8.2 |  | Amazon Linux 2023: PHP 8.1<br>Amazon Linux 2, core repository: `php` package |
+> | Alpine | Alpine 3.24 and edge: PHP 8.3 to 8.5 | Alpine 3.23: PHP 8.3 to 8.5<br>Alpine 3.21: PHP 8.2 | Alpine 3.22: PHP 8.2 to 8.4<br>Alpine 3.21: PHP 8.3 and 8.4 |
+> | Arch Linux | `php` package: PHP 8.5<br>`php-legacy` package: PHP 8.3 |  |  |
+> | SUSE | SLES 15 SP7: PHP 8.3<br>openSUSE Tumbleweed: PHP 8.5 | SLES 16: PHP 8.4 | openSUSE Leap: all versions |
+> | **macOS** |  |  |  |
+> | Homebrew | PHP 8.2 to 8.5 |  | PHP 8.1 |
+> | shivammathur/php tap | PHP 7.4, and PHP 8.1 to 8.5 |  |  |
+> | MacPorts | PHP 8.2 to 8.5 |  | PHP 7.4 and 8.1 |
+> | **Docker** |  |  |  |
+> | Official `php` image | PHP 8.2 to 8.5<br>cli, apache, fpm and zts variants<br>Debian trixie, Debian bookworm, Alpine 3.23 and Alpine 3.24 |  | PHP 7.4, 8.0 and 8.1 |
+> | serversideup/php | PHP 8.2 to 8.5, versions v5.0.2 and v4.5.3 |  |  |
+> | Chainguard | PHP 8.2 to 8.5 |  |  |
+> | Docker Hardened Images | PHP 8.2 to 8.4<br>PHP 8.5 in fpm | `dhi.io/php:8.5` tag |  |
+> | webdevops/php | PHP 8.2 to 8.5 |  | PHP 8.1 |
+> | thecodingmachine/php | PHP 8.2 to 8.5 |  | PHP 8.1 |
+> | Bitnami | PHP 8.5, `bitnami/php-fpm:latest` tag |  | PHP 8.2 to 8.4: no free image |
+> | ubuntu/php | Ubuntu 24.04: PHP 8.3<br>Ubuntu 26.04: PHP 8.5 |  |  |
+> | Red Hat UBI | PHP 7.4, 8.0, 8.2, 8.3 and 8.4 |  | PHP 8.1 |
+> | Aikido |  |  | Fix not confirmed |
+> | **FrankenPHP** |  |  |  |
+> | FrankenPHP 1.13.2 | Static binaries: PHP 8.5<br>Docker images: PHP 8.2 to 8.5<br>deb, rpm and apk packages: PHP 8.2 to 8.5 |  |  |
+> | **PaaS and serverless** |  |  |  |
+> | Clever Cloud | PHP 7.4 to 8.5<br>**No action necessary.** | FrankenPHP 1.13.2. Until then, FrankenPHP 1.13.1 runs with the fixed PHP. |  |
+> | Upsun | PHP 7.4 to 8.5<br>**No action necessary.** |  |  |
+> | Heroku | PHP 8.2 to 8.5<br>PHP 8.1 on the heroku-22 stack<br>**Redeploy your application.** |  |  |
+> | Laravel Cloud | PHP 8.2 to 8.5<br>**No action necessary.** |  |  |
+> | Laravel Forge | **Click "Update PHP" on each server.** |  | Servers with Ubuntu 20.04 and older |
+> | Laravel Vapor | PHP 8.2 to 8.5<br>**Redeploy your application.** |  |  |
+> | Bref | PHP 8.2 to 8.5<br>**Run `composer update bref/bref -W`, then redeploy.** |  |  |
+> | Google App Engine | **No action necessary.** |  |  |
+> | Google Cloud Run | **Redeploy the services that you deployed from source.** |  |  |
+> | Azure App Service (Linux) | Latest and Standard channels: PHP 8.2 to 8.5<br>**No action necessary.** |  |  |
+> | **Development tools** |  |  |  |
+> | Symfony CLI | Symfony CLI uses the PHP of your machine.<br>**Update this PHP.** |  |  |
+> | Laravel Herd |  | PHP update |  |
+> | Laravel Sail | amd64: **run `sail build --no-cache`.** | arm64, for example a Mac with an Apple chip |  |
+> | DDEV | amd64: workaround in the DDEV post | arm64 |  |
+> | WampServer | PHP 8.2 to 8.5 |  |  |
+> | static-php-cli | `common` and `minimal` binaries: PHP 8.2 to 8.5 | `bulk` and `gnu-bulk` binaries<br>Windows binaries |  |
+> | XAMPP |  |  | The installers still use PHP 8.2.12. |
+> | Lando |  |  | The `devwithlando/php` images are not rebuilt. |
+>
+> **With Docker**: rebuild your images with `docker compose build --pull`.
+>
+> **After the update**: restart PHP-FPM, Apache and the workers.
+>
+> ⚠ **On Debian, Ubuntu and RHEL, `php -v` shows the old number, also with the fix.** Check the package version. [See how](#check-what-is-really-running).
 
 On October 21, the PHP team shipped emergency releases: **PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35**. They fix two vulnerabilities nicknamed PHP2Shell, [CVE-2026-109618](https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w) and [CVE-2026-109619](https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp). They are RCE (Remote Code Execution) vulnerabilities, which allow running code remotely without authentication (CVSS v4.0 score of 9.2).
 
