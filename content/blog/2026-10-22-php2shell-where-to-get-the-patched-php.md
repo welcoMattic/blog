@@ -14,16 +14,17 @@ lang: en
 
 _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouver la version corrigée de PHP selon votre installation](/blog/2026-10-22-php2shell-ou-trouver-la-version-corrigee-de-php/)._
 
-> - **EDIT, October 22, 2026, 14:57**:
+> - **EDIT, October 22, 2026, 15:21**:
 >     - Rocky Linux 8: PHP 8.2 fixed.
 >     - Alpine 3.23: PHP 8.3, 8.4 and 8.5 fixed.
+>     - Alpine 3.22: PHP 8.4 fixed.
 >     - Alpine 3.21: PHP 8.2 and 8.3 fixed.
 >     - Docker Hardened Images: `dhi.io/php:8.5` tag fixed.
 >     - Aikido: PHP 8.2, 8.4 and 8.5 fixed, and the `8.3.36-apache` and `8.3.36-cli` tags.
 >     - static-php-cli: `bulk` and `gnu-bulk` binaries fixed, PHP 8.2 to 8.5.
 >     - static-php-cli: Windows binaries fixed, `spc-min` for PHP 8.2 to 8.5, `spc-max` for PHP 8.4 and 8.5.
 
-> **TL;DR: the essentials** (status on October 22, 2026, 14:57, Paris time)
+> **TL;DR: the essentials** (status on October 22, 2026, 15:21, Paris time)
 >
 > **Install PHP 8.5.12, 8.4.27, 8.3.36 or 8.2.35.** These versions fix the 2 vulnerabilities.
 >
@@ -44,7 +45,7 @@ _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouv
 > | Remi's repository | PHP 7.4 to 8.5 |  | PHP 5.6 to 7.3 |
 > | Fedora | Fedora 44: PHP 8.5 | Fedora 43: PHP 8.4 |  |
 > | Amazon Linux | Amazon Linux 2023: PHP 8.2 to 8.5<br>Amazon Linux 2, extra repository: PHP 8.2 |  | Amazon Linux 2023: PHP 8.1<br>Amazon Linux 2, core repository: `php` package |
-> | Alpine | Alpine 3.23, 3.24 and edge: PHP 8.3 to 8.5<br>Alpine 3.21: PHP 8.2 and 8.3 |  | Alpine 3.22: PHP 8.2 to 8.4<br>Alpine 3.21: PHP 8.4 |
+> | Alpine | Alpine 3.23, 3.24 and edge: PHP 8.3 to 8.5<br>Alpine 3.22: PHP 8.4<br>Alpine 3.21: PHP 8.2 and 8.3 |  | Alpine 3.22: PHP 8.2 and 8.3<br>Alpine 3.21: PHP 8.4 |
 > | Arch Linux | `php` package: PHP 8.5<br>`php-legacy` package: PHP 8.3 |  |  |
 > | SUSE | SLES 15 SP7: PHP 8.3<br>openSUSE Tumbleweed: PHP 8.5 | SLES 16: PHP 8.4 | openSUSE Leap: all versions |
 > | **macOS** |  |  |  |
@@ -97,7 +98,7 @@ According to the [security advisory published on php.net](https://www.php.net/ar
 
 Every distribution, Docker image and platform ships the fix at its own pace. I gathered here, case by case, where to find the patched version.
 
-**Last checked: October 22, 2026, around 14:57 (Paris time).** In the tables:
+**Last checked: October 22, 2026, around 15:21 (Paris time).** In the tables:
 
 - ✅ the fix is published;
 - ⏳ the fix is pending;
@@ -225,7 +226,7 @@ The full tracking is on [Debian's security tracker](https://security-tracker.deb
 
 - ✅ the EL8, EL9 and EL10 repositories have contained patched packages since October 21: 7.4.33-31, 8.0.30-21, 8.1.34-6, 8.2.35-1, 8.3.36-1, 8.4.27-1 and 8.5.12-1. Their [changelog](https://git.remirepo.net/cgit/rpms/scl-php81/php.git/log/) mentions both CVEs;
 - ❌ branches 5.6 to 7.3 are not patched;
-- ℹ the php.net advisory said this repository would not be updated on October 21. Remi has not published any post on [his blog](https://blog.remirepo.net/) yet.
+- ℹ the php.net advisory said this repository would not be updated on October 21. Remi published a [post](https://blog.remirepo.net/post/2026/10/22/PHP-version-8.2.35-8.3.36-8.4.27-8.5.12) on October 22.
 
 ### Fedora, Amazon Linux, Alpine, Arch and SUSE
 
@@ -242,7 +243,8 @@ The full tracking is on [Debian's security tracker](https://security-tracker.deb
 | Amazon Linux 2 | php (core repository) | | ❌ no fix planned ([CVE page](https://explore.alas.aws.amazon.com/CVE-2026-109618.html)) |
 | Alpine edge and 3.24 | php83, php84, php85 | **8.3.36-r0, 8.4.27-r0, 8.5.12-r0** | ✅ [3.24 packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.24&repo=community&arch=x86_64), [edge packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=edge&repo=community&arch=x86_64) |
 | Alpine 3.23 | php83, php84, php85 | **8.3.36-r0, 8.4.27-r0, 8.5.12-r0** | ✅ [3.23 packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.23&repo=community&arch=x86_64) |
-| Alpine 3.22 | php82, php83, php84 | | ❌ no fix so far ([3.22 packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.22&repo=community&arch=x86_64)) |
+| Alpine 3.22 | php84 | **8.4.27-r0** | ✅ [3.22 packages](https://pkgs.alpinelinux.org/packages?name=php84&branch=v3.22&repo=community&arch=x86_64) |
+| Alpine 3.22 | php82, php83 | | ❌ no fix so far ([3.22 packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.22&repo=community&arch=x86_64)) |
 | Alpine 3.21 | php82 | **8.2.35-r0** | ✅ [3.21 packages](https://pkgs.alpinelinux.org/packages?name=php82&branch=v3.21&repo=community&arch=x86_64) |
 | Alpine 3.21 | php83 | **8.3.36-r0** | ✅ [3.21 packages](https://pkgs.alpinelinux.org/packages?name=php83&branch=v3.21&repo=community&arch=x86_64) |
 | Alpine 3.21 | php84 | | ❌ no fix so far |
