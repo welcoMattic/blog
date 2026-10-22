@@ -14,7 +14,9 @@ lang: en
 
 _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouver la version corrigée de PHP selon votre installation](/blog/2026-10-22-php2shell-ou-trouver-la-version-corrigee-de-php/)._
 
-> **TL;DR: the essentials** (status on October 22, 2026, 9:45, Paris time)
+> **EDIT, October 22, 2026, 11:29 (Paris time)**: php83 package patched with 8.3.36-r0 on Alpine 3.23, seen on October 22, 2026, 11:29; Docker Hardened Images `dhi.io/php:8.5` tag up to date with 8.5.12 since October 22, 2026, 10:46; static-php-cli `bulk` binaries available in 8.2.35, 8.3.36, 8.4.27 and 8.5.12 since October 22, 2026, 11:14; static-php-cli `gnu-bulk` binaries available in 8.2.35 and 8.3.36 since October 22, 2026, 8:48; static-php-cli Windows `spc-min` binaries available in 8.2.35, 8.3.36, 8.4.27 and 8.5.12 since October 22, 2026, 7:47.
+
+> **TL;DR: the essentials** (status on October 22, 2026, 11:29, Paris time)
 >
 > **Install PHP 8.5.12, 8.4.27, 8.3.36 or 8.2.35.** These versions fix the 2 vulnerabilities.
 >
@@ -35,7 +37,7 @@ _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouv
 > | Remi's repository | PHP 7.4 to 8.5 |  | PHP 5.6 to 7.3 |
 > | Fedora | Fedora 44: PHP 8.5 | Fedora 43: PHP 8.4 |  |
 > | Amazon Linux | Amazon Linux 2023: PHP 8.2 to 8.5<br>Amazon Linux 2, extra repository: PHP 8.2 |  | Amazon Linux 2023: PHP 8.1<br>Amazon Linux 2, core repository: `php` package |
-> | Alpine | Alpine 3.24 and edge: PHP 8.3 to 8.5 | Alpine 3.23: PHP 8.3 to 8.5<br>Alpine 3.21: PHP 8.2 | Alpine 3.22: PHP 8.2 to 8.4<br>Alpine 3.21: PHP 8.3 and 8.4 |
+> | Alpine | Alpine 3.24 and edge: PHP 8.3 to 8.5<br>Alpine 3.23: PHP 8.3 | Alpine 3.23: PHP 8.4 and 8.5<br>Alpine 3.21: PHP 8.2 | Alpine 3.22: PHP 8.2 to 8.4<br>Alpine 3.21: PHP 8.3 and 8.4 |
 > | Arch Linux | `php` package: PHP 8.5<br>`php-legacy` package: PHP 8.3 |  |  |
 > | SUSE | SLES 15 SP7: PHP 8.3<br>openSUSE Tumbleweed: PHP 8.5 | SLES 16: PHP 8.4 | openSUSE Leap: all versions |
 > | **macOS** |  |  |  |
@@ -46,7 +48,7 @@ _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouv
 > | Official `php` image | PHP 8.2 to 8.5<br>cli, apache, fpm and zts variants<br>Debian trixie, Debian bookworm, Alpine 3.23 and Alpine 3.24 |  | PHP 7.4, 8.0 and 8.1 |
 > | serversideup/php | PHP 8.2 to 8.5, versions v5.0.2 and v4.5.3 |  |  |
 > | Chainguard | PHP 8.2 to 8.5 |  |  |
-> | Docker Hardened Images | PHP 8.2 to 8.4<br>PHP 8.5 in fpm | `dhi.io/php:8.5` tag |  |
+> | Docker Hardened Images | PHP 8.2 to 8.5 |  |  |
 > | webdevops/php | PHP 8.2 to 8.5 |  | PHP 8.1 |
 > | thecodingmachine/php | PHP 8.2 to 8.5 |  | PHP 8.1 |
 > | Bitnami | PHP 8.5, `bitnami/php-fpm:latest` tag |  | PHP 8.2 to 8.4: no free image |
@@ -72,7 +74,7 @@ _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouv
 > | Laravel Sail | amd64: **run `sail build --no-cache`.** | arm64, for example a Mac with an Apple chip |  |
 > | DDEV | amd64: workaround in the DDEV post | arm64 |  |
 > | WampServer | PHP 8.2 to 8.5 |  |  |
-> | static-php-cli | `common` and `minimal` binaries: PHP 8.2 to 8.5 | `bulk` and `gnu-bulk` binaries<br>Windows binaries |  |
+> | static-php-cli | `common`, `minimal` and `bulk` binaries: PHP 8.2 to 8.5<br>`gnu-bulk` binaries: PHP 8.2 and 8.3<br>Windows `spc-min` binaries: PHP 8.2 to 8.5 | `gnu-bulk` binaries: PHP 8.4 and 8.5<br>Windows `spc-max` binaries |  |
 > | XAMPP |  |  | The installers still use PHP 8.2.12. |
 > | Lando |  |  | The `devwithlando/php` images are not rebuilt. |
 >
@@ -88,7 +90,7 @@ According to the [security advisory published on php.net](https://www.php.net/ar
 
 Every distribution, Docker image and platform ships the fix at its own pace. I gathered here, case by case, where to find the patched version.
 
-**Last checked: October 22, 2026, around 9:45 (Paris time).** In the tables:
+**Last checked: October 22, 2026, around 11:29 (Paris time).** In the tables:
 
 - ✅ the fix is published;
 - ⏳ the fix is pending;
@@ -232,7 +234,8 @@ The full tracking is on [Debian's security tracker](https://security-tracker.deb
 | Amazon Linux 2 | php (extra php8.2) | **8.2.35-1.amzn2.0.1** | ✅ [ALAS2PHP8.2-2026-015](https://alas.aws.amazon.com/AL2/ALAS2PHP8.2-2026-015.html) |
 | Amazon Linux 2 | php (core repository) | | ❌ no fix planned ([CVE page](https://explore.alas.aws.amazon.com/CVE-2026-109618.html)) |
 | Alpine edge and 3.24 | php83, php84, php85 | **8.3.36-r0, 8.4.27-r0, 8.5.12-r0** | ✅ [3.24 packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.24&repo=community&arch=x86_64), [edge packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=edge&repo=community&arch=x86_64) |
-| Alpine 3.23 | php83, php84, php85 | | ⏳ pending ([3.23 packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.23&repo=community&arch=x86_64)) |
+| Alpine 3.23 | php83 | **8.3.36-r0** | ✅ [3.23 packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.23&repo=community&arch=x86_64) |
+| Alpine 3.23 | php84, php85 | | ⏳ pending ([3.23 packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.23&repo=community&arch=x86_64)) |
 | Alpine 3.22 | php82, php83, php84 | | ❌ no fix so far ([3.22 packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.22&repo=community&arch=x86_64)) |
 | Alpine 3.21 | php82 | | ⏳ pending ([3.21 packages](https://pkgs.alpinelinux.org/packages?name=php8*&branch=v3.21&repo=community&arch=x86_64)) |
 | Alpine 3.21 | php83, php84 | | ❌ no fix so far |
@@ -306,7 +309,7 @@ Other cases keep the old version:
 |---|---|---|
 | [serversideup/php](https://hub.docker.com/r/serversideup/php) | ✅ v5.0.2 (`8.4-fpm-nginx`, `8.4.27-fpm-nginx-alpine`, etc.) and v4.5.3 (`*-v4.5.3` tags), from 8.2 to 8.5 | [v5.0.2 release](https://github.com/serversideup/docker-php/releases/tag/v5.0.2), [v4.5.3 release](https://github.com/serversideup/docker-php/releases/tag/v4.5.3) |
 | Chainguard `cgr.dev/chainguard/php` | ✅ `latest` (8.5.12), `8.4.27`, `8.3.36`, `8.2.35`, with their `-fpm` and `-dev` variants | [image page](https://images.chainguard.dev/directory/image/php/overview) |
-| Docker Hardened Images `dhi.io/php` | ✅ `8.4.27`, `8.3.36`, `8.2.35` (Debian 13 and Alpine) and `8.5.12-fpm`; ⏳ `8.5` (Debian) still on 8.5.11 | [tag log](https://github.com/docker-hardened-images/log/tree/main/dhi/php) |
+| Docker Hardened Images `dhi.io/php` | ✅ `8.5.12`, `8.4.27`, `8.3.36`, `8.2.35` (Debian 13 and Alpine), including the `8.5` tag | [tag log](https://github.com/docker-hardened-images/log/tree/main/dhi/php) |
 | [webdevops/php](https://hub.docker.com/r/webdevops/php), `php-nginx`, `php-apache` | ✅ `8.2` to `8.5` and their `-alpine` variants; ❌ `8.1` | [tags](https://hub.docker.com/r/webdevops/php/tags) |
 | [thecodingmachine/php](https://hub.docker.com/r/thecodingmachine/php) | ✅ `8.2-v5-*` to `8.5-v5-*`; ❌ `8.1-v5-*` | [tags](https://hub.docker.com/r/thecodingmachine/php/tags) |
 | [bitnami/php-fpm](https://hub.docker.com/r/bitnami/php-fpm) | ✅ `latest` (8.5.12) only; ❌ no free tag for 8.4, 8.3 and 8.2 | [Dockerfile](https://github.com/bitnami/containers/tree/main/bitnami/php-fpm) |
@@ -350,7 +353,7 @@ FrankenPHP v1.13.2 PHP 8.5.12 Caddy v2.11.7 …
 | Lando | [devwithlando/php](https://hub.docker.com/r/devwithlando/php) images not rebuilt, still on 8.5.7 and 8.4.22 | ❌ |
 | [WampServer](https://wampserver.aviatechno.net/) | PHP 8.2.35, 8.3.36, 8.4.27 and 8.5.12 addons | ✅ |
 | [XAMPP](https://www.apachefriends.org/download.html) | installers still on PHP 8.2.12 | ❌ |
-| [static-php-cli](https://dl.static-php.dev/v3/php-bin/) | `common` and `minimal` binaries in 8.2.35, 8.3.36, 8.4.27 and 8.5.12, for Linux and macOS | ✅ `common`, `minimal`; ⏳ `bulk`, `gnu-bulk`, Windows |
+| [static-php-cli](https://dl.static-php.dev/v3/php-bin/) | `common`, `minimal` and `bulk` binaries in 8.2.35, 8.3.36, 8.4.27 and 8.5.12, for Linux and macOS (except `bulk` for Linux aarch64 in 8.4 and 8.5); `gnu-bulk` binaries in 8.2.35 and 8.3.36, for Linux; Windows `spc-min` binaries in 8.2.35, 8.3.36, 8.4.27 and 8.5.12 | ✅ `common`, `minimal`, `bulk`, `gnu-bulk` for 8.2 and 8.3, Windows `spc-min`; ⏳ `gnu-bulk` for 8.4 and 8.5, Windows `spc-max` |
 
 **RoadRunner, Swoole and OpenSwoole don't ship PHP.** They use the machine's or the base image's PHP: that is the one to update.
 
