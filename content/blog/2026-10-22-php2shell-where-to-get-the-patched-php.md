@@ -14,6 +14,8 @@ lang: en
 
 _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouver la version corrigée de PHP selon votre installation](/blog/2026-10-22-php2shell-ou-trouver-la-version-corrigee-de-php/)._
 
+> - **EDIT, October 22, 2026, 14:10**:
+>     - static-php-cli `gnu-bulk` binaries fixed, PHP 8.5 on aarch64.
 > - **EDIT, October 22, 2026, 13:46**:
 >     - PHP 8.2 fixed on Alpine 3.21.
 >     - static-php-cli `gnu-bulk` binaries fixed, PHP 8.4 on aarch64.
@@ -36,7 +38,7 @@ _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouv
 >     - static-php-cli `gnu-bulk` binaries fixed, PHP 8.2 and 8.3.
 >     - static-php-cli Windows `spc-min` binaries fixed, PHP 8.2 to 8.5.
 
-> **TL;DR: the essentials** (status on October 22, 2026, 13:46, Paris time)
+> **TL;DR: the essentials** (status on October 22, 2026, 14:10, Paris time)
 >
 > **Install PHP 8.5.12, 8.4.27, 8.3.36 or 8.2.35.** These versions fix the 2 vulnerabilities.
 >
@@ -94,7 +96,7 @@ _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouv
 > | Laravel Sail | amd64: **run `sail build --no-cache`.** | arm64, for example a Mac with an Apple chip |  |
 > | DDEV | amd64: workaround in the DDEV post | arm64 |  |
 > | WampServer | PHP 8.2 to 8.5 |  |  |
-> | static-php-cli | `common`, `minimal` and `bulk` binaries: PHP 8.2 to 8.5<br>`gnu-bulk` binaries: PHP 8.2 to 8.4<br>`gnu-bulk` binaries on x86_64: PHP 8.5<br>Windows `spc-min` binaries: PHP 8.2 to 8.5<br>Windows `spc-max` binaries: PHP 8.4 and 8.5 | `gnu-bulk` binaries on aarch64: PHP 8.5<br>Windows `spc-max` binaries: PHP 8.2 and 8.3 |  |
+> | static-php-cli | `common`, `minimal` and `bulk` binaries: PHP 8.2 to 8.5<br>`gnu-bulk` binaries: PHP 8.2 to 8.5<br>Windows `spc-min` binaries: PHP 8.2 to 8.5<br>Windows `spc-max` binaries: PHP 8.4 and 8.5 | Windows `spc-max` binaries: PHP 8.2 and 8.3 |  |
 > | XAMPP |  |  | The installers still use PHP 8.2.12. |
 > | Lando |  |  | The `devwithlando/php` images are not rebuilt. |
 >
@@ -110,7 +112,7 @@ According to the [security advisory published on php.net](https://www.php.net/ar
 
 Every distribution, Docker image and platform ships the fix at its own pace. I gathered here, case by case, where to find the patched version.
 
-**Last checked: October 22, 2026, around 13:46 (Paris time).** In the tables:
+**Last checked: October 22, 2026, around 14:10 (Paris time).** In the tables:
 
 - ✅ the fix is published;
 - ⏳ the fix is pending;
@@ -373,7 +375,7 @@ FrankenPHP v1.13.2 PHP 8.5.12 Caddy v2.11.7 …
 | Lando | [devwithlando/php](https://hub.docker.com/r/devwithlando/php) images not rebuilt, still on 8.5.7 and 8.4.22 | ❌ |
 | [WampServer](https://wampserver.aviatechno.net/) | PHP 8.2.35, 8.3.36, 8.4.27 and 8.5.12 addons | ✅ |
 | [XAMPP](https://www.apachefriends.org/download.html) | installers still on PHP 8.2.12 | ❌ |
-| [static-php-cli](https://dl.static-php.dev/v3/php-bin/) | `common`, `minimal` and `bulk` binaries in 8.2.35, 8.3.36, 8.4.27 and 8.5.12, for Linux and macOS; `gnu-bulk` binaries in 8.2.35, 8.3.36 and 8.4.27, for Linux, and in 8.5.12, for Linux x86_64; Windows `spc-min` binaries in 8.2.35, 8.3.36, 8.4.27 and 8.5.12; Windows `spc-max` binaries in 8.4.27 and 8.5.12 | ✅ `common`, `minimal`, `bulk`, `gnu-bulk` for 8.2 to 8.4, `gnu-bulk` for 8.5 on x86_64, Windows `spc-min`, Windows `spc-max` for 8.4 and 8.5; ⏳ `gnu-bulk` for 8.5 on aarch64, Windows `spc-max` for 8.2 and 8.3 |
+| [static-php-cli](https://dl.static-php.dev/v3/php-bin/) | `common`, `minimal` and `bulk` binaries in 8.2.35, 8.3.36, 8.4.27 and 8.5.12, for Linux and macOS; `gnu-bulk` binaries in 8.2.35, 8.3.36, 8.4.27 and 8.5.12, for Linux; Windows `spc-min` binaries in 8.2.35, 8.3.36, 8.4.27 and 8.5.12; Windows `spc-max` binaries in 8.4.27 and 8.5.12 | ✅ `common`, `minimal`, `bulk`, `gnu-bulk`, Windows `spc-min`, Windows `spc-max` for 8.4 and 8.5; ⏳ Windows `spc-max` for 8.2 and 8.3 |
 
 **RoadRunner, Swoole and OpenSwoole don't ship PHP.** They use the machine's or the base image's PHP: that is the one to update.
 
