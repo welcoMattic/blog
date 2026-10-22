@@ -14,16 +14,16 @@ lang: en
 
 _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouver la version corrigée de PHP selon votre installation](/blog/2026-10-22-php2shell-ou-trouver-la-version-corrigee-de-php/)._
 
-> - **EDIT, October 22, 2026, 14:10**:
+> - **EDIT, October 22, 2026, 14:57**:
+>     - Rocky Linux 8: PHP 8.2 fixed.
 >     - Alpine 3.23: PHP 8.3, 8.4 and 8.5 fixed.
 >     - Alpine 3.21: PHP 8.2 and 8.3 fixed.
 >     - Docker Hardened Images: `dhi.io/php:8.5` tag fixed.
->     - Aikido: PHP 8.2, 8.4 and 8.5 fixed, and the `8.3.36-apache` tag.
+>     - Aikido: PHP 8.2, 8.4 and 8.5 fixed, and the `8.3.36-apache` and `8.3.36-cli` tags.
 >     - static-php-cli: `bulk` and `gnu-bulk` binaries fixed, PHP 8.2 to 8.5.
->     - static-php-cli: Windows `spc-min` binaries fixed, PHP 8.2 to 8.5.
->     - static-php-cli: Windows `spc-max` binaries fixed, PHP 8.4 and 8.5.
+>     - static-php-cli: Windows binaries fixed, `spc-min` for PHP 8.2 to 8.5, `spc-max` for PHP 8.4 and 8.5.
 
-> **TL;DR: the essentials** (status on October 22, 2026, 14:10, Paris time)
+> **TL;DR: the essentials** (status on October 22, 2026, 14:57, Paris time)
 >
 > **Install PHP 8.5.12, 8.4.27, 8.3.36 or 8.2.35.** These versions fix the 2 vulnerabilities.
 >
@@ -40,7 +40,7 @@ _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouv
 > | Ondřej Surý's repositories | Ubuntu PPA: PHP 5.6 to 8.5<br>packages.sury.org on amd64: PHP 5.6 to 8.5 | packages.sury.org on arm64 |  |
 > | RHEL | RHEL 10: PHP 8.3 and 8.4<br>RHEL 9: PHP 8.0, 8.2 and 8.3<br>RHEL 8: PHP 7.4 and 8.2 | RHEL 9: PHP 8.4 | RHEL 9: PHP 8.1<br>RHEL 8: PHP 7.2, 7.3 and 8.0 |
 > | AlmaLinux | All streams: PHP 7.2 to 8.4 |  |  |
-> | Rocky Linux | The same versions as RHEL | Rocky 8: PHP 8.2 |  |
+> | Rocky Linux | The same versions as RHEL |  |  |
 > | Remi's repository | PHP 7.4 to 8.5 |  | PHP 5.6 to 7.3 |
 > | Fedora | Fedora 44: PHP 8.5 | Fedora 43: PHP 8.4 |  |
 > | Amazon Linux | Amazon Linux 2023: PHP 8.2 to 8.5<br>Amazon Linux 2, extra repository: PHP 8.2 |  | Amazon Linux 2023: PHP 8.1<br>Amazon Linux 2, core repository: `php` package |
@@ -61,7 +61,7 @@ _Cet article est aussi disponible en 🇫🇷 Français : [PHP2Shell : où trouv
 > | Bitnami | PHP 8.5, `bitnami/php-fpm:latest` tag |  | PHP 8.2 to 8.4: no free image |
 > | ubuntu/php | Ubuntu 24.04: PHP 8.3<br>Ubuntu 26.04: PHP 8.5 |  |  |
 > | Red Hat UBI | PHP 7.4, 8.0, 8.2, 8.3 and 8.4 |  | PHP 8.1 |
-> | Aikido | PHP 8.2, 8.4 and 8.5<br>PHP 8.3: `8.3.36-apache` tag |  | PHP 8.3: cli and fpm tags |
+> | Aikido | PHP 8.2, 8.4 and 8.5<br>PHP 8.3: `8.3.36-apache` and `8.3.36-cli` tags |  | PHP 8.3: fpm tag |
 > | **FrankenPHP** |  |  |  |
 > | FrankenPHP 1.13.2 | Static binaries: PHP 8.5<br>Docker images: PHP 8.2 to 8.5<br>deb, rpm and apk packages: PHP 8.2 to 8.5 |  |  |
 > | **PaaS and serverless** |  |  |  |
@@ -97,7 +97,7 @@ According to the [security advisory published on php.net](https://www.php.net/ar
 
 Every distribution, Docker image and platform ships the fix at its own pace. I gathered here, case by case, where to find the patched version.
 
-**Last checked: October 22, 2026, around 14:10 (Paris time).** In the tables:
+**Last checked: October 22, 2026, around 14:57 (Paris time).** In the tables:
 
 - ✅ the fix is published;
 - ⏳ the fix is pending;
@@ -218,7 +218,7 @@ The full tracking is on [Debian's security tracker](https://security-tracker.deb
 | RHEL 8 | php:8.2 | **php-8.2.35-1** | ✅ [RHSA-2026:87073](https://access.redhat.com/errata/RHSA-2026:87073) |
 | RHEL 8 | php:7.2, php:7.3, php:8.0 | | ❌ end of life, no fix ([CVE page](https://access.redhat.com/security/cve/CVE-2026-109618)) |
 
-- **Rocky Linux**: ✅ same fixes as RHEL, published on October 22. The advisories have the same numbers, with the RLSA prefix instead of RHSA (for instance [RLSA-2026:87071](https://errata.rockylinux.org/RLSA-2026:87071) for php8.4 on Rocky 10). ⏳ Only php:8.2 on Rocky 8 is still pending.
+- **Rocky Linux**: ✅ same fixes as RHEL, published on October 22. The advisories have the same numbers, with the RLSA prefix instead of RHSA (for instance [RLSA-2026:87071](https://errata.rockylinux.org/RLSA-2026:87071) for php8.4 on Rocky 10). ✅ php:8.2 on Rocky 8 is patched in **php-8.2.35-1**, [RLSA-2026:87073](https://errata.rockylinux.org/RLSA-2026:87073).
 - **AlmaLinux**: ✅ [all streams are patched](https://almalinux.org/blog/2026-10-21-php2shell-cve-2026-109618-cve-2026-109619/), including end-of-life ones (7.2, 7.3, 8.0 and 8.1).
 
 **Remi's repository** ([rpms.remirepo.net](https://rpms.remirepo.net/)):
@@ -322,7 +322,7 @@ Other cases keep the old version:
 | [bitnami/php-fpm](https://hub.docker.com/r/bitnami/php-fpm) | ✅ `latest` (8.5.12) only; ❌ no free tag for 8.4, 8.3 and 8.2 | [Dockerfile](https://github.com/bitnami/containers/tree/main/bitnami/php-fpm) |
 | [ubuntu/php](https://hub.docker.com/r/ubuntu/php) | ✅ `8.3-24.04` (backported package 8.3.6-0ubuntu0.24.04.13) and `8.5-26.04_edge` | [USN-8948-1](https://ubuntu.com/security/notices/USN-8948-1) |
 | Red Hat UBI | ✅ `ubi10/php-84`, `ubi10/php-83`, `ubi9/php-83`, `ubi9/php-82`, `ubi9/php-80`, `ubi8/php-82`, `ubi8/php-74`; ❌ `ubi9/php-81` | [Red Hat catalog](https://catalog.redhat.com/software/containers/search?q=php) |
-| Aikido `aikido-dev/php` | ✅ `8.5.12`, `8.4.27` and `8.2.35`, with their cli, fpm, apache and alpine variants; `8.3.36-apache` for 8.3; ❌ no 8.3.36 tag for cli or fpm | [Aikido catalog](https://images.aikido.dev/images/php) |
+| Aikido `aikido-dev/php` | ✅ `8.5.12`, `8.4.27` and `8.2.35`, with their cli, fpm, apache and alpine variants; `8.3.36-apache` and `8.3.36-cli` for 8.3; ❌ no 8.3.36 tag for fpm | [Aikido catalog](https://images.aikido.dev/images/php) |
 
 **For PHP 8.0 and 7.4**, the only patched images I found are Red Hat's: `ubi9/php-80` and `ubi8/php-74`. They ship RHEL's backports.
 
