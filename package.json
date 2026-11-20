@@ -20,7 +20,7 @@
     "lightningcss": "^1.32.0",
     "pagefind": "^1.5.2",
     "pdfjs-dist": "^6.2.108",
-    "satori": "^0.28.0",
+    "satori": "^0.33.5",
     "satori-html": "^0.3.2"
   },
   "devDependencies": {
